@@ -46,3 +46,4 @@ aliyun-python-sdk-kms~=2.16.0
 tencentcloud-sdk-python
 dsinternals~=1.2.4
 cos-python-sdk-v5~=1.9.24
+pyreadline~=2.1
