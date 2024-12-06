@@ -243,7 +243,7 @@ class Output(BaseScreen):
         if not os.path.exists("result"):
             os.makedirs("result")
 
-        with open(f"result/{self.save}", "w") as f:
+        with open(f"result/{self.save}", "w", encoding="utf-8") as f:
             f.write(outputText)
 
         output.success(f"details are saved to result/{self.save}")

@@ -1,7 +1,7 @@
 # CAudit
 >
 > [!WARNING]
-> 不支持 Python 12
+> Python 3.8+
 
 ## 描述
 

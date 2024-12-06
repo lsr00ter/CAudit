@@ -1,3 +1,4 @@
+import importlib
 import os
 import pkgutil
 import sys
@@ -52,11 +53,16 @@ def load_plugin(mod_name: str) -> dict:
     for x, file_name, _ in pkgutil.iter_modules([base_dir]):
         if str(file_name).startswith(plugin_contain_name):
             try:
-                file_module = x.find_module(file_name).load_module(file_name)
-                found_modules.append(file_module)
+                spec = importlib.util.spec_from_file_location(
+                    file_name,
+                    os.path.join(base_dir, file_name + ".py")
+                )
+                if spec and spec.loader:
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                    found_modules.append(module)
             except AttributeError as e:
-                output.debug(f"import {x}.{file_name} error.")
-
+                output.debug(f"import {x}.{file_name} error: {str(e)}")
     # 对加载的插件文件进行遍历，加载文件中的插件类
     for module in found_modules:
         plugin_cls = list(dir(module))
