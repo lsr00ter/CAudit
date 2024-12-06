@@ -10,9 +10,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangeNotSetSecureLogin(PluginExchangeScanBase):
-    """IMAP4登录认证未设置为SecureLogin"""
+    """IMAP4 登录认证未设置为 SecureLogin"""
 
-    display = "IMAP4登录认证未设置为SecureLogin"
+    display = "IMAP4 登录认证未设置为 SecureLogin"
     alias = "ex_no_securelogin"
     p_type = AllPluginTypes.Scan
 

@@ -44,7 +44,7 @@ class PluginADAddDomainWithUnprivilegedUser(PluginADScanBase):
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
                 continue
-            secDescData = entry["attributes"]["nTSecurityDescriptor"]  ### 打印ACL
+            secDescData = entry["attributes"]["nTSecurityDescriptor"]  ### 打印 ACL
             sd = SR_SECURITY_DESCRIPTOR()
 
             sd.fromString(secDescData)

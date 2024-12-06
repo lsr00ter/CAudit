@@ -10,10 +10,10 @@ from utils.consts import AllPluginTypes
 
 class PluginADIllegalPwdDC(PluginADScanBase):
     """
-    存在未按照规律修改密码的DC计算机帐户
+    存在未按照规律修改密码的 DC 计算机帐户
     """
 
-    display = "存在未按照规律修改密码的DC计算机帐户"
+    display = "存在未按照规律修改密码的 DC 计算机帐户"
     alias = "i_pwd_dc"
     p_type = AllPluginTypes.Scan
 

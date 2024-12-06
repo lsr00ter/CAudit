@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADWin2kCompatibleAccess(PluginADScanBase):
-    """Windows 2000以前版本的兼容访问”组是否未从其默认值中被修改"""
+    """Windows 2000 以前版本的兼容访问”组是否未从其默认值中被修改"""
 
-    display = "”Windows 2000以前版本的兼容访问”组是否未从其默认值中被修改"
+    display = "”Windows 2000 以前版本的兼容访问”组是否未从其默认值中被修改"
     alias = "win2k_cmpb_acs"
     p_type = AllPluginTypes.Scan
 

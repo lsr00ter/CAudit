@@ -58,9 +58,9 @@ def lookuphostname(hostname, dnsip):
 
 
 class PluginADESC7(PluginADScanBase):
-    """ESC7 - 证书颁发机构ACL配置不当"""
+    """ESC7 - 证书颁发机构 ACL 配置不当"""
 
-    display = "ESC7 - 证书颁发机构ACL配置不当"
+    display = "ESC7 - 证书颁发机构 ACL 配置不当"
     alias = "esc7"
     p_type = AllPluginTypes.Scan
 
@@ -116,7 +116,7 @@ class PluginADESC7(PluginADScanBase):
                         if RID != "512" and RID != "519" and RID != "544":
                             instance = {
                                 "证书服务器": hostname,
-                                "证书CA": caname,
+                                "证书 CA": caname,
                                 "用户名": sid,
                                 "权限": "ManageCa",
                             }
@@ -129,7 +129,7 @@ class PluginADESC7(PluginADScanBase):
                         if RID != "512" and RID != "519" and RID != "544":
                             instance = {
                                 "证书服务器": hostname,
-                                "证书CA": caname,
+                                "证书 CA": caname,
                                 "用户名": sid,
                                 "权限": "ManageCertificates",
                             }
@@ -139,7 +139,7 @@ class PluginADESC7(PluginADScanBase):
                         if RID != "512" and RID != "519" and RID != "544":
                             instance = {
                                 "证书服务器": hostname,
-                                "证书CA": caname,
+                                "证书 CA": caname,
                                 "用户名": sid,
                                 "权限": "ManageCa & ManageCertificates",
                             }

@@ -24,7 +24,7 @@ class PluginADLowVersionComputerWinxp(PluginADScanBase):
         query = "(&(objectclass=computer)(operatingSystem=*XP*))"
 
         """
-        Windows XP版本
+        Windows XP 版本
         Windows XP Home Edition
         Windows XP Professional
         Windows XP Edition N

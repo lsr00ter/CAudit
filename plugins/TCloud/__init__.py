@@ -67,13 +67,13 @@ def enrollment_parameters(
     )
     exp_plugin_mode = exploit_mode.add_subparsers()
 
-    # 加载所有exploit插件，读取参数，注册
+    # 加载所有 exploit 插件，读取参数，注册
     for name, exp in all_plugins.items():
         if exp.p_type == AllPluginTypes.Exploit:
             exp_sub_plugin_mode = exp_plugin_mode.add_parser(
                 exp.alias, formatter_class=argparse.RawDescriptionHelpFormatter
             )
-        # 防止没有输入alice的错误
+        # 防止没有输入 alice 的错误
         if exp.alias != "" and exp.alias == exp_sub_name:
             c: PluginBase = exp()
             all_plugins[name] = c
@@ -149,14 +149,14 @@ class TencentAPi:
         cred = credential.Credential(self.secret_id, self.secret_key)
         user_id = None
         try:
-            # 实例化一个http选项，可选的，没有特殊需求可以跳过
+            # 实例化一个 http 选项，可选的，没有特殊需求可以跳过
             httpProfile = HttpProfile()
             httpProfile.endpoint = "sts.tencentcloudapi.com"
 
-            # 实例化一个client选项，可选的，没有特殊需求可以跳过
+            # 实例化一个 client 选项，可选的，没有特殊需求可以跳过
             clientProfile = ClientProfile()
             clientProfile.httpProfile = httpProfile
-            # 实例化要请求产品的client对象,clientProfile是可选的
+            # 实例化要请求产品的 client 对象，clientProfile 是可选的
             client = v20180813_sts_client.StsClient(cred, "ap-chengdu", clientProfile)
 
             req = v20180813_modules.GetCallerIdentityRequest()
@@ -170,17 +170,17 @@ class TencentAPi:
             output.error(err)
 
         try:
-            # 实例化一个http选项，可选的，没有特殊需求可以跳过
+            # 实例化一个 http 选项，可选的，没有特殊需求可以跳过
             httpProfile = HttpProfile()
             httpProfile.endpoint = "cam.tencentcloudapi.com"
 
-            # 实例化一个client选项，可选的，没有特殊需求可以跳过
+            # 实例化一个 client 选项，可选的，没有特殊需求可以跳过
             clientProfile = ClientProfile()
             clientProfile.httpProfile = httpProfile
-            # 实例化要请求产品的client对象,clientProfile是可选的
+            # 实例化要请求产品的 client 对象，clientProfile 是可选的
             client = v20190116_cam_client.CamClient(cred, "ap-chongqing", clientProfile)
 
-            # 实例化一个请求对象,每个接口都会对应一个request对象
+            # 实例化一个请求对象，每个接口都会对应一个 request 对象
             req = v20190116_modules.ListAttachedUserPoliciesRequest()
             params = {"TargetUin": user_id}
             req.from_json_string(json.dumps(params))

@@ -8,9 +8,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangeInvalidDelegationRelationship(PluginExchangeScanBase):
-    """存在邮箱委托关系(完全访问)"""
+    """存在邮箱委托关系 (完全访问)"""
 
-    display = "存在邮箱委托关系(完全访问)"
+    display = "存在邮箱委托关系 (完全访问)"
     alias = "ex_env_deleg_relat"
     p_type = AllPluginTypes.Scan
 
@@ -38,7 +38,7 @@ class PluginExchangeInvalidDelegationRelationship(PluginExchangeScanBase):
                 for link in entry["attributes"]["msExchDelegateListLink"]:
                     result["status"] = 1
                     instance = {}
-                    instance["被委托账户(低权限账户)"] = link
+                    instance["被委托账户 (低权限账户)"] = link
                     instance_list.append(instance)
         result["data"] = {"instance_list": instance_list}
         return result

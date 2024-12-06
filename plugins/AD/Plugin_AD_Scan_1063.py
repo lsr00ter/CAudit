@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADProUserNull(PluginADScanBase):
-    """发现域Protected Users组为空"""
+    """发现域 Protected Users 组为空"""
 
-    display = "发现域Protected Users组为空"
+    display = "发现域 Protected Users 组为空"
     alias = "ProtectedUsersNull"
     p_type = AllPluginTypes.Scan
 
@@ -42,7 +42,7 @@ class PluginADProUserNull(PluginADScanBase):
                 instance = {}
                 instance["组名"] = entry["attributes"]["cn"]
                 instance["DN"] = entry["attributes"]["distinguishedName"]
-                instance["成员"] = "Protected Users组成员为空"
+                instance["成员"] = "Protected Users 组成员为空"
                 instance_list.append(instance)
 
         result["data"] = {"instance_list": instance_list}

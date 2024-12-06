@@ -8,15 +8,15 @@ from utils.consts import AllPluginTypes
 
 class PluginADNoPreAuth(PluginADScanBase):
     """
-    存在不需要kerberos预身份验证的账户
+    存在不需要 kerberos 预身份验证的账户
 
-    参数:
+    参数：
     :param: domain
     :param: username
     :param: password
     """
 
-    display = "存在不需要kerberos预身份验证的账户"
+    display = "存在不需要 kerberos 预身份验证的账户"
     alias = "no_pre_auth"
     p_type = AllPluginTypes.Scan
 

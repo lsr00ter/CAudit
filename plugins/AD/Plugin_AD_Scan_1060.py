@@ -10,9 +10,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADExistDCRBCD(PluginADScanBase):
-    """存在配置了基于资源的约束委派的DC"""
+    """存在配置了基于资源的约束委派的 DC"""
 
-    display = "存在配置了基于资源的约束委派的DC"
+    display = "存在配置了基于资源的约束委派的 DC"
     alias = "ExistDCRBCD"
     p_type = AllPluginTypes.Scan
 
@@ -58,7 +58,7 @@ class PluginADExistDCRBCD(PluginADScanBase):
                 sd.fromString(AllowedToActOnBehalfOfOtherIdentity)
                 for ace in sd["Dacl"].aces:
                     sid = ace["Ace"]["Sid"].formatCanonical()
-                    instance["配置SID"] = sid
+                    instance["配置 SID"] = sid
 
                 instance_list.append(instance)
 

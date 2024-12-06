@@ -12,7 +12,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginVCenterOpenedSSH(PluginVCenterScanBase):
-    display = "vCenter 开启SSH"
+    display = "vCenter 开启 SSH"
     alias = "vc_ssh_op"
     p_type = AllPluginTypes.Scan
 

@@ -46,13 +46,13 @@ class PluginVCenterInvalidPasswordPolicy(PluginVCenterScanBase):
             ):
                 PasswordHistory = test["Security.PasswordHistory"]
                 PasswordMaxDays = test["Security.PasswordMaxDays"]
-                if PasswordHistory != 0:  # 用户记录的密码数，应该不为0
+                if PasswordHistory != 0:  # 用户记录的密码数，应该不为 0
                     result["status"] = 1
                     instance = {}
                     instance["host"] = host_system.name
                     instance["描述"] = "用户密码记录数为：" + str(PasswordHistory)
                     instance_list.append(instance)
-                if PasswordMaxDays > 90:  # 用户密码使用最大天数，应该小于90天
+                if PasswordMaxDays > 90:  # 用户密码使用最大天数，应该小于 90 天
                     result["status"] = 1
                     instance = {}
                     instance["host"] = host_system.name

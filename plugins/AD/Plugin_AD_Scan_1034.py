@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADNotEmptyDnsAdmins(PluginADScanBase):
-    """`DnsAdmins`组不为空"""
+    """`DnsAdmins` 组不为空"""
 
-    display = "`DnsAdmins`组不为空"
+    display = "`DnsAdmins` 组不为空"
     alias = "no_emt_dns_admins"
     p_type = AllPluginTypes.Scan
 

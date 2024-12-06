@@ -24,7 +24,7 @@ class PluginADInactiveUser(PluginADScanBase):
         min_created_day = 180
         min_logon_day = 180
 
-        # 通过objectCategory=person和objectclass=user来筛选用户，通过！（userAccountControl:1.2.840.113556.1.4.803:=2）来筛选已启用的用户
+        # 通过 objectCategory=person 和 objectclass=user 来筛选用户，通过！（userAccountControl:1.2.840.113556.1.4.803:=2）来筛选已启用的用户
         query = "(&(objectCategory=person)(objectclass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))"
         attributes = [
             "cn",
@@ -77,7 +77,7 @@ class PluginADInactiveUser(PluginADScanBase):
                     num_days1 = datetime.datetime.now() - time_whenCreated
                     num_days2 = datetime.datetime.now() - time_lastLogon
 
-                    # 180天以前建的账户并且180天内没有修改密码的
+                    # 180 天以前建的账户并且 180 天内没有修改密码的
                     if (
                         num_days1.days > min_created_day
                         and num_days2.days > min_logon_day

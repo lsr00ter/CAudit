@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADConstrainedDelegationWithDC(PluginADScanBase):
-    """存在配置了约束委派的DC"""
+    """存在配置了约束委派的 DC"""
 
-    display = "存在配置了约束委派的DC"
+    display = "存在配置了约束委派的 DC"
     alias = "cs_dele_dc"
     p_type = AllPluginTypes.Scan
 

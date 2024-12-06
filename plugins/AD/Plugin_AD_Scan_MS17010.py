@@ -6,7 +6,7 @@ from utils.consts import AllPluginTypes
 
 class PluginADMS17010(PluginADScanBase):
     """
-    ms17010漏洞插件
+    ms17010 漏洞插件
     """
 
     display = "MS17-010 漏洞检测"
@@ -18,7 +18,7 @@ class PluginADMS17010(PluginADScanBase):
 
     def run_script(self, args) -> dict:
         code, err = self.check2(ip=self.dc_ip)
-        # 0 没有漏洞 1有漏洞 -1是插件报错了
+        # 0 没有漏洞 1 有漏洞 -1 是插件报错了
         self.result["status"] = code
         if code == 1:
             self.result["data"]["instance_list"] = [{"ip address": self.dc_ip}]
@@ -81,7 +81,7 @@ class PluginADMS17010(PluginADScanBase):
             s.close()
 
             if b"\x05\x02\x00\xc0" == resp4[9:13]:
-                return 1, f"{ip} 存在ms7-010远程溢出漏洞"
+                return 1, f"{ip} 存在 ms7-010 远程溢出漏洞"
             s.close()
 
             return 0, "target is not vulnerable"

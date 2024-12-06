@@ -150,7 +150,7 @@ def datetime_now_obj():
 
 def get_n_days_ago(n):
     """
-    获取n天之前的datetime对象
+    获取 n 天之前的 datetime 对象
     """
     num = -int(n)
     return datetime.now() + timedelta(days=num)
@@ -158,7 +158,7 @@ def get_n_days_ago(n):
 
 def get_n_hour_ago(n):
     """
-    获取n小时之前的datetime对象
+    获取 n 小时之前的 datetime 对象
     """
     num = -int(n)
     return datetime.now() + timedelta(hours=num)
@@ -166,7 +166,7 @@ def get_n_hour_ago(n):
 
 def get_n_min_ago(n):
     """
-    获取n分钟之前的datetime对象
+    获取 n 分钟之前的 datetime 对象
     """
     num = -int(n)
     return datetime.now() + timedelta(minutes=num)
@@ -190,7 +190,7 @@ def move_n_day(date_time, n):
 
 def date_time_to_time(time):
     """
-    将datetime对象转换为常见的时间格式
+    将 datetime 对象转换为常见的时间格式
     """
     return time.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -201,7 +201,7 @@ def datetime_to_log_date(date_time):
 
 def utc_to_local_datetime(utc_str):
     """
-    暴力方法，直接将时间加8小时得到当前本地时间
+    暴力方法，直接将时间加 8 小时得到当前本地时间
     """
     a = datetime.strptime(utc_str, "%Y-%m-%dT%H:%M:%S.%fZ")
     return a + timedelta(hours=8)
@@ -209,28 +209,28 @@ def utc_to_local_datetime(utc_str):
 
 def utc_to_datetime(utc_str):
     """
-    UTC格式时间转化为datetime对象
+    UTC 格式时间转化为 datetime 对象
     """
     return datetime.strptime(utc_str, "%Y-%m-%dT%H:%M:%S.%fZ")
 
 
 def str_to_datetime(utc_str):
     """
-    字符串时间转化为datetime对象
+    字符串时间转化为 datetime 对象
     """
     return datetime.strptime(utc_str, "%Y-%m-%d %H:%M:%S")
 
 
 def datetime_to_utc(date_time):
     """
-    将datetime对象转换为UTC时间格式
+    将 datetime 对象转换为 UTC 时间格式
     """
     return date_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 
 def datetime_to_utc_no_f(date_time):
     """
-    将datetime对象转换为UTC时间格式
+    将 datetime 对象转换为 UTC 时间格式
     """
     return date_time.strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -270,7 +270,7 @@ def get_netbios_domain(domain):
 
 def cost_time(func):
     """
-    装饰器 统计各个type的操作耗时
+    装饰器 统计各个 type 的操作耗时
     :return:
     """
 

@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADFindUnixUserPwdAndUserPwd(PluginADScanBase):
-    """存在unixUserPassword和userPassword属性"""
+    """存在 unixUserPassword 和 userPassword 属性"""
 
-    display = "存在unixUserPassword和userPassword属性"
+    display = "存在 unixUserPassword 和 userPassword 属性"
     alias = "fd_unix_u_pwd"
     p_type = AllPluginTypes.Scan
 

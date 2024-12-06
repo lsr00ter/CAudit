@@ -59,9 +59,9 @@ def lookuphostname(hostname, dnsip):
 
 
 class PluginADESC6(PluginADScanBase):
-    """ESC6 - 证书服务器配置EDITF_ATTRIBUTESUBJECTALTNAME2"""
+    """ESC6 - 证书服务器配置 EDITF_ATTRIBUTESUBJECTALTNAME2"""
 
-    display = "ESC6 - 证书服务器配置EDITF_ATTRIBUTESUBJECTALTNAME2"
+    display = "ESC6 - 证书服务器配置 EDITF_ATTRIBUTESUBJECTALTNAME2"
     alias = "esc6"
     p_type = AllPluginTypes.Scan
 
@@ -109,7 +109,7 @@ class PluginADESC6(PluginADScanBase):
             result["status"] = 1
             instance = {}
             instance["证书服务器"] = hostname_list
-            instance["证书CA"] = caname_list
+            instance["证书 CA"] = caname_list
             instance_list.append(instance)
 
         result["data"] = {"instance_list": instance_list}

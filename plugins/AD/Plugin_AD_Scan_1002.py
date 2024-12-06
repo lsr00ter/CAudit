@@ -9,10 +9,10 @@ from utils.consts import AllPluginTypes
 
 class PluginADPwdNoChange90(PluginADScanBase):
     """
-    存在超过3个月未更改密码的计算机帐户
+    存在超过 3 个月未更改密码的计算机帐户
     """
 
-    display = "存在超过3个月未更改密码的计算机帐户"
+    display = "存在超过 3 个月未更改密码的计算机帐户"
     alias = "pwd_no_change_90"
     p_type = AllPluginTypes.Scan
 

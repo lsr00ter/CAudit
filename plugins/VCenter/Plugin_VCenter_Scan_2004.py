@@ -13,7 +13,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginVCenterEsxiSSHOpened(PluginVCenterScanBase):
-    display = "ESXI SSH开启"
+    display = "ESXI SSH 开启"
     alias = "esxi_ssh_open"
     p_type = AllPluginTypes.Scan
 
@@ -49,7 +49,7 @@ class PluginVCenterEsxiSSHOpened(PluginVCenterScanBase):
                         instance = {}
                         result["status"] = 1
                         instance["ESXIIP"] = host_system.name
-                        instance["SSH状态"] = "已启用"
+                        instance["SSH 状态"] = "已启用"
                         instance_list.append(instance)
         result["data"] = {"instance_list": instance_list}
         return result

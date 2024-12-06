@@ -19,7 +19,7 @@ class PluginADPrinterBug(PluginADScanBase):
         super().__init__(*args, **kwargs)
 
     def run_script(self, args) -> dict:
-        t = transport.DCERPCTransportFactory(f"ncacn_np:{self.dc_ip}[\pipe\spoolss]")
+        t = transport.DCERPCTransportFactory(f"ncacn_np:{self.dc_ip}[\\pipe\\spoolss]")
         t.set_credentials(self.ldap_username, self.ldap_conf["password"])
         t.set_connect_timeout(5)
         try:

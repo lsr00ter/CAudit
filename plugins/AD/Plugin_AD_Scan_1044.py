@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADNotEmptyRODCPasswordReplicationGroup(PluginADScanBase):
-    """“允许的RODC密码复制组”不为空"""
+    """“允许的 RODC 密码复制组”不为空"""
 
-    display = "“允许的RODC密码复制组”不为空"
+    display = "“允许的 RODC 密码复制组”不为空"
     alias = "no_ept_rodc_pg"
     p_type = AllPluginTypes.Scan
 

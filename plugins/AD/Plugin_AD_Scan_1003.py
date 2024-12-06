@@ -24,7 +24,7 @@ class PluginADInactiveDC(PluginADScanBase):
         instance_list = []
         min_active_day = 45
 
-        query = "(|(primarygroupid=516)(primarygroupid=521))"  # 516域控,521只读域控
+        query = "(|(primarygroupid=516)(primarygroupid=521))"  # 516 域控，521 只读域控
         attributes = [
             "cn",
             "lastLogonTimestamp",

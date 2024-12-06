@@ -11,7 +11,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginVCenterManageESXIStatus(PluginVCenterScanBase):
-    display = "vCenter 管理ESXI主机连接状态"
+    display = "vCenter 管理 ESXI 主机连接状态"
     alias = "vc_mana_exsi_sta"
     p_type = AllPluginTypes.Scan
 

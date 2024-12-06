@@ -10,7 +10,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginVCenterInvalidPasswordExpired(PluginVCenterScanBase):
-    display = "vpxuser用户密码过期时间异常"
+    display = "vpxuser 用户密码过期时间异常"
     alias = "inv_pwd_exp"
     p_type = AllPluginTypes.Scan
     """"""

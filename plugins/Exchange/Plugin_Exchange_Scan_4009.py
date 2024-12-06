@@ -10,9 +10,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangeEnableIgnoreSTARTTLS(PluginExchangeScanBase):
-    """外部发送连接器认证IgnoreSTARTTLS已启用"""
+    """外部发送连接器认证 IgnoreSTARTTLS 已启用"""
 
-    display = "外部发送连接器认证IgnoreSTARTTLS已启用"
+    display = "外部发送连接器认证 IgnoreSTARTTLS 已启用"
     alias = "ex_en_ig_start_tls"
     p_type = AllPluginTypes.Scan
 

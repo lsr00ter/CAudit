@@ -19,7 +19,7 @@ class PluginADCVE_2022_33679(PluginADScanBase):
     CVE-2022-33679
     """
 
-    display = "存在CVE-2022-33679漏洞"
+    display = "存在 CVE-2022-33679 漏洞"
     alias = "cve_2022_33679"
     p_type = AllPluginTypes.Scan
 
@@ -57,12 +57,12 @@ class PluginADCVE_2022_33679(PluginADScanBase):
 class CVE202233679:
     def __init__(self, username, domain, dc_ip):
         """
-        33679漏洞检测
+        33679 漏洞检测
         必要条件：
             1. 一个域内存在的用户（非禁用状态）
             2. 域名
-            3. 域控ip
-        python依赖：
+            3. 域控 ip
+        python 依赖：
             1. impacket
             2. certipy
         """
@@ -130,7 +130,7 @@ def has_33679(user, domain, kdcHost):
     reqBody["rtime"] = KerberosTime.to_asn1(now)
     reqBody["nonce"] = rand.getrandbits(31)
 
-    # 设置默认的加密方式为RC4-MD4(-128)
+    # 设置默认的加密方式为 RC4-MD4(-128)
     supportedCiphers = (-128,)
     seq_set_iter(reqBody, "etype", supportedCiphers)
 
@@ -138,7 +138,7 @@ def has_33679(user, domain, kdcHost):
 
     try:
         r = sendReceive(message, domain, kdcHost)
-        # 正常的错误应该是error-code: eRR-PREAUTH-REQUIRED (25)
+        # 正常的错误应该是 error-code: eRR-PREAUTH-REQUIRED (25)
         # 这种情况下不会抛出异常，说明目标接受 RC4-MD4
         return True
     except KerberosError as e:

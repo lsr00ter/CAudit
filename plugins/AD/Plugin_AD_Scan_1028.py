@@ -6,9 +6,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADKerberoastingPrivilegeAccount(PluginADScanBase):
-    """特权账号容易受到`Kerberoasting`攻击"""
+    """特权账号容易受到 `Kerberoasting` 攻击"""
 
-    display = "特权账号容易受到`Kerberoasting`攻击"
+    display = "特权账号容易受到 `Kerberoasting` 攻击"
     alias = "kerberoast_act"
     p_type = AllPluginTypes.Scan
 

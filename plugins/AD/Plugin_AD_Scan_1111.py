@@ -17,9 +17,9 @@ from modules.adi_lib.ldap.acls import (
 
 
 class PluginADIllegalMSDSAllowedToActOnBehalfOfOtherIdentity(PluginADScanBase):
-    """用户msDS-AllowedToActOnBehalfOfOtherIdentity权限异常"""
+    """用户 msDS-AllowedToActOnBehalfOfOtherIdentity 权限异常"""
 
-    display = "用户msDS-AllowedToActOnBehalfOfOtherIdentity权限异常"
+    display = "用户 msDS-AllowedToActOnBehalfOfOtherIdentity 权限异常"
     alias = "i_ms_ds_allow_t_act"
     p_type = AllPluginTypes.Scan
 

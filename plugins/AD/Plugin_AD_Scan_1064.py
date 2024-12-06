@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADNoLAPS(PluginADScanBase):
-    """未安装LAPS管理工具"""
+    """未安装 LAPS 管理工具"""
 
-    display = "未安装LAPS管理工具"
+    display = "未安装 LAPS 管理工具"
     alias = "LAPSNotInstalled"
     p_type = AllPluginTypes.Scan
 
@@ -48,11 +48,11 @@ class PluginADNoLAPS(PluginADScanBase):
                     instance = {}
                     result["status"] = 1
                     instance["cn"] = entry["attributes"]["cn"]
-                    instance["Status"] = "LAPS配置未生效"
+                    instance["Status"] = "LAPS 配置未生效"
                     instance_list.append(instance)
                     result["data"] = {"instance_list": instance_list}
 
-                # 检测LAPS生效的逻辑
+                # 检测 LAPS 生效的逻辑
                 # print(len((entry["attributes"]["ms-Mcs-AdmPwd"])))
                 # print(type((entry["attributes"]["ms-Mcs-AdmPwd"])))
                 # if len(entry["attributes"]["ms-Mcs-AdmPwd"]) > 0 and len(str(entry["attributes"]["ms-Mcs-AdmPwdExpirationTime"])) > 0:
@@ -64,7 +64,7 @@ class PluginADNoLAPS(PluginADScanBase):
             if "invalid attribute type ms-Mcs-AdmPwd" in str(e):
                 instance = {}
                 result["status"] = 1
-                instance["Status"] = "该域未安装LAPS工具"
+                instance["Status"] = "该域未安装 LAPS 工具"
                 instance_list.append(instance)
                 result["data"] = {"instance_list": instance_list}
 

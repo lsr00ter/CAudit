@@ -21,7 +21,7 @@ class PluginADNotEmptySchemaAdmins(PluginADScanBase):
         result = copy(self.result)
         instance_list = []
 
-        # query = "(&(objectclass=group)(sAMAccountName=Schema Admins)(!(member=null)))"        #member判断多余了,默认这个组有administrator账户，在输出里删除了这个账户
+        # query = "(&(objectclass=group)(sAMAccountName=Schema Admins)(!(member=null)))"        #member 判断多余了，默认这个组有 administrator 账户，在输出里删除了这个账户
         query = "(&(objectclass=group)(sAMAccountName=Schema Admins))"
         attributes = ["cn", "member", "distinguishedName"]
 

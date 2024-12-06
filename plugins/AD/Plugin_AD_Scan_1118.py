@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADIllegalAdminCount(PluginADScanBase):
-    """存在adminCount属性异常用户"""
+    """存在 adminCount 属性异常用户"""
 
-    display = "存在adminCount属性异常用户"
+    display = "存在 adminCount 属性异常用户"
     alias = "i_adm_ct"
     p_type = AllPluginTypes.Scan
 
@@ -38,7 +38,7 @@ class PluginADIllegalAdminCount(PluginADScanBase):
             if entry["type"] != "searchResEntry":
                 continue
 
-            # 如果账户，除了加入了domain user组之外，没有加入任何组，那么memberof_li的值将会是空列表
+            # 如果账户，除了加入了 domain user 组之外，没有加入任何组，那么 memberof_li 的值将会是空列表
             memberof_li = entry["attributes"]["memberof"]
             mem_result = []
             privilege_set = {
@@ -59,7 +59,7 @@ class PluginADIllegalAdminCount(PluginADScanBase):
             }
 
             for mem in memberof_li:
-                # 将mem字符串以,分割生成列表，去列表的首个值，
+                # 将 mem 字符串以，分割生成列表，去列表的首个值，
                 m = (mem.split(","))[0]
 
                 m1 = m.split("=")[1]

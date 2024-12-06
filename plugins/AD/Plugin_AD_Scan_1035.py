@@ -8,9 +8,9 @@ from impacket.ldap import ldaptypes
 
 
 class PluginADAdminSDHolderProtectionDisabled(PluginADScanBase):
-    """`某些关键组禁用了AdminSDHolder保护"""  # builtin表示本地用户或组，先查域控，筛选域控版本（这个注释掉了，要用找我）,再把sid列表写出来，根据内置组和域的组来分别判断
+    """`某些关键组禁用了 AdminSDHolder 保护"""  # builtin 表示本地用户或组，先查域控，筛选域控版本（这个注释掉了，要用找我）,再把 sid 列表写出来，根据内置组和域的组来分别判断
 
-    display = "某些关键组禁用了AdminSDHolder保护"
+    display = "某些关键组禁用了 AdminSDHolder 保护"
     alias = "disable_admin_sid_hod"
     p_type = AllPluginTypes.Scan
 
@@ -31,7 +31,7 @@ class PluginADAdminSDHolderProtectionDisabled(PluginADScanBase):
             paged_size=1000,
             generator=True,
         )
-        sq = []  # 用来接收sid
+        sq = []  # 用来接收 sid
         rid = []
 
         for entry in entry_generator:
@@ -53,27 +53,27 @@ class PluginADAdminSDHolderProtectionDisabled(PluginADScanBase):
             if "554" not in rid:
                 instance = {}
                 result["status"] = 1
-                instance["builtin："] = (
-                    "Pre-Windows 2000 Compatible Access组禁用了AdminSDHolder保护"
+                instance["builtin:"] = (
+                    "Pre-Windows 2000 Compatible Access 组禁用了 AdminSDHolder 保护"
                 )
                 instance_list.append(instance)
             if "544" not in rid:
                 instance = {}
                 result["status"] = 1
-                instance["builtin："] = "Administrators组禁用了AdminSDHolder保护"
+                instance["builtin:"] = "Administrators 组禁用了 AdminSDHolder 保护"
                 instance_list.append(instance)
             if "560" not in rid:
                 instance = {}
                 result["status"] = 1
-                instance["builtin："] = (
-                    "Windows Authorization Access Group组禁用了AdminSDHolder保护"
+                instance["builtin:"] = (
+                    "Windows Authorization Access Group 组禁用了 AdminSDHolder 保护"
                 )
                 instance_list.append(instance)
             if "561" not in rid:
                 instance = {}
                 result["status"] = 1
-                instance["builtin："] = (
-                    "Terminal Server License Servers组禁用了AdminSDHolder保护"
+                instance["builtin:"] = (
+                    "Terminal Server License Servers 组禁用了 AdminSDHolder 保护"
                 )
                 instance_list.append(instance)
 
@@ -85,19 +85,19 @@ class PluginADAdminSDHolderProtectionDisabled(PluginADScanBase):
             if "512" not in rid:
                 instance = {}
                 result["status"] = 1
-                instance["Domain Groups："] = "Domain Admins组禁用了AdminSDHolder保护"
+                instance["Domain Groups:"] = "Domain Admins 组禁用了 AdminSDHolder 保护"
                 instance_list.append(instance)
             if "519" not in rid:
                 instance = {}
                 result["status"] = 1
-                instance["Domain Groups："] = (
-                    "Enterprise Admins组禁用了AdminSDHolder保护"
+                instance["Domain Groups:"] = (
+                    "Enterprise Admins 组禁用了 AdminSDHolder 保护"
                 )
                 instance_list.append(instance)
             if "517" not in rid:
                 instance = {}
                 result["status"] = 1
-                instance["Domain Groups："] = "Cert Publishers组禁用了AdminSDHolder保护"
+                instance["Domain Groups:"] = "Cert Publishers 组禁用了 AdminSDHolder 保护"
                 instance_list.append(instance)
 
         result["data"] = {"instance_list": instance_list}

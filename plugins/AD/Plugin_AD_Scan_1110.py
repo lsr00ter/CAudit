@@ -17,9 +17,9 @@ from modules.adi_lib.ldap.acls import (
 
 
 class PluginADIllegalUserForceChangePwd(PluginADScanBase):
-    """用户User-Force-Change-Password权限异常"""
+    """用户 User-Force-Change-Password 权限异常"""
 
-    display = "用户User-Force-Change-Password权限异常"
+    display = "用户 User-Force-Change-Password 权限异常"
     alias = "i_ufcp"
     p_type = AllPluginTypes.Scan
 

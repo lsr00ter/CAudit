@@ -3634,14 +3634,14 @@ class ObsClient(_BasicClient):
         agencyName,
         header=None,
     ):
-        # step 1: 列举指定region下的集群信息
+        # step 1: 列举指定 region 下的集群信息
         azResp = self.listAvailableZoneInfo(regionId, token)
         if azResp.status != 200:
             raise Exception("list AZ infos failed, resp: %s" % azResp)
 
         firstAZCgId, secondAZCgId = self._get_cluster_group_id(azResp)
 
-        # step 2: 指定集群id创桶
+        # step 2: 指定集群 id 创桶
         self._create_bucket_with_cluster_id(
             firstAZCgId, secondAZCgId, bucketName1, bucketName2, bucketAlias, header
         )
@@ -3756,7 +3756,7 @@ class ObsClient(_BasicClient):
         # 判断桶是否存在
         bucket1CgId, bucket2CgId = self._head_virtual_bucket(bucketName1, bucketName2)
 
-        # 两个桶都存在，且cluster group id一致
+        # 两个桶都存在，且 cluster group id 一致
         if bucket1CgId and bucket2CgId and bucket1CgId == bucket2CgId:
             raise Exception(
                 "create bucket failed, both buckets exist and cluster group id is the same"
@@ -3764,7 +3764,7 @@ class ObsClient(_BasicClient):
 
         extensionHeaders = ExtensionHeader()
 
-        # 只存在桶1
+        # 只存在桶 1
         if bucket1CgId:
             extensionHeaders.locationClusterGroupId = (
                 secondAZCgId if bucket1CgId == firstAZCgId else firstAZCgId
@@ -3784,7 +3784,7 @@ class ObsClient(_BasicClient):
                     % (extensionHeaders.locationClusterGroupId, cbResp)
                 )
 
-        # 只存在桶2
+        # 只存在桶 2
         if bucket2CgId:
             extensionHeaders.locationClusterGroupId = (
                 secondAZCgId if bucket2CgId == firstAZCgId else firstAZCgId
@@ -3862,13 +3862,13 @@ class ObsClient(_BasicClient):
         replication = Replication()
         replication.agency = agencyName
 
-        # rule的默认规则如下：
+        # rule 的默认规则如下：
         # id：{sourceBucketName}_to_{destBucketName}
-        # prefix为空
-        # status为Enabled
-        # storageClass为STANDARD
-        # deleteData为Enabled
-        # historicalObjectReplication为Enabled
+        # prefix 为空
+        # status 为 Enabled
+        # storageClass 为 STANDARD
+        # deleteData 为 Enabled
+        # historicalObjectReplication 为 Enabled
         _rules = []
         replicationRule = ReplicationRule()
         replicationRule.id = sourceBucketName + "_to_" + destBucketName
@@ -3885,7 +3885,7 @@ class ObsClient(_BasicClient):
         return resp
 
     def _clear_virtual_bucket(self, staged, bucketName1, bucketName2, bucketAlias):
-        # staged取值：
+        # staged 取值：
         # 1：创建真实桶
         # 2：创建桶别名
         # 3：绑定桶别名

@@ -52,13 +52,13 @@ def enrollment_parameters(
     )
     exp_plugin_mode = exploit_mode.add_subparsers()
 
-    # 加载所有exploit插件，读取参数，注册
+    # 加载所有 exploit 插件，读取参数，注册
     for name, exp in all_plugins.items():
         if exp.p_type == AllPluginTypes.Exploit:
             exp_sub_plugin_mode = exp_plugin_mode.add_parser(
                 exp.alias, formatter_class=argparse.RawDescriptionHelpFormatter
             )
-        # 防止没有输入alice的错误
+        # 防止没有输入 alice 的错误
         if exp.alias != "" and exp.alias == exp_sub_name:
             c: PluginBase = exp()
             all_plugins[name] = c
@@ -85,9 +85,9 @@ class AliCloud:
         self.secrets_key = sk
 
         self.config = open_api_models.Config()
-        # 您的AccessKey ID
+        # 您的 AccessKey ID
         self.config.access_key_id = self.access_key
-        # 您的AccessKey Secret
+        # 您的 AccessKey Secret
         self.config.access_key_secret = self.secrets_key
 
     def getkeyuser(self):
@@ -249,7 +249,7 @@ class AliCloud:
     def executecommand(self, instance_id, command, region_id, os_type="linux"):
         command_id = None
 
-        # 创建command id
+        # 创建 command id
         self.config.endpoint = f"ecs-cn-hangzhou.aliyuncs.com"
         client = Ecs20140526Client(self.config)
         runtime = util_models.RuntimeOptions()
@@ -320,7 +320,7 @@ class AliCloud:
             UtilClient.assert_as_string(error.message)
             return False
 
-        # 删除command id
+        # 删除 command id
         output.debug(f"delete command: {command_id}")
 
         try:

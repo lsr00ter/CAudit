@@ -9,9 +9,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangInvalidOrganizationManagementGroup(PluginExchangeScanBase):
-    """Organization Management组存在异常成员"""
+    """Organization Management 组存在异常成员"""
 
-    display = "Organization Management组存在异常成员"
+    display = "Organization Management 组存在异常成员"
     alias = "ex_inv_org"
     p_type = AllPluginTypes.Scan
 

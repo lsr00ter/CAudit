@@ -9,9 +9,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangeAbuseMailboxImportExport(PluginExchangeScanBase):
-    """Mailbox Import Export权限滥用"""
+    """Mailbox Import Export 权限滥用"""
 
-    display = "Mailbox Import Export权限滥用"
+    display = "Mailbox Import Export 权限滥用"
     alias = "ex_abuse_mailbox"
     p_type = AllPluginTypes.Scan
 

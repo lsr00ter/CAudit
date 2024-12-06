@@ -8,9 +8,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginExchangEexceptionGroup(PluginExchangeScanBase):
-    """Exchange Windows Permissions组存在异常成员"""
+    """Exchange Windows Permissions 组存在异常成员"""
 
-    display = "Exchange Windows Permissions组存在异常成员"
+    display = "Exchange Windows Permissions 组存在异常成员"
     alias = "ex_excep_gp"
     p_type = AllPluginTypes.Scan
 

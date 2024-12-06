@@ -23,7 +23,7 @@ MONGO_CONFIG = {
 
 
 # class Database(object):
-#     """mongodb数据库的惰性封装：只在实际数据库操作时才去连接数据库"""
+#     """mongodb 数据库的惰性封装：只在实际数据库操作时才去连接数据库"""
 #     __metaclass__ = Singleton
 #
 #     __db__ = None
@@ -101,7 +101,7 @@ MONGO_CONFIG = {
 #                                    skip=0,
 #                                    limit=100,
 #                                    **kwargs):
-#         """mongodb find()函数封装，获取集合里面的信息
+#         """mongodb find() 函数封装，获取集合里面的信息
 #         :param collection_name: collection name
 #         :param cond: condition or filter
 #         :param sort_key: key to sort
@@ -132,7 +132,7 @@ MONGO_CONFIG = {
 #                  skip=0,
 #                  limit=100,
 #                  **kwargs):
-#         """mongodb find()函数封装，获取集合里面的信息
+#         """mongodb find() 函数封装，获取集合里面的信息
 #
 #         :param collection_name: collection_name
 #         :param cond: condition or filter
@@ -166,7 +166,7 @@ MONGO_CONFIG = {
 #
 #     def update_one(self, id, values, **kwargs):
 #         """
-#         根据Object_id 更新一条记录
+#         根据 Object_id 更新一条记录
 #         :param id: _id
 #         :param values: values to update
 #         """

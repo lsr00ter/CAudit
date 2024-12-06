@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADDisablefDoListObject(PluginADScanBase):
-    """fDoListObject未启用"""
+    """fDoListObject 未启用"""
 
-    display = "fDoListObject未启用"
+    display = "fDoListObject 未启用"
     alias = "disab_f_dolistobject"
     p_type = AllPluginTypes.Scan
 
@@ -42,7 +42,7 @@ class PluginADDisablefDoListObject(PluginADScanBase):
                 # if len(entry["attributes"]["DSHeuristics"]) >= 3 and str(str1[2:3]) != "0":
                 if (
                     len(dsh) >= 3 and str(dsh[2:3]) != "1"
-                ):  # 强制启用为1，不为1则是false，默认为0，未启用就是非1
+                ):  # 强制启用为 1，不为 1 则是 false，默认为 0，未启用就是非 1
                     result["status"] = 1
                     instance = {}
                     instance["名称"] = entry["attributes"]["cn"]

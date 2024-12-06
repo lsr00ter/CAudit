@@ -10,9 +10,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangeNoSenderID(PluginExchangeScanBase):
-    """未启用SenderID代理"""
+    """未启用 SenderID 代理"""
 
-    display = "未启用SenderID代理"
+    display = "未启用 SenderID 代理"
     alias = "ex_no_sender_id"
     p_type = AllPluginTypes.Scan
 

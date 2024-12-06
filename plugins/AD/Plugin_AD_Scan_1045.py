@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADEmptyDeniedRODCPasswordReplicationGroup(PluginADScanBase):
-    """“拒绝RODC密码复制组”为空"""
+    """“拒绝 RODC 密码复制组”为空"""
 
-    display = "“拒绝RODC密码复制组”为空"
+    display = "“拒绝 RODC 密码复制组”为空"
     alias = "den_rodc_pwd_rg"
     p_type = AllPluginTypes.Scan
 

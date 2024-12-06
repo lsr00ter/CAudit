@@ -30,7 +30,7 @@ class PluginBase:
 
     def run_script(self, args) -> dict:
         """
-        默认运行脚本函数, 子类重写该方法
+        默认运行脚本函数，子类重写该方法
         :param args:
         :return:
         """

@@ -8,9 +8,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADSidHis(PluginADScanBase):
-    """存在SIDHistory"""
+    """存在 SIDHistory"""
 
-    display = "存在SIDHistory"
+    display = "存在 SIDHistory"
     alias = "sid_his"
     p_type = AllPluginTypes.Scan
 

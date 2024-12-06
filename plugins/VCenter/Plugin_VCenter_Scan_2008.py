@@ -13,7 +13,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginVCenterNTPNoConfig(PluginVCenterScanBase):
-    display = "ESXI 未配置NTP或PTP"
+    display = "ESXI 未配置 NTP 或 PTP"
     alias = "esxi_ntp_nocfg"
     p_type = AllPluginTypes.Scan
 
@@ -49,8 +49,8 @@ class PluginVCenterNTPNoConfig(PluginVCenterScanBase):
                 if service.key == "ntpd" and service.running == False:
                     instance = {}
                     result["status"] = 1
-                    instance["ESXI主机"] = host_system.name
-                    instance["描述"] = "ESXI 未启用NTP"
+                    instance["ESXI 主机"] = host_system.name
+                    instance["描述"] = "ESXI 未启用 NTP"
                     instance_list.append(instance)
         result["data"] = {"instance_list": instance_list}
 

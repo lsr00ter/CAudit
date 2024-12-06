@@ -8,9 +8,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangeNoSetlogVerb(PluginExchangeScanBase):
-    """发送连接器协议日志记录级别未设置为Verbose"""
+    """发送连接器协议日志记录级别未设置为 Verbose"""
 
-    display = "发送连接器协议日志记录级别未设置为Verbose"
+    display = "发送连接器协议日志记录级别未设置为 Verbose"
     alias = "ex_log_not_set_verb"
     p_type = AllPluginTypes.Scan
 

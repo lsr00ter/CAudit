@@ -34,7 +34,7 @@ class LDAPSearch(object):
 
     def search_by_sid(self, sid, attributes=None):
         """
-        通过SID搜索域用户的相关信息
+        通过 SID 搜索域用户的相关信息
         """
         sid = escape_ldap_filter(sid)
         if attributes is None:
@@ -192,7 +192,7 @@ class LDAPSearch(object):
         entry_list = []
         depict_dict = {}
 
-        # 对域控ACL进行查询
+        # 对域控 ACL 进行查询
         query = "(objectClass=domain)"
         attributes = ["nTSecurityDescriptor"]
 
@@ -235,7 +235,7 @@ class LDAPSearch(object):
                     if sid not in sid_list:
                         sid_list.append(sid)
                         depict_dict[sid] = "对域控存在完全控制权限"
-                # 具有Dcsync用户
+                # 具有 Dcsync 用户
                 if ace["AceType"] != ACCESS_ALLOWED_OBJECT_ACE.ACE_TYPE:
                     continue
                 if len(ace["Ace"]["ObjectType"]) == 0:
@@ -245,9 +245,9 @@ class LDAPSearch(object):
                     sid = ace["Ace"]["Sid"].formatCanonical()
                     if sid not in sid_list:
                         sid_list.append(sid)
-                        depict_dict[sid] = "对域控存在dcsync控制权限"
+                        depict_dict[sid] = "对域控存在 dcsync 控制权限"
 
-        # 查询组member信息
+        # 查询组 member 信息
         for i in sid_list:
             query = "(objectSid=%s)" % (i)
             attributes = ["cn", "objectSid", "member", "name"]
@@ -346,7 +346,7 @@ class LDAPSearch(object):
                             sid_list.append(sid)
                             depict_dict[sid] = "对%s存在写入权限" % (name)
 
-        # 利用sid查询用户信息
+        # 利用 sid 查询用户信息
         for i in sid_list:
             query = "(&(objectClass=user)(objectSid=%s)%s)" % (i, filter_query)
             attributes = attributes_value

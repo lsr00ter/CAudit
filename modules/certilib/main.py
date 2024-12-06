@@ -746,7 +746,7 @@ def print_sids(sids, sids_resolver, offset=0):
     msg = []
     for sid in sids:
         domain, name = sids_resolver.get_name_from_sid(sid)
-        msg.append("{} {}\{}".format(sid, domain, name))
+        msg.append(r"{} {}\{}".format(sid, domain, name))
 
     print("\n".join(["{}{}".format(blanks, line) for line in msg]))
 

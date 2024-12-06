@@ -6,7 +6,7 @@ from utils.consts import AllPluginTypes
 
 class PluginADMasterPwd(PluginADScanBase):
     """
-    万能密码检测(检测mimikatz密码能否登录)
+    万能密码检测 (检测 mimikatz 密码能否登录)
     """
 
     display = "万能密码检测"

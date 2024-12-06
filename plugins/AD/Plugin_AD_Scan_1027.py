@@ -5,9 +5,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADIllegalPrimaryGroupIDAccount(PluginADScanBase):
-    """用户帐户的PrimaryGroupID属性异常"""  # gpid判定可以不用去输出组，可能不全，直接输出gpid也可以
+    """用户帐户的 PrimaryGroupID 属性异常"""  # gpid 判定可以不用去输出组，可能不全，直接输出 gpid 也可以
 
-    display = "用户帐户的PrimaryGroupID属性异常"
+    display = "用户帐户的 PrimaryGroupID 属性异常"
     alias = "i_prim_gid_act"
     p_type = AllPluginTypes.Scan
 

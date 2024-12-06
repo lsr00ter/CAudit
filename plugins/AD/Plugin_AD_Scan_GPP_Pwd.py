@@ -15,10 +15,10 @@ from utils.consts import AllPluginTypes
 
 class PluginADGPPPwd(PluginADScanBase):
     """
-    GPP漏洞探测
+    GPP 漏洞探测
     """
 
-    display = "GPP漏洞探测"
+    display = "GPP 漏洞探测"
     alias = "gpp_pwd"
     p_type = AllPluginTypes.Scan
 
@@ -50,7 +50,7 @@ class GetGPPasswords(object):
         self.smb = smb
         self.share = share
         self.result = {
-            "status": 0,  # 0 没有漏洞 1有漏洞 -1是插件报错了
+            "status": 0,  # 0 没有漏洞 1 有漏洞 -1 是插件报错了
             "data": {},
             "desc": "",
             "error": "",

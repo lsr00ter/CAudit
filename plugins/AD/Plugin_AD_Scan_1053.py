@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADNoBackupDC(PluginADScanBase):
-    """发现域内无备用DC"""
+    """发现域内无备用 DC"""
 
-    display = "发现域内无备用DC"
+    display = "发现域内无备用 DC"
     alias = "no_bck_dc"
     p_type = AllPluginTypes.Scan
 
@@ -44,7 +44,7 @@ class PluginADNoBackupDC(PluginADScanBase):
                 isinstance(entry["attributes"]["servicePrincipalName"], list)
                 and len(entry["attributes"]["servicePrincipalName"]) == 0
             ):
-                continue  # 判断spn
+                continue  # 判断 spn
             distinguishedName1 = str(entry["attributes"]["distinguishedName"])
             ret = distinguishedName1.find("OU=Domain Controllers,DC=")
 
@@ -52,7 +52,7 @@ class PluginADNoBackupDC(PluginADScanBase):
                 a.append(distinguishedName1)
         if len(a) < 2:
             instance = {}
-            instance["描述："] = "此域只有一台已启用DC"
+            instance["描述："] = "此域只有一台已启用 DC"
             instance["主机名"] = a[0].split("CN=")[1].split(",")[0]
             instance_list.append(instance)
             result["status"] = 1

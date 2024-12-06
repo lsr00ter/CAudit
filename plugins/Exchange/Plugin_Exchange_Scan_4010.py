@@ -10,9 +10,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangeNoEnableDS(PluginExchangeScanBase):
-    """外部发送连接器身份验证DomainSecureEnabled 未启用"""
+    """外部发送连接器身份验证 DomainSecureEnabled 未启用"""
 
-    display = "外部发送连接器身份验证DomainSecureEnabled 未启用"
+    display = "外部发送连接器身份验证 DomainSecureEnabled 未启用"
     alias = "ex_no_enable_ds"
     p_type = AllPluginTypes.Scan
 

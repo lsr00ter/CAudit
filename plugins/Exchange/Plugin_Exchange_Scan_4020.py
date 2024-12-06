@@ -8,9 +8,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangeNoMAPIEnc(PluginExchangeScanBase):
-    """未设置要求客户MAPI加密"""
+    """未设置要求客户 MAPI 加密"""
 
-    display = "未设置要求客户MAPI加密"
+    display = "未设置要求客户 MAPI 加密"
     alias = "ex_no_mapi_enc"
     p_type = AllPluginTypes.Scan
 

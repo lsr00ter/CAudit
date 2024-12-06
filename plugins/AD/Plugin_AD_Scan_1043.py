@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADRODCAccessSYSVOLVolume(PluginADScanBase):
-    """RODC对SYSVOL卷具有写访问权"""
+    """RODC 对 SYSVOL 卷具有写访问权"""
 
-    display = "RODC对SYSVOL卷具有写访问权"
+    display = "RODC 对 SYSVOL 卷具有写访问权"
     alias = "rodc_acs_sysvol"
     p_type = AllPluginTypes.Scan
 

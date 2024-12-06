@@ -8,9 +8,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADExistSID(PluginADScanBase):
-    """SIDHistory属性中存储了危险的SID"""
+    """SIDHistory 属性中存储了危险的 SID"""
 
-    display = "SIDHistory属性中存储了危险的SID"
+    display = "SIDHistory 属性中存储了危险的 SID"
     alias = "SIDHistoryDangerous"
     p_type = AllPluginTypes.Scan
 

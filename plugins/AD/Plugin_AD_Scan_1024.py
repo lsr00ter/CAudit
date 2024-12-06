@@ -20,7 +20,7 @@ class PluginADLowVersionComputerWinNT(PluginADScanBase):
         result = copy(self.result)
         instance_list = []
 
-        query = "(&(objectclass=computer)(operatingSystem=Windows NT*))"  # 这个不修改为包含"NT"，因为datecenter包含这个字符串
+        query = "(&(objectclass=computer)(operatingSystem=Windows NT*))"  # 这个不修改为包含"NT"，因为 datecenter 包含这个字符串
 
         attributes = [
             "cn",

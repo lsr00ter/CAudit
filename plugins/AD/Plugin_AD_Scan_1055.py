@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADIllegalPreW2kCompatibleAccessGroup(PluginADScanBase):
-    """Pre-Windows 2000 Compatible Access组存在异常组成员"""
+    """Pre-Windows 2000 Compatible Access 组存在异常组成员"""
 
-    display = "Pre-Windows 2000 Compatible Access组存在异常组成员"
+    display = "Pre-Windows 2000 Compatible Access 组存在异常组成员"
     alias = "i_pre_w2k_cptb_acs"
     p_type = AllPluginTypes.Scan
 

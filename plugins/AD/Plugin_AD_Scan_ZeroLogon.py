@@ -7,10 +7,10 @@ from utils.consts import AllPluginTypes
 
 class PluginADZeroLogon(PluginADScanBase):
     """
-    Zerologon漏洞扫描
+    Zerologon 漏洞扫描
     """
 
-    display = "存在Zerologon漏洞"
+    display = "存在 Zerologon 漏洞"
     alias = "zero_lgn"
     p_type = AllPluginTypes.Scan
 

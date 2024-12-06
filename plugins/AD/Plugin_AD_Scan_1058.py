@@ -59,11 +59,11 @@ class PluginADRBCDProtTransform(PluginADScanBase):
                     sd.fromString(AllowedToActOnBehalfOfOtherIdentity)
                     for ace in sd["Dacl"].aces:
                         sid = ace["Ace"]["Sid"].formatCanonical()
-                        instance["配置SID"] = sid
+                        instance["配置 SID"] = sid
 
                     instance_list.append(instance)
         except ldap3.core.exceptions.LDAPAttributeError as e:
-            # 域控没有这个属性的时候会在for循环报错
+            # 域控没有这个属性的时候会在 for 循环报错
             result["status"] = 0
 
         result["data"] = {"instance_list": instance_list}

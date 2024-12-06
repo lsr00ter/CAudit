@@ -6,7 +6,7 @@ from ldap3 import SUBTREE
 
 
 class PluginADPrivilageAccountNumberGT50(PluginADScanBase):
-    """`特权账号数量不符合基线要求"""  # 特权账号超过50个或者总用户账户数量的百分之五就会告警
+    """`特权账号数量不符合基线要求"""  # 特权账号超过 50 个或者总用户账户数量的百分之五就会告警
 
     display = "特权账号数量过多"
     alias = "priv_act_gt_50"
@@ -41,7 +41,7 @@ class PluginADPrivilageAccountNumberGT50(PluginADScanBase):
                 continue
             flag = str(entry["attributes"]["cn"]).find(
                 "HealthMailbox"
-            )  # HealthMailbox是exchange相关账户
+            )  # HealthMailbox 是 exchange 相关账户
             if flag != -1:
                 continue
             ss = {}

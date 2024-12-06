@@ -7,10 +7,10 @@ from utils.consts import AllPluginTypes
 
 class PluginADDNSTransfer(PluginADScanBase):
     """
-    DNS域传送漏洞检测
+    DNS 域传送漏洞检测
     """
 
-    display = "域控存在DNS域传送漏洞"
+    display = "域控存在 DNS 域传送漏洞"
     alias = "dns_tsf"
     p_type = AllPluginTypes.Scan
 

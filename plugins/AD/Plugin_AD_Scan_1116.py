@@ -19,9 +19,9 @@ def lookuphostname(hostname, dnsip):
 
 
 class PluginADESC8(PluginADScanBase):
-    """ESC8 - 证书注册web服务启用NTLM认证"""
+    """ESC8 - 证书注册 web 服务启用 NTLM 认证"""
 
-    display = "ESC8 - 证书注册web服务启用NTLM认证"
+    display = "ESC8 - 证书注册 web 服务启用 NTLM 认证"
     alias = "esc8"
     p_type = AllPluginTypes.Scan
 
@@ -73,7 +73,7 @@ class PluginADESC8(PluginADScanBase):
                 result["status"] = 1
                 instance = {}
                 instance["证书服务器"] = hostname
-                instance["证书CA"] = caname
+                instance["证书 CA"] = caname
                 instance["URL"] = url
                 instance_list.append(instance)
 

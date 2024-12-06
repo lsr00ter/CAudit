@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADNT4CompatibleTrust(PluginADScanBase):
-    """存在与NT4兼容的信任关系"""
+    """存在与 NT4 兼容的信任关系"""
 
-    display = "存在与NT4兼容的信任关系"
+    display = "存在与 NT4 兼容的信任关系"
     alias = "nt4_ct"
     p_type = AllPluginTypes.Scan
 
@@ -20,7 +20,7 @@ class PluginADNT4CompatibleTrust(PluginADScanBase):
         result = copy(self.result)
         instance_list = []
 
-        query = "(&(ObjectCategory=*)(TrustType=1))"  # 如果要跟下面一样匹配"trusteddomain"，此处应该使用objectclass。
+        query = "(&(ObjectCategory=*)(TrustType=1))"  # 如果要跟下面一样匹配"trusteddomain"，此处应该使用 objectclass。
         attributes = [
             "cn",
             "member",
@@ -43,7 +43,7 @@ class PluginADNT4CompatibleTrust(PluginADScanBase):
             if entry["type"] != "searchResEntry":
                 continue
             ObjectCategory1 = str(entry["attributes"]["ObjectCategory"])
-            # ret = ObjectCategory1.find("trustedDomain")                       #我2012看到是下面这种形式的，不排除旧版本是这种,在objectclass属性里是trustedDomain。
+            # ret = ObjectCategory1.find("trustedDomain")                       #我 2012 看到是下面这种形式的，不排除旧版本是这种，在 objectclass 属性里是 trustedDomain。
             ret = ObjectCategory1.find("CN=Trusted-Domain,")
 
             if ret != -1:

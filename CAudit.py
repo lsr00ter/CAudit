@@ -102,7 +102,7 @@ if __name__ == "__main__":
     # 加载全局参数
     check_debug()
 
-    # 检查-h/--help
+    # 检查 -h/--help
     check_program_help()
 
     # 加载模块所有的插件

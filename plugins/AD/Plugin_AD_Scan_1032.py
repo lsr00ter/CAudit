@@ -8,9 +8,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADIllegalMAQ(PluginADScanBase):
-    """MAQ值配置风险"""
+    """MAQ 值配置风险"""
 
-    display = "MAQ值配置风险"
+    display = "MAQ 值配置风险"
     alias = "i_maq"
     p_type = AllPluginTypes.Scan
 

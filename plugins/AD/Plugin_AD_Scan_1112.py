@@ -16,7 +16,7 @@ def print_sids(sids, sids_resolver, offset=0):
     msg = []
     for sid in sids:
         domain, name = sids_resolver.get_name_from_sid(sid)
-        msg.append("{} {}\{}".format(sid, domain, name))
+        msg.append(r"{} {}\{}".format(sid, domain, name))
 
     return "\n".join(["{}{}".format(blanks, line) for line in msg])
 
@@ -58,9 +58,9 @@ def sid_not_manager(sids):
 
 
 class PluginADESC4(PluginADScanBase):
-    """ESC4 - 证书模板ACL配置不当"""
+    """ESC4 - 证书模板 ACL 配置不当"""
 
-    display = "ESC4 - 证书模板ACL配置不当"
+    display = "ESC4 - 证书模板 ACL 配置不当"
     alias = "esc4"
     p_type = AllPluginTypes.Scan
 
@@ -80,7 +80,7 @@ class PluginADESC4(PluginADScanBase):
         )
         for temp in vuln_templates:
 
-            # 展示ACL
+            # 展示 ACL
             enroll_sids = set()
             autoenroll_sids = set()
             write_owner_sids = set()
@@ -147,12 +147,12 @@ class PluginADESC4(PluginADScanBase):
                 instance = {}
                 attacked = True
                 instance["模板名"] = temp.name
-                instance["注册CA"] = ", ".join(temp.enroll_services)
+                instance["注册 CA"] = ", ".join(temp.enroll_services)
                 instance["证书标志位"] = ", ".join(temp.certificate_name_flags_names)
                 instance["注册权限"] = enrollment_acl
                 instance["自动注册权限"] = autoenrollment_acl
-                instance["修改owner权限"] = writeowner_acl
-                instance["修改DACL权限"] = writedacl_acl
+                instance["修改 owner 权限"] = writeowner_acl
+                instance["修改 DACL 权限"] = writedacl_acl
                 instance["写属性权限"] = writeprop_acl
                 instance_list.append(instance)
             else:

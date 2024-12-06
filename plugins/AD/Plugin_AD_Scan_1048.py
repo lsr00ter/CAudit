@@ -23,7 +23,7 @@ class PluginADInvalidTrust(PluginADScanBase):
 
         # query = "(ObjectCategory=*)"
         query = (
-            "(&(ObjectCategory=*)(trusttype=*))"  # 直接再ldap里把配置了信任的项筛出来
+            "(&(ObjectCategory=*)(trusttype=*))"  # 直接再 ldap 里把配置了信任的项筛出来
         )
         attributes = ["cn", "whenChanged", "ObjectCategory", "distinguishedName"]
 
@@ -48,7 +48,7 @@ class PluginADInvalidTrust(PluginADScanBase):
             # ret = ObjectCategory1.find("trustedDomain")
             ret = ObjectCategory1.find(
                 "Trusted-Domain"
-            )  # 2012的属性表示为Trusted-Domain(字符串注意大小写)
+            )  # 2012 的属性表示为 Trusted-Domain(字符串注意大小写)
             if ret != -1 and num_days1.days > 40:
                 result["status"] = 1
                 instance = {}

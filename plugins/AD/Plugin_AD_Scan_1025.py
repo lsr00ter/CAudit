@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADKerbDesComputer(PluginADScanBase):
-    """使用Kerberos的弱加密（DES算法）的计算机账户"""
+    """使用 Kerberos 的弱加密（DES 算法）的计算机账户"""
 
-    display = "使用Kerberos的弱加密（DES算法）的计算机账户"
+    display = "使用 Kerberos 的弱加密（DES 算法）的计算机账户"
     alias = "krb_des_cpt"
     p_type = AllPluginTypes.Scan
 

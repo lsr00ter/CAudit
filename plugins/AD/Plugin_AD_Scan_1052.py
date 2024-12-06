@@ -8,9 +8,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADKrbtgtpwdNoChange(PluginADScanBase):
-    """krbtgt帐户太长时间未更改密码"""
+    """krbtgt 帐户太长时间未更改密码"""
 
-    display = "krbtgt帐户太长时间未更改密码"
+    display = "krbtgt 帐户太长时间未更改密码"
     alias = "krbtgt_act_no_chge"
     p_type = AllPluginTypes.Scan
 

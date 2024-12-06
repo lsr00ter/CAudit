@@ -71,9 +71,9 @@ class PluginVCenterEsxiFireWall(PluginVCenterScanBase):
                         if rule.key.lower() not in firedefault:
                             instance = {}
                             result["status"] = 1
-                            instance["ESXi主机"] = (
+                            instance["ESXi 主机"] = (
                                 host_system.name
-                            )  # 没有考虑到多个ESXi主机存在的情况，此处增加一项ESXi主机描述
+                            )  # 没有考虑到多个 ESXi 主机存在的情况，此处增加一项 ESXi 主机描述
                             instance["异常规则"] = rule.key
                             instance["状态"] = "开启"
                             instance_list.append(instance)

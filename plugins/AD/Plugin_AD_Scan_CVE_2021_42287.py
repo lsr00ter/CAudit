@@ -48,10 +48,10 @@ urllib3.disable_warnings()
 
 class PluginADNoPac(PluginADScanBase):
     """
-    CVE-2021-42287漏洞检测
+    CVE-2021-42287 漏洞检测
     """
 
-    display = "域控存在CVE-2021-42287漏洞"
+    display = "域控存在 CVE-2021-42287 漏洞"
     alias = "cve_2021_42287"
     p_type = AllPluginTypes.Scan
 
@@ -92,7 +92,7 @@ class S4U2SELF:
         self.__nthash = ""
         self.__kdcHost = dc_ip
         self.result = {
-            "status": 1,  # 0 没有漏洞 1有漏洞 -1是插件报错了
+            "status": 1,  # 0 没有漏洞 1 有漏洞 -1 是插件报错了
             "data": {"instance_list": [{"ip address": dc_ip}]},
             "desc": "",
             "error": "",

@@ -13,9 +13,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADAdminSDHolderPermissionException(PluginADScanBase):
-    """AdminSDHolder权限异常"""
+    """AdminSDHolder 权限异常"""
 
-    display = "AdminSDHolder权限异常"
+    display = "AdminSDHolder 权限异常"
     alias = "i_adm_sid_hld"
     p_type = AllPluginTypes.Scan
 
@@ -60,7 +60,7 @@ class PluginADAdminSDHolderPermissionException(PluginADScanBase):
                         result["status"] = 1
                         instance = {}
                         instance["objectSid"] = sid
-                        instance["描述"] = "具有对adminSDholder完全控制权限"
+                        instance["描述"] = "具有对 adminSDholder 完全控制权限"
                         instance_list.append(instance)
 
             if ace["Ace"]["Mask"].hasPriv(
@@ -76,7 +76,7 @@ class PluginADAdminSDHolderPermissionException(PluginADScanBase):
                         result["status"] = 1
                         instance = {}
                         instance["objectSid"] = sid
-                        instance["描述"] = "具有对adminSDHolder写入权限"
+                        instance["描述"] = "具有对 adminSDHolder 写入权限"
                         instance_list.append(instance)
 
             if ace["Ace"]["Mask"].hasPriv(ACCESS_MASK.WRITE_DACL):
@@ -89,7 +89,7 @@ class PluginADAdminSDHolderPermissionException(PluginADScanBase):
                         result["status"] = 1
                         instance = {}
                         instance["objectSid"] = sid
-                        instance["描述"] = "具有对adminSDHolder修改ACL权限"
+                        instance["描述"] = "具有对 adminSDHolder 修改 ACL 权限"
                         instance_list.append(instance)
             if ace["Ace"]["Mask"].hasPriv(ACCESS_MASK.WRITE_OWNER):
                 sid = ace["Ace"]["Sid"].formatCanonical()
@@ -101,7 +101,7 @@ class PluginADAdminSDHolderPermissionException(PluginADScanBase):
                         result["status"] = 1
                         instance = {}
                         instance["objectSid"] = sid
-                        instance["描述"] = "具有对adminSDHolder修改所有者权限"
+                        instance["描述"] = "具有对 adminSDHolder 修改所有者权限"
                         instance_list.append(instance)
 
         result["data"] = {"instance_list": instance_list}

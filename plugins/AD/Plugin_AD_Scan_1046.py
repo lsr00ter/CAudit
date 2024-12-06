@@ -7,9 +7,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADRodcDisplayPrivilegeAccount(PluginADScanBase):
-    """RODC上可以显示特权用户"""
+    """RODC 上可以显示特权用户"""
 
-    display = "RODC上可以显示特权用户"
+    display = "RODC 上可以显示特权用户"
     alias = "rodc_dp_priv_act"
     p_type = AllPluginTypes.Scan
 

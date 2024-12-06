@@ -23,7 +23,7 @@ class Base(object):
         """
         :param dc_conf: 域控详细信息
         :param meta_data: 插件元信息
-        :param env: 环境配置信息 包含redis mongo 连接信息
+        :param env: 环境配置信息 包含 redis mongo 连接信息
         """
         self.dc_conf = dc_conf
         self.dc_domain = dc_conf.get("name")
@@ -35,7 +35,7 @@ class Base(object):
         self.meta_data = meta_data
         self.env = env
         self.result = {
-            "status": 0,  # 0 没有漏洞 1有漏洞 -1是插件报错了
+            "status": 0,  # 0 没有漏洞 1 有漏洞 -1 是插件报错了
             "data": {},
             "desc": "",
             "error": "",

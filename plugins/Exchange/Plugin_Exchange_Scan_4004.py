@@ -9,9 +9,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginExchangeExcepTrustedSubsystem(PluginExchangeScanBase):
-    """Exchange Trusted Subsystem组存在异常成员"""
+    """Exchange Trusted Subsystem 组存在异常成员"""
 
-    display = "Exchange Trusted Subsystem组存在异常成员"
+    display = "Exchange Trusted Subsystem 组存在异常成员"
     alias = "ex_trust_sub"
     p_type = AllPluginTypes.Scan
 

@@ -42,7 +42,7 @@ class PluginVCenterLockdownModeOff(PluginVCenterScanBase):
                 and host_system.config.lockdownMode == "lockdownDisabled"
             ):
                 result["status"] = 1
-                instance["主机IP"] = host_system.name
+                instance["主机 IP"] = host_system.name
                 instance_list.append(instance)
 
         result["data"] = {"instance_list": instance_list}

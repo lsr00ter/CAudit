@@ -7,10 +7,10 @@ from utils.consts import AllPluginTypes
 
 class PluginADEnableSMBv1(PluginADScanBase):
     """
-    域控支持SMBv1
+    域控支持 SMBv1
     """
 
-    display = "域控支持SMBv1协议"
+    display = "域控支持 SMBv1 协议"
     alias = "sup_smb1"
     p_type = AllPluginTypes.Scan
 

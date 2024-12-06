@@ -5,9 +5,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADNoPreAuthPrivAccount(PluginADScanBase):
-    """存在不需要kerberos预身份验证的特权账户"""
+    """存在不需要 kerberos 预身份验证的特权账户"""
 
-    display = "存在不需要kerberos预身份验证的特权账户"
+    display = "存在不需要 kerberos 预身份验证的特权账户"
     alias = "no_pre_auth_priv_act"
     p_type = AllPluginTypes.Scan
 

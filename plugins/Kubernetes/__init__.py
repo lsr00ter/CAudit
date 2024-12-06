@@ -44,13 +44,13 @@ def enrollment_parameters(
     )
     exp_plugin_mode = exploit_mode.add_subparsers()
 
-    # 加载所有exploit插件，读取参数，注册
+    # 加载所有 exploit 插件，读取参数，注册
     for name, exp in all_plugins.items():
         if exp.p_type == AllPluginTypes.Exploit:
             exp_sub_plugin_mode = exp_plugin_mode.add_parser(
                 exp.alias, formatter_class=argparse.RawDescriptionHelpFormatter
             )
-        # 防止没有输入alice的错误
+        # 防止没有输入 alice 的错误
         if exp.alias != "" and exp.alias == exp_sub_name:
             c: PluginBase = exp()
             all_plugins[name] = c

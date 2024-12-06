@@ -45,13 +45,13 @@ def ACL(sd, name):
             if sid != None:
                 info[sid] = "对%s存在完全控制权限" % (name)
 
-        # 具有writedacl权限
+        # 具有 writedacl 权限
         if ace["Ace"]["Mask"].hasPriv(ACCESS_MASK.WRITE_DACL):
             sid = sid_not_manager(ace["Ace"]["Sid"].formatCanonical())
             if sid != None:
-                info[sid] = "对%s存在修改ACL权限" % (name)
+                info[sid] = "对%s存在修改 ACL 权限" % (name)
 
-        # 具有WriteOwner检测：
+        # 具有 WriteOwner 检测：
         if ace["Ace"]["Mask"].hasPriv(ACCESS_MASK.WRITE_OWNER):
             sid = sid_not_manager(ace["Ace"]["Sid"].formatCanonical())
             if sid != None:
@@ -61,9 +61,9 @@ def ACL(sd, name):
 
 
 class PluginADESC5(PluginADScanBase):
-    """ESC5 - PKI访问控制"""
+    """ESC5 - PKI 访问控制"""
 
-    display = "ESC5 - PKI访问控制"
+    display = "ESC5 - PKI 访问控制"
     alias = "esc5"
     p_type = AllPluginTypes.Scan
 

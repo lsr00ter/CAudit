@@ -11,9 +11,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PluginVCenterLowVersion(PluginVCenterScanBase):
-    """vCenter SDK版本过低"""
+    """vCenter SDK 版本过低"""
 
-    display = "vCenter SDK版本过低"
+    display = "vCenter SDK 版本过低"
     alias = "vc_low_ver"
     p_type = AllPluginTypes.Scan
 
@@ -41,11 +41,11 @@ class PluginVCenterLowVersion(PluginVCenterScanBase):
             vCenterVersion = vcsdk.version
             version = ".".join(
                 vCenterVersion.split(".")[:-1]
-            )  # 将获取到的版本信息只截取x.x,例如6.0,5.6
+            )  # 将获取到的版本信息只截取 x.x，例如 6.0,5.6
             lowVersion = [
                 "6.0",
                 "5.5",
-            ]  # 小于6.0 的版本还有5.5 如果存在5.5版本也进行告警
+            ]  # 小于 6.0 的版本还有 5.5 如果存在 5.5 版本也进行告警
             if version in lowVersion:
                 result["status"] = 1
                 instance["vCenterName"] = vCenterName

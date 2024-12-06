@@ -10,7 +10,7 @@ class PluginADDuplicateAccount(PluginADScanBase):
     """存在重复的账户"""
 
     # 出现原因是不同用户登录不同域控同时添加同一账户，域控之间同步导致的，添加后有的账户只有"CNF"字段，有的账户有"CNF"的同时
-    # 在SAMAccountName里也有"$DUPLICATE-"字段
+    # 在 SAMAccountName 里也有"$DUPLICATE-"字段
 
     display = "存在重复的账户"
     alias = "dup_act"

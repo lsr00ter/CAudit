@@ -59,10 +59,10 @@ from utils.consts import AllPluginTypes
 
 class PluginADMS14068(PluginADScanBase):
     """
-    MS14068漏洞探测
+    MS14068 漏洞探测
     """
 
-    display = "MS14068漏洞探测"
+    display = "MS14068 漏洞探测"
     alias = "ms14_068"
     p_type = AllPluginTypes.Scan
 

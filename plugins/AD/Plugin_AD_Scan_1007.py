@@ -8,9 +8,9 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADExceptPrimaryGPAttr(PluginADScanBase):
-    """计算机帐户的primarygroup属性异常"""
+    """计算机帐户的 primarygroup 属性异常"""
 
-    display = "计算机帐户的primarygroup属性异常"
+    display = "计算机帐户的 primarygroup 属性异常"
     alias = "excep_primgp_attr"
     p_type = AllPluginTypes.Scan
 

@@ -6,10 +6,10 @@ from copy import copy
 
 class PluginADDCShadow(PluginADScanBase):
     """
-    存在DCShadow攻击
+    存在 DCShadow 攻击
     """
 
-    display = "存在DCShadow攻击"
+    display = "存在 DCShadow 攻击"
     alias = "dc_shadow"
     p_type = AllPluginTypes.Scan
 
@@ -32,7 +32,7 @@ class PluginADDCShadow(PluginADScanBase):
         instance_list = []
         attacked = False
 
-        # 遍历域内所有所有计算机(非DC)，如果他的SPN包含E3514235-4B06-11D1-AB04-00C04FC2DCD2，不包含-ADAM就告警
+        # 遍历域内所有所有计算机 (非 DC)，如果他的 SPN 包含 E3514235-4B06-11D1-AB04-00C04FC2DCD2，不包含-ADAM 就告警
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
                 continue

@@ -32,7 +32,7 @@ class PluginVCenterVCenterLog(PluginVCenterScanBase):
         result = copy(self.result)
         instance_list = []
         for set in sets:
-            if set.key == "log.level":  # log.level的值代表现在的日志记录级别
+            if set.key == "log.level":  # log.level 的值代表现在的日志记录级别
                 log_value = set.value
                 if (
                     log_value != "info"
@@ -41,7 +41,7 @@ class PluginVCenterVCenterLog(PluginVCenterScanBase):
                 ):  # 判断日志记录级别，如果不为这些日志记录级别则进行告警
                     instance = {}
                     result["status"] = 1
-                    instance["描述"] = "日志记录级别为:" + log_value
+                    instance["描述"] = "日志记录级别为：" + log_value
                     instance_list.append(instance)
         result["data"] = {"instance_list": instance_list}
         return result
