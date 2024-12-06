@@ -21,20 +21,31 @@ def print_sids(sids, sids_resolver, offset=0):
 
 def guid_to_string(guid):
     return "{:02x}{:02x}{:02x}{:02x}-{:02x}{:02x}-{:02x}{:02x}-{:02x}{:02x}-{:02x}{:02x}{:02x}{:02x}{:02x}{:02x}".format(
-        guid[3], guid[2], guid[1], guid[0],
-        guid[5], guid[4],
-        guid[7], guid[6],
-        guid[8], guid[9],
-        guid[10], guid[11], guid[12], guid[13], guid[14], guid[15]
+        guid[3],
+        guid[2],
+        guid[1],
+        guid[0],
+        guid[5],
+        guid[4],
+        guid[7],
+        guid[6],
+        guid[8],
+        guid[9],
+        guid[10],
+        guid[11],
+        guid[12],
+        guid[13],
+        guid[14],
+        guid[15],
     )
 
 
 def sid_not_manager(sids):
     enroll_sidss = []
     for sid in sids:
-        if len(sid.split('-')) == 8:
-            lenth = str(sid.split('-')[7].strip())
-            if lenth == '512' or lenth == '519':
+        if len(sid.split("-")) == 8:
+            lenth = str(sid.split("-")[7].strip())
+            if lenth == "512" or lenth == "519":
                 continue
             else:
                 enroll_sidss.append(sid)
@@ -63,7 +74,9 @@ class PluginADESC31(PluginADScanBase):
         attacked = False
         result = copy(self.result)
         instance_list = []
-        vuln_templates, sids_resolver = certilib.checkECS31(domain, username, password, target_ip)
+        vuln_templates, sids_resolver = certilib.checkECS31(
+            domain, username, password, target_ip
+        )
         for temp in vuln_templates:
 
             # 展示ACL
@@ -83,9 +96,15 @@ class PluginADESC31(PluginADScanBase):
                     mask = ace["Mask"]
                     sid = ace["Sid"].formatCanonical()
                     if ace.hasFlag(ace.ACE_OBJECT_TYPE_PRESENT):
-                        if guid_to_string(ace["ObjectType"]) == EX_RIGHT_CERTIFICATE_ENROLLMENT:
+                        if (
+                            guid_to_string(ace["ObjectType"])
+                            == EX_RIGHT_CERTIFICATE_ENROLLMENT
+                        ):
                             enroll_sids.add(sid)
-                        elif guid_to_string(ace["ObjectType"]) == EX_RIGHT_CERTIFICATE_AUTOENROLLMENT:
+                        elif (
+                            guid_to_string(ace["ObjectType"])
+                            == EX_RIGHT_CERTIFICATE_AUTOENROLLMENT
+                        ):
                             autoenroll_sids.add(sid)
                 elif ace["TypeName"] == "ACCESS_ALLOWED_ACE":
                     ace = ace["Ace"]
@@ -95,9 +114,13 @@ class PluginADESC31(PluginADScanBase):
                 else:
                     continue
 
-                if mask.hasPriv(mask.GENERIC_WRITE) \
-                        or mask.hasPriv(mask.GENERIC_ALL) \
-                        or mask.hasPriv(certilib.ACCESS_ALLOWED_OBJECT_ACE.ADS_RIGHT_DS_WRITE_PROP):
+                if (
+                    mask.hasPriv(mask.GENERIC_WRITE)
+                    or mask.hasPriv(mask.GENERIC_ALL)
+                    or mask.hasPriv(
+                        certilib.ACCESS_ALLOWED_OBJECT_ACE.ADS_RIGHT_DS_WRITE_PROP
+                    )
+                ):
                     write_property_sids.add(sid)
 
                 if mask.hasPriv(mask.WRITE_DACL):
@@ -121,8 +144,14 @@ class PluginADESC31(PluginADScanBase):
             sid = sid_not_manager(write_property_sids)
             writeprop_acl = print_sids(sid, sids_resolver, offset=6)
 
-            if (len(enrollment_acl) == 0 & len(autoenrollment_acl) == 0 & len(writeowner_acl) == 0 & len(
-                    writedacl_acl) == 0 & len(writeprop_acl) == 0):
+            if (
+                len(enrollment_acl)
+                == 0 & len(autoenrollment_acl)
+                == 0 & len(writeowner_acl)
+                == 0 & len(writedacl_acl)
+                == 0 & len(writeprop_acl)
+                == 0
+            ):
                 continue
             else:
                 attacked = True
@@ -138,7 +167,7 @@ class PluginADESC31(PluginADScanBase):
                 instance_list.append(instance)
 
         if attacked:
-            result['status'] = 1
-            result['data'] = {"instance_list": instance_list}
+            result["status"] = 1
+            result["data"] = {"instance_list": instance_list}
 
         return result

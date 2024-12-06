@@ -4,7 +4,7 @@ import sys
 from utils.consts import module_base_class
 from utils.logger import output
 
-# TODO 路径问题, 和load_plugin()一样
+# TODO 路径问题，和 load_plugin() 一样
 version_file = "./version"
 
 
@@ -30,7 +30,9 @@ def get_user_exploit_input() -> str:
 
 
 def read_version() -> str:
-    with open(version_file, "r") as f: return f.readline().strip()
+    with open(version_file, "r") as f:
+        return f.readline().strip()
+
 
 # def read_json_file(file_path: str) -> dict:
 #     try:

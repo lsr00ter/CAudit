@@ -24,13 +24,15 @@ class PluginADAnonymousUserOperateLDAP(PluginADScanBase):
         query = f"(distinguishedName=CN=Directory Service,CN=Windows NT,CN=Services,{search_base})"
         attributes = ["cn", "distinguishedName", "DSHeuristics"]
 
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base,
-                                                                         search_filter=query,
-                                                                         search_scope=SUBTREE,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base,
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
@@ -41,13 +43,12 @@ class PluginADAnonymousUserOperateLDAP(PluginADScanBase):
             str1 = entry["attributes"]["DSHeuristics"]
             # if ret != -1 and len(entry["attributes"]["DSHeuristics"]) >= 7 and str(
             #         str1[6:7]) == "2":
-            if len(entry["attributes"]["DSHeuristics"]) >= 7 and str(
-                    str1[6:7]) == "2":
-                result['status'] = 1
+            if len(entry["attributes"]["DSHeuristics"]) >= 7 and str(str1[6:7]) == "2":
+                result["status"] = 1
                 instance = {}
                 instance["名称"] = entry["attributes"]["cn"]
                 instance["DN"] = entry["attributes"]["distinguishedName"]
                 instance_list.append(instance)
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

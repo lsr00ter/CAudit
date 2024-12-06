@@ -24,7 +24,11 @@ else:
 
 class ThreadPool(object):
 
-    def __init__(self, thread_size=const.DEFAULT_TASK_NUM, queue_size=const.DEFAULT_TASK_QUEUE_SIZE):
+    def __init__(
+        self,
+        thread_size=const.DEFAULT_TASK_NUM,
+        queue_size=const.DEFAULT_TASK_QUEUE_SIZE,
+    ):
         self.thread_size = thread_size
         self._alive_threads = 0
         self._task_queue = queue.Queue(queue_size)
@@ -89,8 +93,8 @@ class TimeoutError(Exception):
     pass
 
 
-PENDING = 'PENDING'
-COMPLETED = 'COMPLETED'
+PENDING = "PENDING"
+COMPLETED = "COMPLETED"
 
 
 class Future(object):
@@ -209,7 +213,11 @@ def _reportProgress(progress, interval, progressCallback):
 def _checkBulkTasksPara(task_num, task_queue_size, task_interval, threshold):
     origine = [task_num, task_queue_size, task_interval, threshold]
     default = (
-        const.DEFAULT_TASK_NUM, const.DEFAULT_TASK_QUEUE_SIZE, const.DEFAULT_BYTE_INTTERVAL, const.DEFAULT_MAXIMUM_SIZE)
+        const.DEFAULT_TASK_NUM,
+        const.DEFAULT_TASK_QUEUE_SIZE,
+        const.DEFAULT_BYTE_INTTERVAL,
+        const.DEFAULT_MAXIMUM_SIZE,
+    )
     size = len(origine)
     for i in range(size):
         origine[i] = util.to_int(origine[i])

@@ -17,8 +17,21 @@ def load_module_param(mod_name, exploit_plugin_name, all_module_plugins):
     parser = argparse.ArgumentParser(description="")
     subparser = parser.add_subparsers(dest="sub_mode")
 
-    parser.add_argument("--thread", help="set thread. default=5", required=False, default=5, type=int, dest="thread")
-    parser.add_argument("--save", help="save result to file. default=results.html", required=False, default="results.html",dest="save")
+    parser.add_argument(
+        "--thread",
+        help="set thread. default=5",
+        required=False,
+        default=5,
+        type=int,
+        dest="thread",
+    )
+    parser.add_argument(
+        "--save",
+        help="save result to file. default=results.html",
+        required=False,
+        default="results.html",
+        dest="save",
+    )
 
     # 加载模块参数
     modules = get_plugin_type()
@@ -26,8 +39,11 @@ def load_module_param(mod_name, exploit_plugin_name, all_module_plugins):
         if m == mod_name:
             k = import_module(mf)
 
-            search_parser = subparser.add_parser(k.__type__, help=k.__help__,
-                                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+            search_parser = subparser.add_parser(
+                k.__type__,
+                help=k.__help__,
+                formatter_class=argparse.RawDescriptionHelpFormatter,
+            )
 
             enrol_func = getattr(k, "enrollment_parameters")
             enrol_func(search_parser, all_module_plugins, exploit_plugin_name)
@@ -45,9 +61,9 @@ def check_print_help(m_name, p_list):
         return False
 
     plugin_type = "all"
-    if sys.argv[sys.argv.index(m_name)+1] == "scan":
+    if sys.argv[sys.argv.index(m_name) + 1] == "scan":
         plugin_type = "scan"
-    elif sys.argv[sys.argv.index(m_name)+1] == "exploit":
+    elif sys.argv[sys.argv.index(m_name) + 1] == "exploit":
         plugin_type = "exploit"
 
     print_plugin = PrettyTable(["alias", "display"])
@@ -61,14 +77,12 @@ def check_print_help(m_name, p_list):
             if v.p_type == plugin_type:
                 print_plugin.add_row([v.alias, v.display])
 
-    output.info(f"show {plugin_type} plugin:\n"
-                f"{print_plugin}")
+    output.info(f"show {plugin_type} plugin:\n" f"{print_plugin}")
     return True
 
 
-
 def check_program_help():
-    # 打印全局help
+    # 打印全局 help
     h = ["-h", "--help"]
     if len(sys.argv) == 2 and sys.argv[1] in h:
         output.print_simple_help("all")
@@ -84,7 +98,7 @@ def check_debug():
             break
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # 加载全局参数
     check_debug()
 
@@ -121,9 +135,11 @@ if __name__ == '__main__':
 
     execute_plugins = filter_user_plugin(p_list, user_args, exploit_plugin_name)
 
-    # 执行, 多线程
+    # 执行，多线程
     output.debug(f"Execute thread: {user_args.thread}")
-    with concurrent.futures.ThreadPoolExecutor(max_workers=user_args.thread) as executor:
+    with concurrent.futures.ThreadPoolExecutor(
+        max_workers=user_args.thread
+    ) as executor:
         nl = ""
         temp_results = []
         results = []
@@ -142,12 +158,14 @@ if __name__ == '__main__':
 
             r = executor.submit(plugin_cls.run_script, user_args)
             temp_results.append(r)
-            results.append({
-                "result": r,
-                "alias": plugin_cls.alias,
-                "display": plugin_cls.display,
-                "plugin_name": plugin_cls.__module__
-            })
+            results.append(
+                {
+                    "result": r,
+                    "alias": plugin_cls.alias,
+                    "display": plugin_cls.display,
+                    "plugin_name": plugin_cls.__module__,
+                }
+            )
 
             # r = executor.submit(p.run_script, user_args)
             # temp_results.append(r)
@@ -166,12 +184,12 @@ if __name__ == '__main__':
             try:
                 module_results = r["result"].result()
             except Exception:
-                module_results = str(r['result']._exception)
+                module_results = str(r["result"]._exception)
                 output.error(f"{module_name} execute error: {module_results}")
             scripts_result[module_name] = {
                 "display": display_value,
                 "alias": module_alias,
-                "results": module_results
+                "results": module_results,
             }
 
     # 输出结果

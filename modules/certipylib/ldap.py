@@ -77,15 +77,14 @@ class LDAPConnection:
                 self.connect(version=ssl.PROTOCOL_TLSv1_2)
             except ldap3.core.exceptions.LDAPSocketOpenError as e:
                 if self.scheme != "ldaps":
-                    outter.error(
-                        "Got error while trying to connecto to LDAP: %s" % e
-                    )
+                    outter.error("Got error while trying to connecto to LDAP: %s" % e)
                 self.connect(version=ssl.PROTOCOL_TLSv1)
             return
         else:
             if self.scheme == "ldaps":
-                tls = ldap3.Tls(validate=ssl.CERT_NONE, version=version,
-                                ciphers='ALL:@SECLEVEL=0')
+                tls = ldap3.Tls(
+                    validate=ssl.CERT_NONE, version=version, ciphers="ALL:@SECLEVEL=0"
+                )
                 ldap_server = ldap3.Server(
                     self.target.target_ip,
                     use_ssl=True,

@@ -6,14 +6,40 @@ import sys
 from impacket.examples.utils import parse_credentials, parse_target
 from impacket.dcerpc.v5.dcomrt import DCOMConnection
 
-from .wcce import ICertRequestD2, ICertRequestD, CLSID_CCertRequestD, IID_ICertRequestD2, IID_ICertRequestD, \
-    DCERPCSessionError
+from .wcce import (
+    ICertRequestD2,
+    ICertRequestD,
+    CLSID_CCertRequestD,
+    IID_ICertRequestD2,
+    IID_ICertRequestD,
+    DCERPCSessionError,
+)
 from .template import Template, EKUS_NAMES
-from .certificate import generate_csr, generate_pfx, new_key, load_x509_certificate, is_alt_name_in_cert, cert_to_pem, \
-    cert_get_extended_key_usage, load_pfx, generate_pkcs7, csr_to_pem, csr_to_der, pkcs7_to_pem, pkcs7_to_der
+from .certificate import (
+    generate_csr,
+    generate_pfx,
+    new_key,
+    load_x509_certificate,
+    is_alt_name_in_cert,
+    cert_to_pem,
+    cert_get_extended_key_usage,
+    load_pfx,
+    generate_pkcs7,
+    csr_to_pem,
+    csr_to_der,
+    pkcs7_to_pem,
+    pkcs7_to_der,
+)
 from .sid import KNOWN_SIDS, name_from_sid
-from .ldap import connect_ldap, get_base_dn, search_ldap, ldap_results, security_descriptor_control, \
-    SR_SECURITY_DESCRIPTOR, ACCESS_ALLOWED_OBJECT_ACE
+from .ldap import (
+    connect_ldap,
+    get_base_dn,
+    search_ldap,
+    ldap_results,
+    security_descriptor_control,
+    SR_SECURITY_DESCRIPTOR,
+    ACCESS_ALLOWED_OBJECT_ACE,
+)
 
 
 def parse_args():
@@ -23,29 +49,27 @@ def parse_args():
     list_parser = subparsers.add_parser("list")
 
     list_parser.add_argument(
-        'target',
-        help='domain/username[:password]',
-        type=target_creds_type
+        "target", help="domain/username[:password]", type=target_creds_type
     )
 
     list_parser.add_argument(
-        "--dc-ip",
-        metavar="IP",
-        help="IP address of domain controller"
+        "--dc-ip", metavar="IP", help="IP address of domain controller"
     )
 
     list_parser.add_argument(
-        "-k", "--kerberos",
+        "-k",
+        "--kerberos",
         action="store_true",
-        help='Use Kerberos authentication. Grabs credentials from ccache file '
-             '(KRB5CCNAME) based on target parameters. If valid credentials cannot be found, it will use the '
-             'ones specified in the command line'
+        help="Use Kerberos authentication. Grabs credentials from ccache file "
+        "(KRB5CCNAME) based on target parameters. If valid credentials cannot be found, it will use the "
+        "ones specified in the command line",
     )
 
     list_parser.add_argument(
-        "-n", "--no-pass",
+        "-n",
+        "--no-pass",
         action="store_true",
-        help="don't ask for password (useful for -k)"
+        help="don't ask for password (useful for -k)",
     )
 
     list_parser.add_argument(
@@ -58,16 +82,16 @@ def parse_args():
     )
 
     list_parser.add_argument(
-        '--aes',
+        "--aes",
         action="store",
         metavar="hex key",
-        help='AES key to use for Kerberos Authentication (128 or 256 bits)'
+        help="AES key to use for Kerberos Authentication (128 or 256 bits)",
     )
 
     list_parser.add_argument(
         "--enabled",
         help="Show only templates that are used by some enroll service",
-        action="store_true"
+        action="store_true",
     )
 
     list_parser.add_argument(
@@ -96,9 +120,9 @@ def parse_args():
     req_parser = subparsers.add_parser("req")
 
     req_parser.add_argument(
-        'target',
-        help='[[domain/]username[:password]@]<targetName or address>',
-        type=target_type
+        "target",
+        help="[[domain/]username[:password]@]<targetName or address>",
+        type=target_type,
     )
 
     req_parser.add_argument(
@@ -107,15 +131,11 @@ def parse_args():
     )
 
     req_parser.add_argument(
-        "--dc-ip",
-        metavar="IP",
-        help="IP address of domain controller"
+        "--dc-ip", metavar="IP", help="IP address of domain controller"
     )
 
     req_parser.add_argument(
-        "-t", "--template",
-        help="Name of the template to enroll",
-        default="User"
+        "-t", "--template", help="Name of the template to enroll", default="User"
     )
 
     req_parser.add_argument(
@@ -125,38 +145,43 @@ def parse_args():
     )
 
     req_parser.add_argument(
-        '--aes',
+        "--aes",
         action="store",
         metavar="hex key",
-        help='AES key to use for Kerberos Authentication (128 or 256 bits)'
+        help="AES key to use for Kerberos Authentication (128 or 256 bits)",
     )
 
     req_parser.add_argument(
-        "-k", "--kerberos",
+        "-k",
+        "--kerberos",
         action="store_true",
-        help='Use Kerberos authentication. Grabs credentials from ccache file '
-             '(KRB5CCNAME) based on target parameters. If valid credentials cannot be found, it will use the '
-             'ones specified in the command line'
+        help="Use Kerberos authentication. Grabs credentials from ccache file "
+        "(KRB5CCNAME) based on target parameters. If valid credentials cannot be found, it will use the "
+        "ones specified in the command line",
     )
 
     req_parser.add_argument(
-        "-n", "--no-pass",
+        "-n",
+        "--no-pass",
         action="store_true",
-        help="don't ask for password (useful for -k)"
+        help="don't ask for password (useful for -k)",
     )
 
     req_parser.add_argument(
-        "-P", "--cert-pass",
+        "-P",
+        "--cert-pass",
         help="Password for the retrieved certificate",
     )
 
     req_parser.add_argument(
-        "-a", "--alt-name",
-        help="Alternative username to specify in certificate (allows impersonation)"
+        "-a",
+        "--alt-name",
+        help="Alternative username to specify in certificate (allows impersonation)",
     )
 
     req_parser.add_argument(
-        "-o", "--out-cert",
+        "-o",
+        "--out-cert",
         metavar="filename",
         help="Filename to save the requested certificate",
     )
@@ -178,7 +203,8 @@ def parse_args():
     )
 
     req_parser.add_argument(
-        "-2", "--version2",
+        "-2",
+        "--version2",
         help="Use WCCE version 2",
         action="store_true",
     )
@@ -192,7 +218,7 @@ def parse_args():
     args.lmhash = ""
     args.nthash = ""
     if args.hashes:
-        args.lmhash, args.nthash = args.hashes.split(':')
+        args.lmhash, args.nthash = args.hashes.split(":")
 
     if not (args.password or args.lmhash or args.nthash or args.aes or args.no_pass):
         args.password = getpass("Password:")
@@ -230,7 +256,7 @@ def target_creds_type(target):
             "Domain of user '{}' should be be specified".format(username)
         )
 
-    return (userdomain, username, password or '', '')
+    return (userdomain, username, password or "", "")
 
 
 def main_req(args):
@@ -285,11 +311,7 @@ def main_req(args):
 
     else:
         cn = args.username
-        csr = generate_csr(
-            key,
-            cn=cn,
-            alt_name=alt_name
-        )
+        csr = generate_csr(key, cn=cn, alt_name=alt_name)
         csr = csr_to_der(csr)
 
     try:
@@ -301,16 +323,15 @@ def main_req(args):
         else:
             resp = request_cert(dcom, args.service, csr, attributes)
 
-        print("[*] Response: 0x{:X} {}".format(resp["Disposition"], resp["DispositionMessage"]))
+        print(
+            "[*] Response: 0x{:X} {}".format(
+                resp["Disposition"], resp["DispositionMessage"]
+            )
+        )
 
         if resp["EncodedCert"]:
             process_cert(
-                key,
-                resp["EncodedCert"],
-                args.cert_pass,
-                args.out_cert,
-                cn,
-                alt_name
+                key, resp["EncodedCert"], args.cert_pass, args.out_cert, cn, alt_name
             )
         else:
             print("[-] No certificate was returned")
@@ -318,7 +339,10 @@ def main_req(args):
     except DCERPCSessionError as ex:
         print("Error: {}".format(ex), file=sys.stderr)
         if ex.error_code == 0x80094011:
-            print("Help: Try using Kerberos authentication with -k -n params", file=sys.stderr)
+            print(
+                "Help: Try using Kerberos authentication with -k -n params",
+                file=sys.stderr,
+            )
     finally:
         dcom.disconnect()
 
@@ -345,9 +369,11 @@ def process_cert(key, encoded_cert, cert_pass, out_file, cn, alt_name):
 
     extended_usages = cert_get_extended_key_usage(cert)
     if extended_usages:
-        print("[*] Cert Extended Key Usage: {}".format(", ".join([
-            EKUS_NAMES.get(oid, oid) for oid in extended_usages
-        ])))
+        print(
+            "[*] Cert Extended Key Usage: {}".format(
+                ", ".join([EKUS_NAMES.get(oid, oid) for oid in extended_usages])
+            )
+        )
 
     pfx_filename = "{}.pfx".format(cn)
     if alt_name:
@@ -356,8 +382,9 @@ def process_cert(key, encoded_cert, cert_pass, out_file, cn, alt_name):
             pfx_filename = "{}.pfx".format(alt_name)
         else:
             print(
-                "[-] Impersonation of {} not allowed with this certificate"
-                    .format(alt_name)
+                "[-] Impersonation of {} not allowed with this certificate".format(
+                    alt_name
+                )
             )
 
     if cert_pass:
@@ -374,10 +401,11 @@ def process_cert(key, encoded_cert, cert_pass, out_file, cn, alt_name):
         fo.write(pfx_bytes)
 
     print()
-    print("[*] Saving certificate in {} (password: {})".format(
-        pfx_filename,
-        cert_password.decode()
-    ))
+    print(
+        "[*] Saving certificate in {} (password: {})".format(
+            pfx_filename, cert_password.decode()
+        )
+    )
 
 
 def checkECS1(userdomain, username, password, dc_ip):
@@ -389,26 +417,22 @@ def checkECS1(userdomain, username, password, dc_ip):
         nthash="",
         aesKey="",
         dc_ip=dc_ip,
-        kerberos=False
+        kerberos=False,
     )
     sids_resolver = SidsResolver(ldap_conn)
 
-    enroll_services = list(fetch_enrollment_services(
-        ldap_conn,
-        userdomain
-    ))
+    enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
 
-    templates = list(fetch_templates(
-        ldap_conn,
-        userdomain,
-        temp_names="",
-        ldap_filter="",
-    ))
-    if not enroll_services:
-        enroll_services = list(fetch_enrollment_services(
+    templates = list(
+        fetch_templates(
             ldap_conn,
-            userdomain
-        ))
+            userdomain,
+            temp_names="",
+            ldap_filter="",
+        )
+    )
+    if not enroll_services:
+        enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
 
     for template in templates:
         for service in enroll_services:
@@ -437,26 +461,22 @@ def checkECS2(userdomain, username, password, dc_ip):
         nthash="",
         aesKey="",
         dc_ip=dc_ip,
-        kerberos=False
+        kerberos=False,
     )
 
     sids_resolver = SidsResolver(ldap_conn)
 
-    enroll_services = list(fetch_enrollment_services(
-        ldap_conn,
-        userdomain
-    ))
-    templates = list(fetch_templates(
-        ldap_conn,
-        userdomain,
-        temp_names="",
-        ldap_filter="",
-    ))
-    if not enroll_services:
-        enroll_services = list(fetch_enrollment_services(
+    enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
+    templates = list(
+        fetch_templates(
             ldap_conn,
-            userdomain
-        ))
+            userdomain,
+            temp_names="",
+            ldap_filter="",
+        )
+    )
+    if not enroll_services:
+        enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
 
     for template in templates:
         for service in enroll_services:
@@ -485,7 +505,7 @@ def checkECS31(userdomain, username, password, dc_ip):
         nthash="",
         aesKey="",
         dc_ip=dc_ip,
-        kerberos=False
+        kerberos=False,
     )
 
     sids_resolver = SidsResolver(ldap_conn)
@@ -510,26 +530,22 @@ def checkECS31(userdomain, username, password, dc_ip):
     enroll_services = None
     # if "service" in args.classes:
 
-    enroll_services = list(fetch_enrollment_services(
-        ldap_conn,
-        userdomain
-    ))
+    enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
     # for service in enroll_services:
     #     print_service(service)
     #     print("")
 
     # if "template" in args.classes:
-    templates = list(fetch_templates(
-        ldap_conn,
-        userdomain,
-        temp_names="",
-        ldap_filter="",
-    ))
-    if not enroll_services:
-        enroll_services = list(fetch_enrollment_services(
+    templates = list(
+        fetch_templates(
             ldap_conn,
-            userdomain
-        ))
+            userdomain,
+            temp_names="",
+            ldap_filter="",
+        )
+    )
+    if not enroll_services:
+        enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
 
     for template in templates:
         for service in enroll_services:
@@ -558,7 +574,7 @@ def checkECS32(userdomain, username, password, dc_ip):
         nthash="",
         aesKey="",
         dc_ip=dc_ip,
-        kerberos=False
+        kerberos=False,
     )
 
     sids_resolver = SidsResolver(ldap_conn)
@@ -583,27 +599,23 @@ def checkECS32(userdomain, username, password, dc_ip):
     enroll_services = None
     # if "service" in args.classes:
 
-    enroll_services = list(fetch_enrollment_services(
-        ldap_conn,
-        userdomain
-    ))
+    enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
     # for service in enroll_services:
     #     print_service(service)
     #     print("")
 
     # if "template" in args.classes:
-    templates = list(fetch_templates(
-        ldap_conn,
-        userdomain,
-        temp_names="",
-        ldap_filter="",
-    ))
+    templates = list(
+        fetch_templates(
+            ldap_conn,
+            userdomain,
+            temp_names="",
+            ldap_filter="",
+        )
+    )
     # print(templates)
     if not enroll_services:
-        enroll_services = list(fetch_enrollment_services(
-            ldap_conn,
-            userdomain
-        ))
+        enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
 
     for template in templates:
         for service in enroll_services:
@@ -741,11 +753,22 @@ def print_sids(sids, sids_resolver, offset=0):
 
 def guid_to_string(guid):
     return "{:02x}{:02x}{:02x}{:02x}-{:02x}{:02x}-{:02x}{:02x}-{:02x}{:02x}-{:02x}{:02x}{:02x}{:02x}{:02x}{:02x}".format(
-        guid[3], guid[2], guid[1], guid[0],
-        guid[5], guid[4],
-        guid[7], guid[6],
-        guid[8], guid[9],
-        guid[10], guid[11], guid[12], guid[13], guid[14], guid[15]
+        guid[3],
+        guid[2],
+        guid[1],
+        guid[0],
+        guid[5],
+        guid[4],
+        guid[7],
+        guid[6],
+        guid[8],
+        guid[9],
+        guid[10],
+        guid[11],
+        guid[12],
+        guid[13],
+        guid[14],
+        guid[15],
     )
 
 
@@ -789,40 +812,38 @@ def fetch_templates(ldap_conn, domain, temp_names=None, ldap_filter=""):
         ldap_conn,
         temp_filter,
         conf_base,
-        controls=security_descriptor_control(sdflags=0x05)  # Query owner and DACL
+        controls=security_descriptor_control(sdflags=0x05),  # Query owner and DACL
     )
 
     for item in ldap_results(resp):
         temp = Template()
-        for attribute in item['attributes']:
-            at_type = str(attribute['type'])
+        for attribute in item["attributes"]:
+            at_type = str(attribute["type"])
             if at_type == "name":
-                temp.name = str(attribute['vals'][0])
+                temp.name = str(attribute["vals"][0])
             elif at_type == "msPKI-Certificate-Name-Flag":
-                temp.certificate_name_flags = int(attribute['vals'][0])
+                temp.certificate_name_flags = int(attribute["vals"][0])
             elif at_type == "msPKI-Enrollment-Flag":
-                temp.enrollment_flags = int(attribute['vals'][0])
+                temp.enrollment_flags = int(attribute["vals"][0])
             elif at_type == "msPKI-RA-Signature":
-                temp.ra_signature = int(attribute['vals'][0])
+                temp.ra_signature = int(attribute["vals"][0])
             elif at_type == "msPKI-Private-Key-Flag":
-                temp.private_key_flags = int(attribute['vals'][0])
+                temp.private_key_flags = int(attribute["vals"][0])
             elif at_type == "pKIExtendedKeyUsage":
-                for val in attribute['vals']:
+                for val in attribute["vals"]:
                     oid = str(val)
                     temp.ekus.append(oid)
             elif at_type == "nTSecurityDescriptor":
-                sec_desc_bytes = attribute['vals'][0].asOctets()
+                sec_desc_bytes = attribute["vals"][0].asOctets()
                 temp.security_descriptor.fromString(sec_desc_bytes)
             elif at_type == "msPKI-Template-Schema-Version":
-                temp.schema_version = int(attribute['vals'][0])
+                temp.schema_version = int(attribute["vals"][0])
             elif at_type == "msPKI-Certificate-Application-Policy":
                 temp.certificate_application_policies = [
-                    str(val) for val in attribute['vals']
+                    str(val) for val in attribute["vals"]
                 ]
             elif at_type == "msPKI-RA-Application-Policies":
-                temp.ra_application_policies = [
-                    str(val) for val in attribute['vals']
-                ]
+                temp.ra_application_policies = [str(val) for val in attribute["vals"]]
 
         yield temp
 
@@ -835,25 +856,29 @@ def fetch_enrollment_services(ldap_conn, domain):
 
     for item in ldap_results(resp):
         enr = EnrollmentService()
-        for attribute in item['attributes']:
-            at_type = str(attribute['type'])
+        for attribute in item["attributes"]:
+            at_type = str(attribute["type"])
             if at_type == "cACertificate":
-                cert_bytes = attribute['vals'][0].asOctets()
+                cert_bytes = attribute["vals"][0].asOctets()
                 enr.cert = load_x509_certificate(cert_bytes, cert_format="der")
             elif at_type == "name":
-                enr.name = str(attribute['vals'][0])
+                enr.name = str(attribute["vals"][0])
             elif at_type == "dNSHostName":
-                enr.dnsname = str(attribute['vals'][0])
+                enr.dnsname = str(attribute["vals"][0])
             elif at_type == "certificateTemplates":
-                enr.templates = [str(v) for v in attribute['vals']]
+                enr.templates = [str(v) for v in attribute["vals"]]
             elif at_type == "msPKI-Enrollment-Servers":
-                enr.web_services = [str(v).split("\n")[3] for v in attribute['vals']]
+                enr.web_services = [str(v).split("\n")[3] for v in attribute["vals"]]
         yield enr
 
 
 def fetch_aia_cas(ldap_conn, domain):
     cas_filter = "(objectClass=certificationAuthority)"
-    ntauth_base = "CN=AIA,CN=Public Key Services,CN=Services,CN=Configuration,{}".format(get_base_dn(domain))
+    ntauth_base = (
+        "CN=AIA,CN=Public Key Services,CN=Services,CN=Configuration,{}".format(
+            get_base_dn(domain)
+        )
+    )
     resp = search_ldap(ldap_conn, cas_filter, ntauth_base)
     return get_certs_from_ldap_response(resp)
 
@@ -861,7 +886,8 @@ def fetch_aia_cas(ldap_conn, domain):
 def fetch_ntauthcertificates(ldap_conn, domain):
     cas_filter = "(objectClass=certificationAuthority)"
     ntauth_base = "CN=NTAuthCertificates,CN=Public Key Services,CN=Services,CN=Configuration,{}".format(
-        get_base_dn(domain))
+        get_base_dn(domain)
+    )
     resp = search_ldap(ldap_conn, cas_filter, ntauth_base)
 
     return get_certs_from_ldap_response(resp)
@@ -871,7 +897,8 @@ def fetch_root_cas(ldap_conn, domain):
     cas_filter = "(objectClass=certificationAuthority)"
 
     cas_search_base = "CN=Certification Authorities,CN=Public Key Services,CN=Services,CN=Configuration,{}".format(
-        get_base_dn(domain))
+        get_base_dn(domain)
+    )
 
     resp = search_ldap(ldap_conn, cas_filter, cas_search_base)
 
@@ -880,9 +907,9 @@ def fetch_root_cas(ldap_conn, domain):
 
 def get_certs_from_ldap_response(resp):
     for item in ldap_results(resp):
-        for attribute in item['attributes']:
-            if str(attribute['type']) == "cACertificate":
-                for val in attribute['vals']:
+        for attribute in item["attributes"]:
+            if str(attribute["type"]) == "cACertificate":
+                for val in attribute["vals"]:
                     cert_bytes = val.asOctets()
                     cert = load_x509_certificate(cert_bytes, cert_format="der")
                     yield cert
@@ -896,7 +923,7 @@ def ldap_get_name_from_sid(ldap_conn, sid):
     resp = search_ldap(ldap_conn, sid_filter)
 
     for item in ldap_results(resp):
-        for attribute in item['attributes']:
+        for attribute in item["attributes"]:
             if str(attribute["type"]) == "sAMAccountName":
                 name = str(attribute["vals"][0])
                 return name
@@ -910,7 +937,7 @@ def ldap_get_domain_from_sid(ldap_conn, sid):
     resp = search_ldap(ldap_conn, sid_filter)
 
     for item in ldap_results(resp):
-        for attribute in item['attributes']:
+        for attribute in item["attributes"]:
             at_type = str(attribute["type"])
             if at_type == "name":
                 return str(attribute["vals"][0])
@@ -968,28 +995,24 @@ def checkECS4(userdomain, username, password, dc_ip):
         nthash="",
         aesKey="",
         dc_ip=dc_ip,
-        kerberos=False
+        kerberos=False,
     )
 
     sids_resolver = SidsResolver(ldap_conn)
 
-    enroll_services = list(fetch_enrollment_services(
-        ldap_conn,
-        userdomain
-    ))
+    enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
 
     # if "template" in args.classes:
-    templates = list(fetch_templates(
-        ldap_conn,
-        userdomain,
-        temp_names="",
-        ldap_filter="",
-    ))
-    if not enroll_services:
-        enroll_services = list(fetch_enrollment_services(
+    templates = list(
+        fetch_templates(
             ldap_conn,
-            userdomain
-        ))
+            userdomain,
+            temp_names="",
+            ldap_filter="",
+        )
+    )
+    if not enroll_services:
+        enroll_services = list(fetch_enrollment_services(ldap_conn, userdomain))
 
     for template in templates:
         for service in enroll_services:

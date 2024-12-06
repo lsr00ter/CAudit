@@ -19,17 +19,16 @@ class PluginADDCShadow(PluginADScanBase):
     def run_script(self, args) -> dict:
         result = copy(self.result)
         query = "(&(objectcategory=computer)(servicePrincipalName=*)(!(|(primarygroupid=516)(primarygroupid=521))))"
-        attributes = [
-            "cn", "distinguishedName",
-            "whenCreated", "servicePrincipalName"
-        ]
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                         search_filter=query,
-                                                                         search_scope=SUBTREE,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        attributes = ["cn", "distinguishedName", "whenCreated", "servicePrincipalName"]
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=self.ldap_cli.domain_dn,
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
         instance_list = []
         attacked = False
 
@@ -42,7 +41,7 @@ class PluginADDCShadow(PluginADScanBase):
             for SPN in entry["attributes"]["servicePrincipalName"]:
                 flag1 = SPN.find("E3514235-4B06-11D1-AB04-00C04FC2DCD2")
                 flag2 = SPN.find("-ADAM")
-                if flag1 != -1 :
+                if flag1 != -1:
                     contain_e3 = True
                 if flag2 != -1:
                     contain_adam = True
@@ -56,7 +55,7 @@ class PluginADDCShadow(PluginADScanBase):
                 instance_list.append(instance)
 
         if attacked:
-            result['status'] = 1
-            result['data'] = {"instance_list": instance_list}
+            result["status"] = 1
+            result["data"] = {"instance_list": instance_list}
 
         return result

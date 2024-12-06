@@ -23,22 +23,37 @@ import threading
 
 
 def _is_hyper_exception(e):
-    return isinstance(e, (exceptions.SocketError, exceptions.InvalidResponseError, exceptions.ConnectionResetError))
+    return isinstance(
+        e,
+        (
+            exceptions.SocketError,
+            exceptions.InvalidResponseError,
+            exceptions.ConnectionResetError,
+        ),
+    )
 
 
-def _get_server_connection(server, port=None, context=None, is_secure=False, proxy_host=None, proxy_port=None):
+def _get_server_connection(
+    server, port=None, context=None, is_secure=False, proxy_host=None, proxy_port=None
+):
     try:
-        return HTTP20ConnectionWrapper(host=server, port=port, ssl_context=context, secure=is_secure,
-                                       proxy_host=proxy_host, proxy_port=proxy_port)
+        return HTTP20ConnectionWrapper(
+            host=server,
+            port=port,
+            ssl_context=context,
+            secure=is_secure,
+            proxy_host=proxy_host,
+            proxy_port=proxy_port,
+        )
     except Exception as e:
         raise e
 
 
 def to_string(item):
     try:
-        return str(item) if item is not None else ''
+        return str(item) if item is not None else ""
     except Exception:
-        return ''
+        return ""
 
 
 def _get_ssl_context(ssl_verify):
@@ -46,6 +61,7 @@ def _get_ssl_context(ssl_verify):
         from hyper import tls
         import ssl
         import os
+
         context = tls.init_context(None, None, None)
         context.check_hostname = False
         if ssl_verify:
@@ -58,6 +74,7 @@ def _get_ssl_context(ssl_verify):
         return context
     except Exception:
         import traceback
+
         print(traceback.format_exc())
 
 
@@ -77,9 +94,7 @@ def _send_chunk(self, data, final):
         end_stream = True
 
     with self._conn as conn:
-        conn.send_data(
-            stream_id=self.stream_id, data=data, end_stream=end_stream
-        )
+        conn.send_data(stream_id=self.stream_id, data=data, end_stream=end_stream)
     self._send_outstanding_data()
 
     if end_stream:
@@ -87,8 +102,9 @@ def _send_chunk(self, data, final):
 
 
 def send_data(self, data, final):
-    chunks = [data[i:i + stream.MAX_CHUNK]
-              for i in range(0, len(data), stream.MAX_CHUNK)]
+    chunks = [
+        data[i : i + stream.MAX_CHUNK] for i in range(0, len(data), stream.MAX_CHUNK)
+    ]
 
     index = 0
     count = len(chunks)
@@ -103,30 +119,51 @@ stream.Stream.send_data = send_data
 
 class HTTP20ConnectionWrapper(hyper.HTTP20Connection):
 
-    def __init__(self, host, port=None, secure=None, window_manager=None,
-                 enable_push=False, ssl_context=None, proxy_host=None,
-                 proxy_port=None, force_proto=None, **kwargs):
+    def __init__(
+        self,
+        host,
+        port=None,
+        secure=None,
+        window_manager=None,
+        enable_push=False,
+        ssl_context=None,
+        proxy_host=None,
+        proxy_port=None,
+        force_proto=None,
+        **kwargs
+    ):
         self._stream_id_context = threading.local()
-        super(HTTP20ConnectionWrapper, self).__init__(host, port=port, secure=secure,
-                                                      window_manager=window_manager, enable_push=enable_push,
-                                                      ssl_context=ssl_context, proxy_host=proxy_host,
-                                                      proxy_port=proxy_port, force_proto=force_proto, **kwargs)
+        super(HTTP20ConnectionWrapper, self).__init__(
+            host,
+            port=port,
+            secure=secure,
+            window_manager=window_manager,
+            enable_push=enable_push,
+            ssl_context=ssl_context,
+            proxy_host=proxy_host,
+            proxy_port=proxy_port,
+            force_proto=force_proto,
+            **kwargs
+        )
 
     def getresponse(self, stream_id=None):
         stream_id = stream_id or (
-            self._stream_id_context.stream_id if hasattr(self._stream_id_context, 'stream_id') else None)
+            self._stream_id_context.stream_id
+            if hasattr(self._stream_id_context, "stream_id")
+            else None
+        )
         stream = self._get_stream(stream_id)
         return HTTP20ResponseWrapper(stream.getheaders(), stream)
 
     def request(self, method, url, body=None, headers=None):
         headers = headers or {}
         if const.HOST_HEADER in headers:
-            headers[':authority'] = headers[const.HOST_HEADER]
+            headers[":authority"] = headers[const.HOST_HEADER]
 
         with self._write_lock:
             stream_id = self.putrequest(method, url)
             self._stream_id_context.stream_id = stream_id
-            default_headers = (':method', ':scheme', ':authority', ':path')
+            default_headers = (":method", ":scheme", ":authority", ":path")
             for name, value in headers.items():
                 is_default = util.to_native_string(name) in default_headers
                 if isinstance(value, list):
@@ -155,7 +192,10 @@ class HTTP20ConnectionWrapper(hyper.HTTP20Connection):
 
     def send(self, data, final=False, stream_id=None):
         stream_id = stream_id or (
-            self._stream_id_context.stream_id if hasattr(self._stream_id_context, 'stream_id') else None)
+            self._stream_id_context.stream_id
+            if hasattr(self._stream_id_context, "stream_id")
+            else None
+        )
         stream = self._get_stream(stream_id)
         stream.send_data(data, final)
 

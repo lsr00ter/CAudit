@@ -9,7 +9,7 @@ def to_pascal_case(snake_str: str) -> str:
 
 
 def pretty_print(
-        d: dict, indent: int = 0, padding: int = 40, print: Callable = print
+    d: dict, indent: int = 0, padding: int = 40, print: Callable = print
 ) -> None:
     if isinstance(d, dict):
         for key, value in d.items():

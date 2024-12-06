@@ -20,20 +20,34 @@ from modules.huaweiapi.obs.model import GetObjectHeader
 from modules.huaweiapi.obs.ilog import ERROR
 
 
-def _download_files(obsClient, bucketName, prefix, downloadFolder=None, taskNum=const.DEFAULT_TASK_NUM,
-                    taskQueueSize=const.DEFAULT_TASK_QUEUE_SIZE,
-                    headers=None, imageProcess=None, interval=const.DEFAULT_BYTE_INTTERVAL,
-                    taskCallback=None, progressCallback=None,
-                    threshold=const.DEFAULT_MAXIMUM_SIZE, partSize=5 * 1024 * 1024, subTaskNum=1,
-                    enableCheckpoint=False, checkpointFile=None, extensionHeaders=None):
+def _download_files(
+    obsClient,
+    bucketName,
+    prefix,
+    downloadFolder=None,
+    taskNum=const.DEFAULT_TASK_NUM,
+    taskQueueSize=const.DEFAULT_TASK_QUEUE_SIZE,
+    headers=None,
+    imageProcess=None,
+    interval=const.DEFAULT_BYTE_INTTERVAL,
+    taskCallback=None,
+    progressCallback=None,
+    threshold=const.DEFAULT_MAXIMUM_SIZE,
+    partSize=5 * 1024 * 1024,
+    subTaskNum=1,
+    enableCheckpoint=False,
+    checkpointFile=None,
+    extensionHeaders=None,
+):
     if headers is None:
         headers = GetObjectHeader()
     try:
         executor = None
         notifier = None
         _download_files_check(downloadFolder, taskCallback)
-        (taskNum, taskQueueSize, interval, threshold) = bulktasks._checkBulkTasksPara(taskNum, taskQueueSize, interval,
-                                                                                      threshold)
+        (taskNum, taskQueueSize, interval, threshold) = bulktasks._checkBulkTasksPara(
+            taskNum, taskQueueSize, interval, threshold
+        )
 
         taskCallback = _download_files_taskCallback(taskCallback)
         executor = bulktasks.ThreadPool(taskNum, taskQueueSize)
@@ -46,17 +60,23 @@ def _download_files(obsClient, bucketName, prefix, downloadFolder=None, taskNum=
         query = GetObjectRequest(imageProcess=imageProcess)
 
         prefix = _download_files_prefix(prefix)
-        prefixDir = prefix[:prefix.rfind('/') + 1]
+        prefixDir = prefix[: prefix.rfind("/") + 1]
 
-        for content in _list_objects(obsClient, bucketName, prefix=prefix, extensionHeaders=extensionHeaders):
+        for content in _list_objects(
+            obsClient, bucketName, prefix=prefix, extensionHeaders=extensionHeaders
+        ):
             objectKey = content.key
             totalTasks += 1
             totalAmount += content.size
-            objectPath = objectKey.replace(prefixDir, '', 1)
-            if objectPath.startswith('/') or objectPath.find('//') != -1 or objectPath.find('\\') != -1:
+            objectPath = objectKey.replace(prefixDir, "", 1)
+            if (
+                objectPath.startswith("/")
+                or objectPath.find("//") != -1
+                or objectPath.find("\\") != -1
+            ):
                 state._failed_increment()
-                taskCallback(objectKey, Exception('illegal path: %s' % objectKey))
-                obsClient.log_client.log(ERROR, 'illegal path: %s' % objectKey)
+                taskCallback(objectKey, Exception("illegal path: %s" % objectKey))
+                obsClient.log_client.log(ERROR, "illegal path: %s" % objectKey)
                 continue
 
             downloadPath = os.path.join(downloadFolder, objectPath)
@@ -74,20 +94,44 @@ def _download_files(obsClient, bucketName, prefix, downloadFolder=None, taskNum=
                     obsClient.log_client.log(ERROR, traceback.format_exc())
                     continue
 
-            if objectKey.endswith('/'):
+            if objectKey.endswith("/"):
                 state._successful_increment()
             elif content.size < threshold:
-                executor.execute(_task_wrap, obsClient, obsClient.getObject, key=objectKey,
-                                 taskCallback=taskCallback, state=state, bucketName=bucketName,
-                                 objectKey=objectKey, getObjectRequest=query, headers=headers,
-                                 downloadPath=downloadPath, notifier=notifier, extensionHeaders=extensionHeaders)
+                executor.execute(
+                    _task_wrap,
+                    obsClient,
+                    obsClient.getObject,
+                    key=objectKey,
+                    taskCallback=taskCallback,
+                    state=state,
+                    bucketName=bucketName,
+                    objectKey=objectKey,
+                    getObjectRequest=query,
+                    headers=headers,
+                    downloadPath=downloadPath,
+                    notifier=notifier,
+                    extensionHeaders=extensionHeaders,
+                )
             else:
-                executor.execute(_task_wrap, obsClient, obsClient._downloadFileWithNotifier, key=objectKey,
-                                 taskCallback=taskCallback, state=state, bucketName=bucketName,
-                                 objectKey=objectKey, downloadFile=downloadPath, partSize=partSize, taskNum=subTaskNum,
-                                 enableCheckpoint=enableCheckpoint,
-                                 checkpointFile=checkpointFile, header=headers, imageProcess=imageProcess,
-                                 notifier=notifier, extensionHeaders=extensionHeaders)
+                executor.execute(
+                    _task_wrap,
+                    obsClient,
+                    obsClient._downloadFileWithNotifier,
+                    key=objectKey,
+                    taskCallback=taskCallback,
+                    state=state,
+                    bucketName=bucketName,
+                    objectKey=objectKey,
+                    downloadFile=downloadPath,
+                    partSize=partSize,
+                    taskNum=subTaskNum,
+                    enableCheckpoint=enableCheckpoint,
+                    checkpointFile=checkpointFile,
+                    header=headers,
+                    imageProcess=imageProcess,
+                    notifier=notifier,
+                    extensionHeaders=extensionHeaders,
+                )
 
         state.total_tasks = totalTasks
         notifier.totalAmount = totalAmount
@@ -102,10 +146,10 @@ def _download_files(obsClient, bucketName, prefix, downloadFolder=None, taskNum=
 
 def _download_files_check(downloadFolder, taskCallback):
     if downloadFolder is None or not os.path.isdir(downloadFolder):
-        raise Exception('%s is not a Folder' % downloadFolder)
+        raise Exception("%s is not a Folder" % downloadFolder)
 
     if taskCallback is not None and not callable(taskCallback):
-        raise Exception('Invalid taskCallback')
+        raise Exception("Invalid taskCallback")
 
 
 def _download_files_taskCallback(taskCallback):
@@ -113,12 +157,15 @@ def _download_files_taskCallback(taskCallback):
 
 
 def _download_files_notifier(progressCallback, totalAmount, interval):
-    return progress.ProgressNotifier(progressCallback, totalAmount,
-                                     interval) if progressCallback is not None else progress.NONE_NOTIFIER
+    return (
+        progress.ProgressNotifier(progressCallback, totalAmount, interval)
+        if progressCallback is not None
+        else progress.NONE_NOTIFIER
+    )
 
 
 def _download_files_prefix(prefix):
-    return prefix if prefix is not None else ''
+    return prefix if prefix is not None else ""
 
 
 def _task_wrap(obsClient, func, key, taskCallback=None, state=None, **kwargs):
@@ -135,11 +182,24 @@ def _task_wrap(obsClient, func, key, taskCallback=None, state=None, **kwargs):
         obsClient.log_client.log(ERROR, traceback.format_exc())
 
 
-def _list_objects(obsClient, bucketName, prefix=None, marker=None, max_keys=None, delimiter=None,
-                  extensionHeaders=None):
+def _list_objects(
+    obsClient,
+    bucketName,
+    prefix=None,
+    marker=None,
+    max_keys=None,
+    delimiter=None,
+    extensionHeaders=None,
+):
     while True:
-        resp = obsClient.listObjects(bucketName, max_keys=max_keys, marker=marker, prefix=prefix, delimiter=delimiter,
-                                     extensionHeaders=extensionHeaders)
+        resp = obsClient.listObjects(
+            bucketName,
+            max_keys=max_keys,
+            marker=marker,
+            prefix=prefix,
+            delimiter=delimiter,
+            extensionHeaders=extensionHeaders,
+        )
         if resp.status < 300:
             for content in resp.body.contents:
                 yield content
@@ -147,6 +207,9 @@ def _list_objects(obsClient, bucketName, prefix=None, marker=None, max_keys=None
                 break
             marker = resp.body.next_marker
         else:
-            obsClient.log_client.log(ERROR, 'listObjects Error: errorCode:%s, errorMessage:%s' % (
-                resp.errorCode, resp.errorMessage))
+            obsClient.log_client.log(
+                ERROR,
+                "listObjects Error: errorCode:%s, errorMessage:%s"
+                % (resp.errorCode, resp.errorMessage),
+            )
             break

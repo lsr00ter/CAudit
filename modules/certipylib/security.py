@@ -3,16 +3,21 @@ import re
 from impacket.ldap import ldaptypes
 from impacket.uuid import bin_to_string
 from ldap3.protocol.formatters.formatters import format_sid
-from modules.certipylib.constants import ACTIVE_DIRECTORY_RIGHTS, CERTIFICATE_RIGHTS, CERTIFICATION_AUTHORITY_RIGHTS
+from modules.certipylib.constants import (
+    ACTIVE_DIRECTORY_RIGHTS,
+    CERTIFICATE_RIGHTS,
+    CERTIFICATION_AUTHORITY_RIGHTS,
+)
 
 INHERITED_ACE = 0x10
+
 
 class ActiveDirectorySecurity:
     RIGHTS_TYPE = ACTIVE_DIRECTORY_RIGHTS
 
     def __init__(
-            self,
-            security_descriptor: bytes,
+        self,
+        security_descriptor: bytes,
     ):
         sd = ldaptypes.SR_SECURITY_DESCRIPTOR()
         sd.fromString(security_descriptor)
@@ -45,8 +50,10 @@ class ActiveDirectorySecurity:
 
                 self.aces[sid]["extended_rights"].append(uuid)
 
+
 class CertifcateSecurity(ActiveDirectorySecurity):
     RIGHTS_TYPE = CERTIFICATE_RIGHTS
+
 
 def is_admin_sid(sid: str):
     return (
@@ -54,6 +61,7 @@ def is_admin_sid(sid: str):
         or sid == "S-1-5-9"
         or sid == "S-1-5-32-544"
     )
+
 
 class CASecurity(ActiveDirectorySecurity):
     RIGHTS_TYPE = CERTIFICATION_AUTHORITY_RIGHTS

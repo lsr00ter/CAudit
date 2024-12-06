@@ -1,7 +1,7 @@
 # 默认插件模块路径
 
 PLUGIN_DIR = "plugins"
-# 插件脚本以Plugin开头. Plugin_xx_xx.py
+# 插件脚本以 Plugin 开头。Plugin_xx_xx.py
 plugin_contain_name: str = "Plugin"
 
 
@@ -25,7 +25,7 @@ module_base_class = {
     "Qz": ["PluginQizhiBase"],
     "Zabbix": ["PluginZabbixBase"],
     "AliCloud": ["PluginAliCloudBase"],
-    "TCloud": ["PluginTencentCloudBase"]
+    "TCloud": ["PluginTencentCloudBase"],
 }
 
 

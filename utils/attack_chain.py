@@ -36,7 +36,7 @@
 #             self.head = node
 #             self.depth += 1
 #
-#             
+#
 #             return True
 #
 #         else:
@@ -58,7 +58,7 @@
 #                     # 将节点插入到当前节点的下一跳中
 #                     current_node.saved_next_node.append(node)
 #
-#                     
+#
 #                     return True
 #             else:
 #
@@ -115,7 +115,7 @@
 #             if len(current_valid_node) == 0:
 #                 break
 #
-#             # 获取子链所有key
+#             # 获取子链所有 key
 #             sub_keys = list(sub_chains.keys())
 #             for i in range(len(sub_keys)):
 #                 has_sub_node = False
@@ -125,7 +125,7 @@
 #
 #                 cv_node = []
 #                 for j in range(0, len(sub_keys) - i - 1):
-#                     # 子节点在 当前指针的next_chains中
+#                     # 子节点在 当前指针的 next_chains 中
 #                     if sub_keys[j] in current_valid_node and sub_keys[j] != "":
 #                         # 添加节点，并将节点前移
 #                         root_node.insert(root_node.head, Node(sub_keys[j], sub_chains[sub_keys[j]]))
@@ -164,7 +164,7 @@ from utils.logger import output
 
 class AttackChains:
     """
-    预定义攻击链, 通过插件的别名进行匹配
+    预定义攻击链，通过插件的别名进行匹配
     """
 
     chain_1 = ["user_enum", "pass_brute", "getSPN", "delegate", "DCSync"]
@@ -175,9 +175,7 @@ class AttackChains:
         self.matched_chains: list[dict] = []
 
         for chain in self.chains:
-            m_chain = {
-                "match":False
-            }
+            m_chain = {"match": False}
 
             for n in chain:
                 m_chain[n] = ""
@@ -231,7 +229,7 @@ class AttackChains:
 #
 #     t = AttackChains(root_chains, sub_chains)
 #     t.show_chains()
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_node = ["user_enum", "delegate", "constrained_delegation"]
 
     a_chains = AttackChains()

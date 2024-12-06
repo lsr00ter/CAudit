@@ -198,22 +198,23 @@ class ICertRequestD2(ICertCustom):
         super().__init__(interface)
         self._iid = IID_ICertRequestD2
 
+
 class CA:
     def __init__(
-            self,
-            target: Target,
-            ca: str = None,
-            template: str = None,
-            officer: str = None,
-            request_id: int = 0,
-            connection: LDAPConnection = None,
-            scheme: str = "ldaps",
-            dc_host: str = None,
-            dynamic: bool = False,
-            config: str = None,
-            timeout: int = 5,
-            debug: bool = False,
-            **kwargs
+        self,
+        target: Target,
+        ca: str = None,
+        template: str = None,
+        officer: str = None,
+        request_id: int = 0,
+        connection: LDAPConnection = None,
+        scheme: str = "ldaps",
+        dc_host: str = None,
+        dynamic: bool = False,
+        config: str = None,
+        timeout: int = 5,
+        debug: bool = False,
+        **kwargs
     ):
         self.target = target
         self.request_id = request_id
@@ -448,9 +449,7 @@ class CA:
             )
 
         try:
-            output.info(
-                "Trying to get CA configuration for %s via RRP" % repr(self.ca)
-            )
+            output.info("Trying to get CA configuration for %s via RRP" % repr(self.ca))
             result = self.get_config_rrp()
             output.success("Got CA configuration for %s" % repr(self.ca))
             return result
@@ -604,16 +603,16 @@ class CA:
                 return False
 
             certificate_templates = (
-                    certificate_templates[: certificate_templates.index(template.get("cn"))]
-                    + certificate_templates[
-                      certificate_templates.index(template.get("cn")) + 2:
-                      ]
+                certificate_templates[: certificate_templates.index(template.get("cn"))]
+                + certificate_templates[
+                    certificate_templates.index(template.get("cn")) + 2 :
+                ]
             )
         else:
             certificate_templates = [
-                                        template.get("cn"),
-                                        template.get("msPKI-Cert-Template-OID"),
-                                    ] + certificate_templates
+                template.get("cn"),
+                template.get("msPKI-Cert-Template-OID"),
+            ] + certificate_templates
 
         certificate_templates = [
             bytes([c]) for c in "\n".join(certificate_templates).encode("utf-16le")
@@ -798,9 +797,7 @@ class CA:
             resp = self.cert_admin2.request(request)
         except DCERPCSessionError as e:
             if "E_ACCESSDENIED" in str(e):
-                output.error(
-                    "Got access denied while trying to remove %s" % right_type
-                )
+                output.error("Got access denied while trying to remove %s" % right_type)
                 return False
             raise e
 
@@ -841,7 +838,7 @@ class CA:
         enrollment_services = self.connection.search(
             "(&(objectClass=pKIEnrollmentService))",
             search_base="CN=Enrollment Services,CN=Public Key Services,CN=Services,%s"
-                        % self.connection.configuration_path,
+            % self.connection.configuration_path,
         )
 
         return enrollment_services
@@ -850,7 +847,7 @@ class CA:
         enrollment_services = self.connection.search(
             "(&(cn=%s)(objectClass=pKIEnrollmentService))" % ca,
             search_base="CN=Enrollment Services,CN=Public Key Services,CN=Services,%s"
-                        % self.connection.configuration_path,
+            % self.connection.configuration_path,
         )
 
         if len(enrollment_services) == 0:
@@ -949,9 +946,7 @@ class CA:
         )
 
         if dce is None:
-            output.error(
-                "Failed to connect to Service Control Manager Remote Protocol"
-            )
+            output.error("Failed to connect to Service Control Manager Remote Protocol")
             return False
 
         res = scmr.hROpenSCManagerW(dce)
@@ -960,8 +955,8 @@ class CA:
         config = " -config %s" % self.config if self.config else ""
 
         cmd = (
-                r"cmd.exe /c certutil %s -backupkey -f -p certipy C:\Windows\Tasks\Certipy && move /y C:\Windows\Tasks\Certipy\* C:\Windows\Tasks\certipy.pfx"
-                % config
+            r"cmd.exe /c certutil %s -backupkey -f -p certipy C:\Windows\Tasks\Certipy && move /y C:\Windows\Tasks\Certipy\* C:\Windows\Tasks\certipy.pfx"
+            % config
         )
 
         output.info("Creating new service")
@@ -1032,5 +1027,3 @@ class CA:
 
         scmr.hRDeleteService(dce, service_handle)
         scmr.hRCloseServiceHandle(dce, service_handle)
-
-

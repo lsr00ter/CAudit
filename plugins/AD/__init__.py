@@ -15,7 +15,9 @@ __help__ = "AD module"
 __all__ = [__type__, __help__, "parse_user_args"]
 
 
-def enrollment_parameters(parser: ArgumentParser, all_plugins: dict[str, PluginBase], exp_sub_name: str) -> None:
+def enrollment_parameters(
+    parser: ArgumentParser, all_plugins: dict[str, PluginBase], exp_sub_name: str
+) -> None:
     """
     注册模块参数
 
@@ -26,26 +28,50 @@ def enrollment_parameters(parser: ArgumentParser, all_plugins: dict[str, PluginB
 
     # AD-scan 模块
     ad_sub_mode = parser.add_subparsers(dest="scan_type")
-    scan_mode = ad_sub_mode.add_parser("scan", formatter_class=argparse.RawDescriptionHelpFormatter)
+    scan_mode = ad_sub_mode.add_parser(
+        "scan", formatter_class=argparse.RawDescriptionHelpFormatter
+    )
 
     scan_mode_group = scan_mode.add_mutually_exclusive_group(required=True)
-    scan_mode_group.add_argument("--all", help="select all plugins", action=argparse.BooleanOptionalAction, dest="all")
-    scan_mode_group.add_argument("--plugin", help="select one or more plugin (E.G. plugin name1, plugin name 2...)",
-                                 nargs="+", dest="plugins")
-    scan_mode.add_argument("-u", "--username", required=False, default=None, dest="username")
-    scan_mode.add_argument("-p", "--password", required=False, default=None, dest="password")
-    scan_mode.add_argument("-d", "--domain", help="Domain FQDN(dc.test.lab)", required=True, default=None,
-                           dest="domain_fqdn")
+    scan_mode_group.add_argument(
+        "--all",
+        help="select all plugins",
+        action=argparse.BooleanOptionalAction,
+        dest="all",
+    )
+    scan_mode_group.add_argument(
+        "--plugin",
+        help="select one or more plugin (E.G. plugin name1, plugin name 2...)",
+        nargs="+",
+        dest="plugins",
+    )
+    scan_mode.add_argument(
+        "-u", "--username", required=False, default=None, dest="username"
+    )
+    scan_mode.add_argument(
+        "-p", "--password", required=False, default=None, dest="password"
+    )
+    scan_mode.add_argument(
+        "-d",
+        "--domain",
+        help="Domain FQDN(dc.test.lab)",
+        required=True,
+        default=None,
+        dest="domain_fqdn",
+    )
     scan_mode.add_argument("--dc-ip", required=False, default=None, dest="domain_ip")
 
-    exploit_mode = ad_sub_mode.add_parser("exploit", formatter_class=argparse.RawDescriptionHelpFormatter)
+    exploit_mode = ad_sub_mode.add_parser(
+        "exploit", formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     exp_plugin_mode = exploit_mode.add_subparsers()
-    # 加载所有AD-exploit插件，读取参数，注册
+    # 加载所有 AD-exploit 插件，读取参数，注册
     for name, exp in all_plugins.items():
         if exp.p_type == AllPluginTypes.Exploit:
-            exp_sub_plugin_mode = exp_plugin_mode.add_parser(exp.alias,
-                                                             formatter_class=argparse.RawDescriptionHelpFormatter)
-        # 防止没有输入alice的错误
+            exp_sub_plugin_mode = exp_plugin_mode.add_parser(
+                exp.alias, formatter_class=argparse.RawDescriptionHelpFormatter
+            )
+        # 防止没有输入 alice 的错误
         if exp.alias != "" and exp.alias == exp_sub_name:
             c: PluginBase = exp()
             all_plugins[name] = c
@@ -67,8 +93,8 @@ class PluginADScanBase(PluginBase, BaseSearch):
         uarg = args[0]
 
         _fqdn: list = uarg.domain_fqdn.split(".")
-        _fqdn = _fqdn[1:] # skip domain controller hostname
-        #_base_dn = f"dc={_fqdn[-2]},dc={_fqdn[-1]}"
+        _fqdn = _fqdn[1:]  # skip domain controller hostname
+        # _base_dn = f"dc={_fqdn[-2]},dc={_fqdn[-1]}"
         _base_dn = ",dc=".join(_fqdn)
         _base_dn = "dc=" + _base_dn
         if "\\" in uarg.username:
@@ -81,18 +107,16 @@ class PluginADScanBase(PluginBase, BaseSearch):
                 "password": uarg.password,
                 "user": domain_user,
                 "DNS": "",
-                "server": f"ldap://{'.'.join(args[0].domain_fqdn.split('.'))}"
+                "server": f"ldap://{'.'.join(args[0].domain_fqdn.split('.'))}",
             },
-            "name": '.'.join(_fqdn[-2:]),
+            "name": ".".join(_fqdn[-2:]),
             "ip": uarg.domain_ip,
             "hostname": _fqdn[0],
-            "fqdn": '.'.join(args[0].domain_fqdn.split(".")),
-            "platform": ""
+            "fqdn": ".".join(args[0].domain_fqdn.split(".")),
+            "platform": "",
         }
 
-        meta_data = {
-
-        }
+        meta_data = {}
         env = {}
 
         super(BaseSearch, self).__init__(dc_conf, meta_data, env)
@@ -108,10 +132,10 @@ def parse_user_args(args: argparse.Namespace):
         hash = args.hashes
 
     if hash is not None:
-        lmhash, nthash = args.hashes.split(':')
+        lmhash, nthash = args.hashes.split(":")
     else:
-        lmhash = ''
-        nthash = ''
+        lmhash = ""
+        nthash = ""
 
     try:
         dc_ip = args.dc_ip

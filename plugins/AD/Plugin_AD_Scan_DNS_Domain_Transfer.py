@@ -20,11 +20,11 @@ class PluginADDNSTransfer(PluginADScanBase):
     def run_script(self, args) -> dict:
         try:
             z = dns.zone.from_xfr(dns.query.xfr(self.dc_ip, self.dc_domain))
-            self.result['status'] = 1  # 漏洞存在
-            self.result['instance_list'] = [{"ip address": self.dc_ip}]
+            self.result["status"] = 1  # 漏洞存在
+            self.result["instance_list"] = [{"ip address": self.dc_ip}]
 
         except Exception as e:
-            self.result['status'] = 0  # 不存在
-            self.result['error'] = str(e)
+            self.result["status"] = 0  # 不存在
+            self.result["error"] = str(e)
 
         return self.result

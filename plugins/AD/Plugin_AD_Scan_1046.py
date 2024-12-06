@@ -29,13 +29,15 @@ class PluginADRodcDisplayPrivilegeAccount(PluginADScanBase):
         query = "(&(objectclass=computer)(primaryGroupID=521))"
         attributes = ["cn", "msDS-RevealedUsers", "distinguishedName", "objectSid"]
 
-        entry_generator2 = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                          search_filter=query,
-                                                                          search_scope=SUBTREE,
-                                                                          get_operational_attributes=True,
-                                                                          attributes=attributes,
-                                                                          paged_size=1000,
-                                                                          generator=True)
+        entry_generator2 = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=self.ldap_cli.domain_dn,
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         entry_generator2_list = list(entry_generator2)
         for entry in entry_generator2_list:
@@ -49,13 +51,15 @@ class PluginADRodcDisplayPrivilegeAccount(PluginADScanBase):
                     if entry2["type"] != "searchResEntry":
                         continue
                     cn = str(entry2["attributes"]["cn"])
-                    ret = str(j).find('CN=' + cn + ',')
+                    ret = str(j).find("CN=" + cn + ",")
                     if ret != -1:
-                        result['status'] = 1
+                        result["status"] = 1
                         instance = {}
                         instance["用户"] = cn
                         instance["DN"] = entry2["attributes"]["distinguishedName"]
-                        instance["描述"] = des_dict1.get(entry2["attributes"]["objectSid"], '')
+                        instance["描述"] = des_dict1.get(
+                            entry2["attributes"]["objectSid"], ""
+                        )
                         instance_list.append(instance)
                         flag = 1
                         break
@@ -63,5 +67,5 @@ class PluginADRodcDisplayPrivilegeAccount(PluginADScanBase):
                         continue
                 if flag == 1:
                     break
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

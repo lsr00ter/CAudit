@@ -58,19 +58,19 @@ def get_subject_from_str(subject) -> x509.Name:
 
 
 def rsa_pkcs1v15_sign(
-        data: bytes, key: rsa.RSAPrivateKey, hash: hashes.HashAlgorithm = hashes.SHA256
+    data: bytes, key: rsa.RSAPrivateKey, hash: hashes.HashAlgorithm = hashes.SHA256
 ):
     return key.sign(data, padding.PKCS1v15(), hash())
 
 
 def create_csr(
-        username: str,
-        alt_dns: bytes = None,
-        alt_upn: bytes = None,
-        key: rsa.RSAPrivateKey = None,
-        key_size: int = 2048,
-        subject: str = None,
-        renewal_cert: x509.Certificate = None,
+    username: str,
+    alt_dns: bytes = None,
+    alt_upn: bytes = None,
+    key: rsa.RSAPrivateKey = None,
+    key_size: int = 2048,
+    subject: str = None,
+    renewal_cert: x509.Certificate = None,
 ) -> Tuple[x509.CertificateSigningRequest, rsa.RSAPrivateKey]:
     if key is None:
         output.debug("Generating RSA key")
@@ -208,9 +208,9 @@ def private_key_to_ms_blob(private_key: rsa.RSAPrivateKey):
 
 
 def create_key_archival(
-        csr: x509.CertificateSigningRequest,
-        private_key: rsa.RSAPrivateKey,
-        cax_cert: x509.Certificate,
+    csr: x509.CertificateSigningRequest,
+    private_key: rsa.RSAPrivateKey,
+    cax_cert: x509.Certificate,
 ):
     x509_cax_cert = asn1x509.Certificate.load(cert_to_der(cax_cert))
     x509_csr = asn1csr.CertificationRequest.load(cert_to_der(csr))
@@ -253,7 +253,7 @@ def create_key_archival(
     encryptor = cipher.encryptor()
 
     encrypted_private_key_bytes = (
-            encryptor.update(padded_private_key_bytes) + encryptor.finalize()
+        encryptor.update(padded_private_key_bytes) + encryptor.finalize()
     )
 
     encrypted_content_info = asn1cms.EncryptedContentInfo(
@@ -445,10 +445,10 @@ def cert_id_to_parts(identifications: List[Tuple[str, str]]) -> Tuple[str, str]:
 
 
 def create_on_behalf_of(
-        request: bytes,
-        on_behalf_of: str,
-        cert: x509.Certificate,
-        key: rsa.RSAPrivateKey,
+    request: bytes,
+    on_behalf_of: str,
+    cert: x509.Certificate,
+    key: rsa.RSAPrivateKey,
 ):
     x509_cert = asn1x509.Certificate.load(cert_to_der(cert))
     signature_hash_algorithm = cert.signature_hash_algorithm.__class__
@@ -534,9 +534,9 @@ def create_on_behalf_of(
 
 
 def create_renewal(
-        request: bytes,
-        cert: x509.Certificate,
-        key: rsa.RSAPrivateKey,
+    request: bytes,
+    cert: x509.Certificate,
+    key: rsa.RSAPrivateKey,
 ):
     x509_cert = asn1x509.Certificate.load(cert_to_der(cert))
     signature_hash_algorithm = cert.signature_hash_algorithm.__class__
@@ -633,13 +633,13 @@ def der_to_pem(der: bytes, pem_type: str) -> bytes:
     b64_data = base64.b64encode(der).decode()
     return "-----BEGIN %s-----\n%s\n-----END %s-----\n" % (
         pem_type,
-        "\n".join([b64_data[i: i + 64] for i in range(0, len(b64_data), 64)]),
+        "\n".join([b64_data[i : i + 64] for i in range(0, len(b64_data), 64)]),
         pem_type,
     )
 
 
 def get_identifications_from_certificate(
-        certificate: x509.Certificate,
+    certificate: x509.Certificate,
 ) -> Tuple[str, str]:
     identifications = []
     try:
@@ -665,13 +665,13 @@ def get_identifications_from_certificate(
 
 
 def get_object_sid_from_certificate(
-        certificate: x509.Certificate,
+    certificate: x509.Certificate,
 ) -> str:
     try:
         object_sid = certificate.extensions.get_extension_for_oid(NTDS_CA_SECURITY_EXT)
 
         sid = object_sid.value.value
-        return sid[sid.find(b"S-1-5"):].decode()
+        return sid[sid.find(b"S-1-5") :].decode()
     except:
         pass
 
@@ -715,7 +715,7 @@ def der_to_cert(certificate: bytes) -> x509.Certificate:
 
 
 def load_pfx(
-        pfx: bytes, password: bytes = None
+    pfx: bytes, password: bytes = None
 ) -> Tuple[rsa.RSAPrivateKey, x509.Certificate, None]:
     return pkcs12.load_key_and_certificates(pfx, password)[:-1]
 

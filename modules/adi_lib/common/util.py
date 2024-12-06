@@ -23,6 +23,7 @@ def lazy_property(func):
 
     return _lazy_property
 
+
 class Singleton(type):
     def __init__(cls, name, bases, attrs):
         super(Singleton, cls).__init__(name, bases, attrs)
@@ -42,25 +43,26 @@ def load_object(path):
     """
 
     try:
-        dot = path.rindex('.')
+        dot = path.rindex(".")
     except ValueError:
         raise ValueError("Error loading object '%s': not a full path" % path)
 
-    module, name = path[:dot], path[dot + 1:]
+    module, name = path[:dot], path[dot + 1 :]
     mod = import_module(module)
 
     try:
         obj = getattr(mod, name)
     except AttributeError:
-        raise NameError("Module '%s' doesn't define any object named '%s'" %
-                        (module, name))
+        raise NameError(
+            "Module '%s' doesn't define any object named '%s'" % (module, name)
+        )
 
     return obj
 
 
 def md5(target):
     m2 = hashlib.md5()
-    m2.update(target.encode('utf-8'))
+    m2.update(target.encode("utf-8"))
     return m2.hexdigest()
 
 
@@ -139,7 +141,7 @@ class Time:
 
 
 def datetime_now():
-    return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
 def datetime_now_obj():
@@ -148,7 +150,7 @@ def datetime_now_obj():
 
 def get_n_days_ago(n):
     """
-        获取n天之前的datetime对象
+    获取n天之前的datetime对象
     """
     num = -int(n)
     return datetime.now() + timedelta(days=num)
@@ -156,7 +158,7 @@ def get_n_days_ago(n):
 
 def get_n_hour_ago(n):
     """
-        获取n小时之前的datetime对象
+    获取n小时之前的datetime对象
     """
     num = -int(n)
     return datetime.now() + timedelta(hours=num)
@@ -164,7 +166,7 @@ def get_n_hour_ago(n):
 
 def get_n_min_ago(n):
     """
-        获取n分钟之前的datetime对象
+    获取n分钟之前的datetime对象
     """
     num = -int(n)
     return datetime.now() + timedelta(minutes=num)
@@ -188,18 +190,18 @@ def move_n_day(date_time, n):
 
 def date_time_to_time(time):
     """
-        将datetime对象转换为常见的时间格式
+    将datetime对象转换为常见的时间格式
     """
-    return time.strftime('%Y-%m-%d %H:%M:%S')
+    return time.strftime("%Y-%m-%d %H:%M:%S")
 
 
 def datetime_to_log_date(date_time):
-    return date_time.strftime('%Y.%m.%d')
+    return date_time.strftime("%Y.%m.%d")
 
 
 def utc_to_local_datetime(utc_str):
     """
-        暴力方法，直接将时间加8小时得到当前本地时间
+    暴力方法，直接将时间加8小时得到当前本地时间
     """
     a = datetime.strptime(utc_str, "%Y-%m-%dT%H:%M:%S.%fZ")
     return a + timedelta(hours=8)
@@ -207,28 +209,28 @@ def utc_to_local_datetime(utc_str):
 
 def utc_to_datetime(utc_str):
     """
-        UTC格式时间转化为datetime对象
+    UTC格式时间转化为datetime对象
     """
     return datetime.strptime(utc_str, "%Y-%m-%dT%H:%M:%S.%fZ")
 
 
 def str_to_datetime(utc_str):
     """
-        字符串时间转化为datetime对象
+    字符串时间转化为datetime对象
     """
     return datetime.strptime(utc_str, "%Y-%m-%d %H:%M:%S")
 
 
 def datetime_to_utc(date_time):
     """
-        将datetime对象转换为UTC时间格式
+    将datetime对象转换为UTC时间格式
     """
     return date_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 
 def datetime_to_utc_no_f(date_time):
     """
-        将datetime对象转换为UTC时间格式
+    将datetime对象转换为UTC时间格式
     """
     return date_time.strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -321,10 +323,15 @@ def get_domain_from_dn(dn):
 
 
 def escape_ldap_filter(_str):
-    _str = _str.replace("(", r"\28").replace(")", r"\29").replace("\\", r"\5c").replace("*", r"\2a").replace("/",
-                                                                                                             r"\2f")
+    _str = (
+        _str.replace("(", r"\28")
+        .replace(")", r"\29")
+        .replace("\\", r"\5c")
+        .replace("*", r"\2a")
+        .replace("/", r"\2f")
+    )
     return _str
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(date_time_to_time(utc_to_datetime("2019-01-15T06:43:42.207Z")))

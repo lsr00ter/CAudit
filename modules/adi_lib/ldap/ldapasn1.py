@@ -21,29 +21,77 @@ from pyasn1.codec.ber import encoder, decoder
 from pyasn1.type import univ, namedtype, namedval, tag, constraint
 
 __all__ = [
-    'CONTROL_PAGEDRESULTS', 'CONTROL_SDFLAGS', 'KNOWN_CONTROLS', 'NOTIFICATION_DISCONNECT', 'KNOWN_NOTIFICATIONS',
+    "CONTROL_PAGEDRESULTS",
+    "CONTROL_SDFLAGS",
+    "KNOWN_CONTROLS",
+    "NOTIFICATION_DISCONNECT",
+    "KNOWN_NOTIFICATIONS",
     # classes
-    'ResultCode', 'Scope', 'DerefAliases', 'Operation', 'MessageID', 'LDAPString', 'LDAPOID', 'LDAPDN',
-    'RelativeLDAPDN', 'AttributeDescription', 'AttributeValue', 'AssertionValue', 'MatchingRuleID', 'URI',
-    'AttributeValueAssertion', 'PartialAttribute', 'PartialAttributeList', 'Attribute', 'AttributeList',
-    'AttributeSelection', 'Referral', 'LDAPResult', 'SaslCredentials', 'AuthenticationChoice', 'BindRequest',
-    'BindResponse', 'UnbindRequest', 'SubstringFilter', 'MatchingRuleAssertion', 'Filter', 'SearchRequest',
-    'SearchResultEntry', 'SearchResultReference', 'SearchResultDone', 'ModifyRequest', 'ModifyResponse', 'AddRequest',
-    'AddResponse', 'DelRequest', 'DelResponse', 'ModifyDNRequest', 'ModifyDNResponse', 'CompareRequest',
-    'CompareResponse', 'AbandonRequest', 'ExtendedRequest', 'ExtendedResponse', 'IntermediateResponse', 'Control',
-    'Controls', 'SimplePagedResultsControlValue', 'SimplePagedResultsControl', 'LDAPMessage'
+    "ResultCode",
+    "Scope",
+    "DerefAliases",
+    "Operation",
+    "MessageID",
+    "LDAPString",
+    "LDAPOID",
+    "LDAPDN",
+    "RelativeLDAPDN",
+    "AttributeDescription",
+    "AttributeValue",
+    "AssertionValue",
+    "MatchingRuleID",
+    "URI",
+    "AttributeValueAssertion",
+    "PartialAttribute",
+    "PartialAttributeList",
+    "Attribute",
+    "AttributeList",
+    "AttributeSelection",
+    "Referral",
+    "LDAPResult",
+    "SaslCredentials",
+    "AuthenticationChoice",
+    "BindRequest",
+    "BindResponse",
+    "UnbindRequest",
+    "SubstringFilter",
+    "MatchingRuleAssertion",
+    "Filter",
+    "SearchRequest",
+    "SearchResultEntry",
+    "SearchResultReference",
+    "SearchResultDone",
+    "ModifyRequest",
+    "ModifyResponse",
+    "AddRequest",
+    "AddResponse",
+    "DelRequest",
+    "DelResponse",
+    "ModifyDNRequest",
+    "ModifyDNResponse",
+    "CompareRequest",
+    "CompareResponse",
+    "AbandonRequest",
+    "ExtendedRequest",
+    "ExtendedResponse",
+    "IntermediateResponse",
+    "Control",
+    "Controls",
+    "SimplePagedResultsControlValue",
+    "SimplePagedResultsControl",
+    "LDAPMessage",
 ]
 
 # Controls
-CONTROL_PAGEDRESULTS = '1.2.840.113556.1.4.319'
-CONTROL_SDFLAGS = '1.2.840.113556.1.4.801'
+CONTROL_PAGEDRESULTS = "1.2.840.113556.1.4.319"
+CONTROL_SDFLAGS = "1.2.840.113556.1.4.801"
 
 KNOWN_CONTROLS = {}
 
 # Unsolicited notifications
-NOTIFICATION_DISCONNECT = '1.3.6.1.4.1.1466.20036'
+NOTIFICATION_DISCONNECT = "1.3.6.1.4.1.1466.20036"
 
-KNOWN_NOTIFICATIONS = {NOTIFICATION_DISCONNECT: 'Notice of Disconnection'}
+KNOWN_NOTIFICATIONS = {NOTIFICATION_DISCONNECT: "Notice of Disconnection"}
 
 maxInt = univ.Integer(2147483647)
 
@@ -53,80 +101,84 @@ class DefaultSequenceAndSetBaseMixin:
         for cls in self.__class__.__bases__:
             if cls is not DefaultSequenceAndSetBaseMixin:
                 try:
-                    component = cls.getComponentByPosition(self, idx)#, default, instantiate)
+                    component = cls.getComponentByPosition(
+                        self, idx
+                    )  # , default, instantiate)
                 except AttributeError:
                     continue
                 if component is None:
-                    return self.setComponentByPosition(idx).getComponentByPosition(idx)# , default, instantiate)
+                    return self.setComponentByPosition(idx).getComponentByPosition(
+                        idx
+                    )  # , default, instantiate)
                 return component
 
 
 class ResultCode(univ.Enumerated):
     namedValues = namedval.NamedValues(
-        ('success', 0),
-        ('operationsError', 1),
-        ('protocolError', 2),
-        ('timeLimitExceeded', 3),
-        ('sizeLimitExceeded', 4),
-        ('compareFalse', 5),
-        ('compareTrue', 6),
-        ('authMethodNotSupported', 7),
-        ('strongerAuthRequired', 8),
-        ('referral', 10),
-        ('adminLimitExceeded', 11),
-        ('unavailableCriticalExtension', 12),
-        ('confidentialityRequired', 13),
-        ('saslBindInProgress', 14),
-        ('noSuchAttribute', 16),
-        ('undefinedAttributeType', 17),
-        ('inappropriateMatching', 18),
-        ('constraintViolation', 19),
-        ('attributeOrValueExists', 20),
-        ('invalidAttributeSyntax', 21),
-        ('noSuchObject', 32),
-        ('aliasProblem', 33),
-        ('invalidDNSyntax', 34),
-        ('aliasDereferencingProblem', 36),
-        ('inappropriateAuthentication', 48),
-        ('invalidCredentials', 49),
-        ('insufficientAccessRights', 50),
-        ('busy', 51),
-        ('unavailable', 52),
-        ('unwillingToPerform', 53),
-        ('loopDetect', 54),
-        ('namingViolation', 64),
-        ('objectClassViolation', 65),
-        ('notAllowedOnNonLeaf', 66),
-        ('notAllowedOnRDN', 67),
-        ('entryAlreadyExists', 68),
-        ('objectClassModsProhibited', 69),
-        ('affectsMultipleDSAs', 71),
-        ('other', 80),
+        ("success", 0),
+        ("operationsError", 1),
+        ("protocolError", 2),
+        ("timeLimitExceeded", 3),
+        ("sizeLimitExceeded", 4),
+        ("compareFalse", 5),
+        ("compareTrue", 6),
+        ("authMethodNotSupported", 7),
+        ("strongerAuthRequired", 8),
+        ("referral", 10),
+        ("adminLimitExceeded", 11),
+        ("unavailableCriticalExtension", 12),
+        ("confidentialityRequired", 13),
+        ("saslBindInProgress", 14),
+        ("noSuchAttribute", 16),
+        ("undefinedAttributeType", 17),
+        ("inappropriateMatching", 18),
+        ("constraintViolation", 19),
+        ("attributeOrValueExists", 20),
+        ("invalidAttributeSyntax", 21),
+        ("noSuchObject", 32),
+        ("aliasProblem", 33),
+        ("invalidDNSyntax", 34),
+        ("aliasDereferencingProblem", 36),
+        ("inappropriateAuthentication", 48),
+        ("invalidCredentials", 49),
+        ("insufficientAccessRights", 50),
+        ("busy", 51),
+        ("unavailable", 52),
+        ("unwillingToPerform", 53),
+        ("loopDetect", 54),
+        ("namingViolation", 64),
+        ("objectClassViolation", 65),
+        ("notAllowedOnNonLeaf", 66),
+        ("notAllowedOnRDN", 67),
+        ("entryAlreadyExists", 68),
+        ("objectClassModsProhibited", 69),
+        ("affectsMultipleDSAs", 71),
+        ("other", 80),
     )
 
 
 class Scope(univ.Enumerated):
     namedValues = namedval.NamedValues(
-        ('baseObject', 0),
-        ('singleLevel', 1),
-        ('wholeSubtree', 2),
+        ("baseObject", 0),
+        ("singleLevel", 1),
+        ("wholeSubtree", 2),
     )
 
 
 class DerefAliases(univ.Enumerated):
     namedValues = namedval.NamedValues(
-        ('neverDerefAliases', 0),
-        ('derefInSearching', 1),
-        ('derefFindingBaseObj', 2),
-        ('derefAlways', 3),
+        ("neverDerefAliases", 0),
+        ("derefInSearching", 1),
+        ("derefFindingBaseObj", 2),
+        ("derefAlways", 3),
     )
 
 
 class Operation(univ.Enumerated):
     namedValues = namedval.NamedValues(
-        ('add', 0),
-        ('delete', 1),
-        ('replace', 2),
+        ("add", 0),
+        ("delete", 1),
+        ("replace", 2),
     )
 
 
@@ -135,7 +187,7 @@ class MessageID(univ.Integer):
 
 
 class LDAPString(univ.OctetString):
-    encoding = 'utf-8'
+    encoding = "utf-8"
 
 
 class LDAPOID(univ.OctetString):
@@ -172,15 +224,15 @@ class URI(LDAPString):
 
 class AttributeValueAssertion(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('attributeDesc', AttributeDescription()),
-        namedtype.NamedType('assertionValue', AssertionValue())
+        namedtype.NamedType("attributeDesc", AttributeDescription()),
+        namedtype.NamedType("assertionValue", AssertionValue()),
     )
 
 
 class PartialAttribute(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('type', AttributeDescription()),
-        namedtype.NamedType('vals', univ.SetOf(componentType=AttributeValue()))
+        namedtype.NamedType("type", AttributeDescription()),
+        namedtype.NamedType("vals", univ.SetOf(componentType=AttributeValue())),
     )
 
 
@@ -190,11 +242,13 @@ class PartialAttributeList(univ.SequenceOf):
 
 class Attribute(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('type', AttributeDescription()),
+        namedtype.NamedType("type", AttributeDescription()),
         namedtype.NamedType(
-            'vals',
-            univ.SetOf(componentType=AttributeValue()).subtype(subtypeSpec=constraint.ValueSizeConstraint(1, maxInt))
-        )
+            "vals",
+            univ.SetOf(componentType=AttributeValue()).subtype(
+                subtypeSpec=constraint.ValueSizeConstraint(1, maxInt)
+            ),
+        ),
     )
 
 
@@ -213,118 +267,169 @@ class Referral(univ.SequenceOf):
 
 class LDAPResult(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('resultCode', ResultCode()),
-        namedtype.NamedType('matchedDN', LDAPDN()),
-        namedtype.NamedType('diagnosticMessage', LDAPString()),
+        namedtype.NamedType("resultCode", ResultCode()),
+        namedtype.NamedType("matchedDN", LDAPDN()),
+        namedtype.NamedType("diagnosticMessage", LDAPString()),
         namedtype.OptionalNamedType(
-            'referral', Referral().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 3))
-        )
+            "referral",
+            Referral().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 3)
+            ),
+        ),
     )
 
 
 class SaslCredentials(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('mechanism', LDAPString()),
-        namedtype.OptionalNamedType('credentials', univ.OctetString())
+        namedtype.NamedType("mechanism", LDAPString()),
+        namedtype.OptionalNamedType("credentials", univ.OctetString()),
     )
 
 
 class AuthenticationChoice(DefaultSequenceAndSetBaseMixin, univ.Choice):
     componentType = namedtype.NamedTypes(
         namedtype.NamedType(
-            'simple',
-            univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))
+            "simple",
+            univ.OctetString().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0)
+            ),
         ),
         namedtype.NamedType(
-            'sasl',
-            SaslCredentials().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 3))
+            "sasl",
+            SaslCredentials().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 3)
+            ),
         ),
         namedtype.NamedType(
-            'sicilyPackageDiscovery',
-            univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 9))
+            "sicilyPackageDiscovery",
+            univ.OctetString().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 9)
+            ),
         ),
         namedtype.NamedType(
-            'sicilyNegotiate',
-            univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 10))
+            "sicilyNegotiate",
+            univ.OctetString().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 10)
+            ),
         ),
         namedtype.NamedType(
-            'sicilyResponse',
-            univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 11))
-        )
+            "sicilyResponse",
+            univ.OctetString().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 11)
+            ),
+        ),
     )
 
 
 class BindRequest(DefaultSequenceAndSetBaseMixin, univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 0))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 0)
+    )
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('version', univ.Integer().subtype(subtypeSpec=constraint.ValueRangeConstraint(1, 127))),
-        namedtype.NamedType('name', LDAPDN()),
-        namedtype.NamedType('authentication', AuthenticationChoice())
+        namedtype.NamedType(
+            "version",
+            univ.Integer().subtype(subtypeSpec=constraint.ValueRangeConstraint(1, 127)),
+        ),
+        namedtype.NamedType("name", LDAPDN()),
+        namedtype.NamedType("authentication", AuthenticationChoice()),
     )
 
 
 class BindResponse(univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 1))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 1)
+    )
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('resultCode', ResultCode()),
-        namedtype.NamedType('matchedDN', LDAPDN()),
-        namedtype.NamedType('diagnosticMessage', LDAPString()),
+        namedtype.NamedType("resultCode", ResultCode()),
+        namedtype.NamedType("matchedDN", LDAPDN()),
+        namedtype.NamedType("diagnosticMessage", LDAPString()),
         namedtype.OptionalNamedType(
-            'referral',
-            Referral().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 3))
+            "referral",
+            Referral().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 3)
+            ),
         ),
         namedtype.OptionalNamedType(
-            'serverSaslCreds',
-            univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 7))
-        )
+            "serverSaslCreds",
+            univ.OctetString().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 7)
+            ),
+        ),
     )
 
 
 class UnbindRequest(univ.Null):
-    tagSet = univ.Null.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatSimple, 2))
+    tagSet = univ.Null.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatSimple, 2)
+    )
 
 
 class SubstringFilter(DefaultSequenceAndSetBaseMixin, univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('type', AttributeDescription()),
+        namedtype.NamedType("type", AttributeDescription()),
         namedtype.NamedType(
-            'substrings',
-            univ.SequenceOf(componentType=univ.Choice(componentType=namedtype.NamedTypes(
-                namedtype.NamedType(
-                    'initial',
-                    AssertionValue().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))
-                ),
-                namedtype.NamedType(
-                    'any',
-                    AssertionValue().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1))
-                ),
-                namedtype.NamedType(
-                    'final',
-                    AssertionValue().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 2))
+            "substrings",
+            univ.SequenceOf(
+                componentType=univ.Choice(
+                    componentType=namedtype.NamedTypes(
+                        namedtype.NamedType(
+                            "initial",
+                            AssertionValue().subtype(
+                                implicitTag=tag.Tag(
+                                    tag.tagClassContext, tag.tagFormatSimple, 0
+                                )
+                            ),
+                        ),
+                        namedtype.NamedType(
+                            "any",
+                            AssertionValue().subtype(
+                                implicitTag=tag.Tag(
+                                    tag.tagClassContext, tag.tagFormatSimple, 1
+                                )
+                            ),
+                        ),
+                        namedtype.NamedType(
+                            "final",
+                            AssertionValue().subtype(
+                                implicitTag=tag.Tag(
+                                    tag.tagClassContext, tag.tagFormatSimple, 2
+                                )
+                            ),
+                        ),
+                    )
                 )
-            )))
-        )
+            ),
+        ),
     )
 
 
 class MatchingRuleAssertion(univ.Sequence):
     componentType = namedtype.NamedTypes(
         namedtype.OptionalNamedType(
-            'matchingRule',
-            MatchingRuleID().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1))
+            "matchingRule",
+            MatchingRuleID().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1)
+            ),
         ),
         namedtype.OptionalNamedType(
-            'type',
-            AttributeDescription().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 2))
+            "type",
+            AttributeDescription().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 2)
+            ),
         ),
         namedtype.NamedType(
-            'matchValue',
-            AssertionValue().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 3))
+            "matchValue",
+            AssertionValue().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 3)
+            ),
         ),
         namedtype.DefaultedNamedType(
-            'dnAttributes',
-            univ.Boolean().subtype(value=False, implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 4))
-        )
+            "dnAttributes",
+            univ.Boolean().subtype(
+                value=False,
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 4),
+            ),
+        ),
     )
 
 
@@ -334,213 +439,304 @@ class Filter(DefaultSequenceAndSetBaseMixin, univ.Choice):
 
 Filter.componentType = namedtype.NamedTypes(
     namedtype.NamedType(
-        'and',
-        univ.SetOf(componentType=Filter()).subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))
+        "and",
+        univ.SetOf(componentType=Filter()).subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0)
+        ),
     ),
     namedtype.NamedType(
-        'or',
-        univ.SetOf(componentType=Filter()).subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1))
+        "or",
+        univ.SetOf(componentType=Filter()).subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1)
+        ),
     ),
     namedtype.NamedType(
-        'not',
-        univ.SetOf(componentType=Filter()).subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 2))
-        #Filter().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 2))
+        "not",
+        univ.SetOf(componentType=Filter()).subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 2)
+        ),
+        # Filter().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 2))
     ),
     namedtype.NamedType(
-        'equalityMatch',
-        AttributeValueAssertion().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 3))
+        "equalityMatch",
+        AttributeValueAssertion().subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 3)
+        ),
     ),
     namedtype.NamedType(
-        'substrings',
-        SubstringFilter().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 4))
+        "substrings",
+        SubstringFilter().subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 4)
+        ),
     ),
     namedtype.NamedType(
-        'greaterOrEqual',
-        AttributeValueAssertion().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 5))
+        "greaterOrEqual",
+        AttributeValueAssertion().subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 5)
+        ),
     ),
     namedtype.NamedType(
-        'lessOrEqual',
-        AttributeValueAssertion().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 6))
+        "lessOrEqual",
+        AttributeValueAssertion().subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 6)
+        ),
     ),
     namedtype.NamedType(
-        'present',
-        AttributeDescription().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 7))
+        "present",
+        AttributeDescription().subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 7)
+        ),
     ),
     namedtype.NamedType(
-        'approxMatch',
-        AttributeValueAssertion().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 8))
+        "approxMatch",
+        AttributeValueAssertion().subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 8)
+        ),
     ),
     namedtype.NamedType(
-        'extensibleMatch',
-        MatchingRuleAssertion().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 9))
-    )
+        "extensibleMatch",
+        MatchingRuleAssertion().subtype(
+            implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 9)
+        ),
+    ),
 )
 
 
 class SearchRequest(DefaultSequenceAndSetBaseMixin, univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 3))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 3)
+    )
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('baseObject', LDAPDN()),
-        namedtype.NamedType('scope', Scope()),
-        namedtype.NamedType('derefAliases', DerefAliases()),
+        namedtype.NamedType("baseObject", LDAPDN()),
+        namedtype.NamedType("scope", Scope()),
+        namedtype.NamedType("derefAliases", DerefAliases()),
         namedtype.NamedType(
-            'sizeLimit', univ.Integer().subtype(subtypeSpec=constraint.ValueRangeConstraint(0, maxInt))
+            "sizeLimit",
+            univ.Integer().subtype(
+                subtypeSpec=constraint.ValueRangeConstraint(0, maxInt)
+            ),
         ),
         namedtype.NamedType(
-            'timeLimit', univ.Integer().subtype(subtypeSpec=constraint.ValueRangeConstraint(0, maxInt))
+            "timeLimit",
+            univ.Integer().subtype(
+                subtypeSpec=constraint.ValueRangeConstraint(0, maxInt)
+            ),
         ),
-        namedtype.NamedType('typesOnly', univ.Boolean()),
-        namedtype.NamedType('filter', Filter()),
-        namedtype.NamedType('attributes', AttributeSelection())
+        namedtype.NamedType("typesOnly", univ.Boolean()),
+        namedtype.NamedType("filter", Filter()),
+        namedtype.NamedType("attributes", AttributeSelection()),
     )
 
 
 class SearchResultEntry(univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 4))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 4)
+    )
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('objectName', LDAPDN()),
-        namedtype.NamedType('attributes', PartialAttributeList())
+        namedtype.NamedType("objectName", LDAPDN()),
+        namedtype.NamedType("attributes", PartialAttributeList()),
     )
 
 
 class SearchResultReference(univ.SequenceOf):
-    tagSet = univ.SequenceOf.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatSimple, 19))
+    tagSet = univ.SequenceOf.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatSimple, 19)
+    )
     componentType = URI()
     subtypeSpec = constraint.ValueSizeConstraint(1, maxInt)
 
 
 class SearchResultDone(LDAPResult):
-    tagSet = LDAPResult.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 5))
+    tagSet = LDAPResult.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 5)
+    )
 
 
 class ModifyRequest(DefaultSequenceAndSetBaseMixin, univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 6))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 6)
+    )
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('object', LDAPDN()),
+        namedtype.NamedType("object", LDAPDN()),
         namedtype.NamedType(
-            'changes',
-            univ.SequenceOf(componentType=univ.Sequence(componentType=namedtype.NamedTypes(
-                namedtype.NamedType('operation', Operation()),
-                namedtype.NamedType('modification', PartialAttribute())
-            )))
-        )
+            "changes",
+            univ.SequenceOf(
+                componentType=univ.Sequence(
+                    componentType=namedtype.NamedTypes(
+                        namedtype.NamedType("operation", Operation()),
+                        namedtype.NamedType("modification", PartialAttribute()),
+                    )
+                )
+            ),
+        ),
     )
 
 
 class ModifyResponse(LDAPResult):
-    tagSet = LDAPResult.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 7))
+    tagSet = LDAPResult.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 7)
+    )
 
 
 class AddRequest(DefaultSequenceAndSetBaseMixin, univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 8))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 8)
+    )
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('entry', LDAPDN()),
-        namedtype.NamedType('attributes', AttributeList())
+        namedtype.NamedType("entry", LDAPDN()),
+        namedtype.NamedType("attributes", AttributeList()),
     )
 
 
 class AddResponse(LDAPResult):
-    tagSet = LDAPResult.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 9))
+    tagSet = LDAPResult.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 9)
+    )
 
 
 class DelRequest(LDAPDN):
-    tagSet = LDAPDN.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatSimple, 10))
+    tagSet = LDAPDN.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatSimple, 10)
+    )
 
 
 class DelResponse(LDAPResult):
-    tagSet = LDAPResult.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 11))
+    tagSet = LDAPResult.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 11)
+    )
 
 
 class ModifyDNRequest(univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 12))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 12)
+    )
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('entry', LDAPDN()),
-        namedtype.NamedType('newrdn', RelativeLDAPDN()),
-        namedtype.NamedType('deleteoldrdn', univ.Boolean()),
+        namedtype.NamedType("entry", LDAPDN()),
+        namedtype.NamedType("newrdn", RelativeLDAPDN()),
+        namedtype.NamedType("deleteoldrdn", univ.Boolean()),
         namedtype.OptionalNamedType(
-            'newSuperior', LDAPDN().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))
-        )
+            "newSuperior",
+            LDAPDN().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0)
+            ),
+        ),
     )
 
 
 class ModifyDNResponse(LDAPResult):
-    tagSet = LDAPResult.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 13))
+    tagSet = LDAPResult.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 13)
+    )
 
 
 class CompareRequest(DefaultSequenceAndSetBaseMixin, univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 14))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 14)
+    )
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('entry', LDAPDN()),
-        namedtype.NamedType('ava', AttributeValueAssertion())
+        namedtype.NamedType("entry", LDAPDN()),
+        namedtype.NamedType("ava", AttributeValueAssertion()),
     )
 
 
 class CompareResponse(LDAPResult):
-    tagSet = LDAPResult.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 15))
+    tagSet = LDAPResult.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 15)
+    )
 
 
 class AbandonRequest(MessageID):
-    tagSet = MessageID.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatSimple, 16))
+    tagSet = MessageID.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatSimple, 16)
+    )
 
 
 class ExtendedRequest(univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 23))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 23)
+    )
     componentType = namedtype.NamedTypes(
         namedtype.NamedType(
-            'requestName', LDAPOID().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))
+            "requestName",
+            LDAPOID().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0)
+            ),
         ),
         namedtype.OptionalNamedType(
-            'requestValue', univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1))
-        )
+            "requestValue",
+            univ.OctetString().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1)
+            ),
+        ),
     )
 
 
 class ExtendedResponse(univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 24))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 24)
+    )
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('resultCode', ResultCode()),
-        namedtype.NamedType('matchedDN', LDAPDN()),
-        namedtype.NamedType('diagnosticMessage', LDAPString()),
+        namedtype.NamedType("resultCode", ResultCode()),
+        namedtype.NamedType("matchedDN", LDAPDN()),
+        namedtype.NamedType("diagnosticMessage", LDAPString()),
         namedtype.OptionalNamedType(
-            'referral',
-            Referral().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 3))
+            "referral",
+            Referral().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 3)
+            ),
         ),
         namedtype.OptionalNamedType(
-            'responseName',
-            LDAPOID().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 10))
+            "responseName",
+            LDAPOID().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 10)
+            ),
         ),
         namedtype.OptionalNamedType(
-            'responseValue',
-            univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 11))
-        )
+            "responseValue",
+            univ.OctetString().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 11)
+            ),
+        ),
     )
 
 
 class IntermediateResponse(univ.Sequence):
-    tagSet = univ.Sequence.tagSet.tagImplicitly(tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 25))
+    tagSet = univ.Sequence.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassApplication, tag.tagFormatConstructed, 25)
+    )
     componentType = namedtype.NamedTypes(
         namedtype.OptionalNamedType(
-            'responseName',
-            LDAPOID().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))
+            "responseName",
+            LDAPOID().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0)
+            ),
         ),
         namedtype.OptionalNamedType(
-            'responseValue',
-            univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1))
-        )
+            "responseValue",
+            univ.OctetString().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1)
+            ),
+        ),
     )
 
 
 class Control(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('controlType', LDAPOID()),
-        namedtype.DefaultedNamedType('criticality', univ.Boolean().subtype(value=False)),
-        namedtype.OptionalNamedType('controlValue', univ.OctetString())
+        namedtype.NamedType("controlType", LDAPOID()),
+        namedtype.DefaultedNamedType(
+            "criticality", univ.Boolean().subtype(value=False)
+        ),
+        namedtype.OptionalNamedType("controlValue", univ.OctetString()),
     )
 
-    def setComponentByPosition(self, idx, value=univ.noValue,
-                               verifyConstraints=True,
-                               matchTags=True,
-                               matchConstraints=True):
+    def setComponentByPosition(
+        self,
+        idx,
+        value=univ.noValue,
+        verifyConstraints=True,
+        matchTags=True,
+        matchConstraints=True,
+    ):
         if idx == 0:  # controlType
             try:
                 cls = KNOWN_CONTROLS[value]
@@ -548,10 +744,14 @@ class Control(univ.Sequence):
                     self.__class__ = cls
             except KeyError:
                 pass
-        return univ.Sequence.setComponentByPosition(self, idx, value=value,
-                                                    verifyConstraints=verifyConstraints,
-                                                    matchTags=matchTags,
-                                                    matchConstraints=matchConstraints)
+        return univ.Sequence.setComponentByPosition(
+            self,
+            idx,
+            value=value,
+            verifyConstraints=verifyConstraints,
+            matchTags=matchTags,
+            matchConstraints=matchConstraints,
+        )
 
     def encodeControlValue(self):
         pass
@@ -563,7 +763,9 @@ class Control(univ.Sequence):
         r = univ.Sequence.prettyPrint(self, scope)
         decodedControlValue = self.decodeControlValue()
         if decodedControlValue is not None:
-            r = r[:r.rindex('=') + 1] + '%s\n' % decodedControlValue.prettyPrint(scope + 1)
+            r = r[: r.rindex("=") + 1] + "%s\n" % decodedControlValue.prettyPrint(
+                scope + 1
+            )
         return r
 
 
@@ -573,32 +775,41 @@ class Controls(univ.SequenceOf):
 
 class SDFlagsControlValue(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('flags', univ.Integer().subtype(subtypeSpec=constraint.ValueRangeConstraint(0, maxInt))),
+        namedtype.NamedType(
+            "flags",
+            univ.Integer().subtype(
+                subtypeSpec=constraint.ValueRangeConstraint(0, maxInt)
+            ),
+        ),
     )
+
 
 class SDFlagsControl(Control):
     def __init__(self, criticality=None, flags=0x00000007, **kwargs):
         Control.__init__(self, **kwargs)
-        self['controlType'] = CONTROL_SDFLAGS
+        self["controlType"] = CONTROL_SDFLAGS
         if criticality is not None:
-            self['criticality'] = criticality
+            self["criticality"] = criticality
         self.flags = flags
         self.encodeControlValue()
 
     def encodeControlValue(self):
-        self['controlValue'] = encoder.encode(
-            SDFlagsControlValue().setComponents(self.flags))
+        self["controlValue"] = encoder.encode(
+            SDFlagsControlValue().setComponents(self.flags)
+        )
 
     def decodeControlValue(self):
-        decodedControlValue, _ = decoder.decode(self['controlValue'], asn1Spec=SDFlagsControlValue())
-        self._flags =  decodedControlValue[0]
+        decodedControlValue, _ = decoder.decode(
+            self["controlValue"], asn1Spec=SDFlagsControlValue()
+        )
+        self._flags = decodedControlValue[0]
         return decodedControlValue
 
     def getCriticality(self):
-        return self['criticality']
+        return self["criticality"]
 
     def setCriticality(self, value):
-        self['criticality'] = value
+        self["criticality"] = value
 
     def getFlags(self):
         self.decodeControlValue()
@@ -608,36 +819,46 @@ class SDFlagsControl(Control):
         self._flags = value
         self.encodeControlValue()
 
+
 class SimplePagedResultsControlValue(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('size', univ.Integer().subtype(subtypeSpec=constraint.ValueRangeConstraint(0, maxInt))),
-        namedtype.NamedType('cookie', univ.OctetString()),
+        namedtype.NamedType(
+            "size",
+            univ.Integer().subtype(
+                subtypeSpec=constraint.ValueRangeConstraint(0, maxInt)
+            ),
+        ),
+        namedtype.NamedType("cookie", univ.OctetString()),
     )
 
 
 class SimplePagedResultsControl(Control):
-    def __init__(self, criticality=None, size=1000, cookie='', **kwargs):
+    def __init__(self, criticality=None, size=1000, cookie="", **kwargs):
         Control.__init__(self, **kwargs)
-        self['controlType'] = CONTROL_PAGEDRESULTS
+        self["controlType"] = CONTROL_PAGEDRESULTS
         if criticality is not None:
-            self['criticality'] = criticality
+            self["criticality"] = criticality
         self._size = size
         self._cookie = cookie
         self.encodeControlValue()
 
     def encodeControlValue(self):
-        self['controlValue'] = encoder.encode(SimplePagedResultsControlValue().setComponents(self._size, self._cookie))
+        self["controlValue"] = encoder.encode(
+            SimplePagedResultsControlValue().setComponents(self._size, self._cookie)
+        )
 
     def decodeControlValue(self):
-        decodedControlValue, _ = decoder.decode(self['controlValue'], asn1Spec=SimplePagedResultsControlValue())
+        decodedControlValue, _ = decoder.decode(
+            self["controlValue"], asn1Spec=SimplePagedResultsControlValue()
+        )
         self._size, self._cookie = decodedControlValue[0], decodedControlValue[1]
         return decodedControlValue
 
     def getCriticality(self):
-        return self['criticality']
+        return self["criticality"]
 
     def setCriticality(self, value):
-        self['criticality'] = value
+        self["criticality"] = value
 
     def getSize(self):
         self.decodeControlValue()
@@ -659,43 +880,55 @@ class SimplePagedResultsControl(Control):
 KNOWN_CONTROLS[CONTROL_PAGEDRESULTS] = SimplePagedResultsControl
 KNOWN_CONTROLS[CONTROL_SDFLAGS] = SDFlagsControl
 
+
 class LDAPMessage(DefaultSequenceAndSetBaseMixin, univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('messageID', MessageID()),
-        namedtype.NamedType('protocolOp', univ.Choice(componentType=namedtype.NamedTypes(
-            namedtype.NamedType('bindRequest', BindRequest()),
-            namedtype.NamedType('bindResponse', BindResponse()),
-            namedtype.NamedType('unbindRequest', UnbindRequest()),
-            namedtype.NamedType('searchRequest', SearchRequest()),
-            namedtype.NamedType('searchResEntry', SearchResultEntry()),
-            namedtype.NamedType('searchResDone', SearchResultDone()),
-            namedtype.NamedType('searchResRef', SearchResultReference()),
-            namedtype.NamedType('modifyRequest', ModifyRequest()),
-            namedtype.NamedType('modifyResponse', ModifyResponse()),
-            namedtype.NamedType('addRequest', AddRequest()),
-            namedtype.NamedType('addResponse', AddResponse()),
-            namedtype.NamedType('delRequest', DelRequest()),
-            namedtype.NamedType('delResponse', DelResponse()),
-            namedtype.NamedType('modDNRequest', ModifyDNRequest()),
-            namedtype.NamedType('modDNResponse', ModifyDNResponse()),
-            namedtype.NamedType('compareRequest', CompareRequest()),
-            namedtype.NamedType('compareResponse', CompareResponse()),
-            namedtype.NamedType('abandonRequest', AbandonRequest()),
-            namedtype.NamedType('extendedReq', ExtendedRequest()),
-            namedtype.NamedType('extendedResp', ExtendedResponse()),
-            namedtype.NamedType('intermediateResponse', IntermediateResponse())
-        ))),
+        namedtype.NamedType("messageID", MessageID()),
+        namedtype.NamedType(
+            "protocolOp",
+            univ.Choice(
+                componentType=namedtype.NamedTypes(
+                    namedtype.NamedType("bindRequest", BindRequest()),
+                    namedtype.NamedType("bindResponse", BindResponse()),
+                    namedtype.NamedType("unbindRequest", UnbindRequest()),
+                    namedtype.NamedType("searchRequest", SearchRequest()),
+                    namedtype.NamedType("searchResEntry", SearchResultEntry()),
+                    namedtype.NamedType("searchResDone", SearchResultDone()),
+                    namedtype.NamedType("searchResRef", SearchResultReference()),
+                    namedtype.NamedType("modifyRequest", ModifyRequest()),
+                    namedtype.NamedType("modifyResponse", ModifyResponse()),
+                    namedtype.NamedType("addRequest", AddRequest()),
+                    namedtype.NamedType("addResponse", AddResponse()),
+                    namedtype.NamedType("delRequest", DelRequest()),
+                    namedtype.NamedType("delResponse", DelResponse()),
+                    namedtype.NamedType("modDNRequest", ModifyDNRequest()),
+                    namedtype.NamedType("modDNResponse", ModifyDNResponse()),
+                    namedtype.NamedType("compareRequest", CompareRequest()),
+                    namedtype.NamedType("compareResponse", CompareResponse()),
+                    namedtype.NamedType("abandonRequest", AbandonRequest()),
+                    namedtype.NamedType("extendedReq", ExtendedRequest()),
+                    namedtype.NamedType("extendedResp", ExtendedResponse()),
+                    namedtype.NamedType("intermediateResponse", IntermediateResponse()),
+                )
+            ),
+        ),
         namedtype.OptionalNamedType(
-            'controls',
-            Controls().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))
+            "controls",
+            Controls().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0)
+            ),
         ),
         # fix AD nonconforming to RFC4511
         namedtype.OptionalNamedType(
-            'responseName',
-            LDAPOID().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 10))
+            "responseName",
+            LDAPOID().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 10)
+            ),
         ),
         namedtype.OptionalNamedType(
-            'responseValue',
-            univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 11))
-        )
+            "responseValue",
+            univ.OctetString().subtype(
+                implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 11)
+            ),
+        ),
     )

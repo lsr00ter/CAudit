@@ -1,4 +1,3 @@
-
 from impacket.ldap.ldaptypes import SR_SECURITY_DESCRIPTOR
 
 # msPKI-Certificate-Name-Flag
@@ -71,7 +70,7 @@ ENROLLMENT_FLAGS_NAMES = {
     CT_FLAG_SKIP_AUTO_RENEWAL: "SKIP_AUTO_RENEWAL",
 }
 
-#msPKI-Private-Key-Flag
+# msPKI-Private-Key-Flag
 CT_FLAG_REQUIRE_PRIVATE_KEY_ARCHIVAL = 0x00000001
 CT_FLAG_EXPORTABLE_KEY = 0x00000010
 CT_FLAG_STRONG_KEY_PROTECTION_REQUIRED = 0x00000020
@@ -173,14 +172,15 @@ class Template:
         self.security_descriptor = SR_SECURITY_DESCRIPTOR()
 
     def allows_authentication(self):
-        return self.can_be_used_for_any_purpose()\
-           or EKU_CLIENT_AUTHENTICATION_OID in self.ekus\
-           or EKU_SMART_CARD_LOGON_OID in self.ekus\
-           or EKU_PKINIT_CLIENT_AUTHENTICATION_OID in self.ekus
+        return (
+            self.can_be_used_for_any_purpose()
+            or EKU_CLIENT_AUTHENTICATION_OID in self.ekus
+            or EKU_SMART_CARD_LOGON_OID in self.ekus
+            or EKU_PKINIT_CLIENT_AUTHENTICATION_OID in self.ekus
+        )
 
     def can_be_used_for_any_purpose(self):
-        return len(self.ekus) == 0\
-           or EKU_ANY_PURPOSE_OID in self.ekus
+        return len(self.ekus) == 0 or EKU_ANY_PURPOSE_OID in self.ekus
 
     def requires_manager_approval(self):
         return self.enrollment_flags & CT_FLAG_PEND_ALL_REQUESTS > 0
@@ -195,51 +195,59 @@ class Template:
         return EKU_CERTIFICATE_REQUEST_AGENT_OID in self.ekus
 
     def allows_to_use_agent_certificate(self):
-        return self.schema_version == 1 \
-            or (
-                self.schema_version > 1 \
-                and self.ra_signature == 1 \
-                and EKU_CERTIFICATE_REQUEST_AGENT_OID in self.ra_application_policies
-            )
+        return self.schema_version == 1 or (
+            self.schema_version > 1
+            and self.ra_signature == 1
+            and EKU_CERTIFICATE_REQUEST_AGENT_OID in self.ra_application_policies
+        )
 
     # Misconfigured Certificate Templates - ESC1
     def is_vuln_to_san_impersonation(self):
-        return self.allows_authentication()\
-            and not self.requires_manager_approval()\
-            and not self.requires_authorized_signatures()\
+        return (
+            self.allows_authentication()
+            and not self.requires_manager_approval()
+            and not self.requires_authorized_signatures()
             and self.allows_to_specify_san()
+        )
 
     # Misconfigured Certificate Templates - ESC2
     def is_vuln_to_any_purpose(self):
-        return not self.requires_manager_approval()\
-            and not self.requires_authorized_signatures()\
+        return (
+            not self.requires_manager_approval()
+            and not self.requires_authorized_signatures()
             and self.can_be_used_for_any_purpose()
+        )
 
     # Misconfigured Enrollment Agent Templates - ESC3 - Condition 1
     def is_vuln_to_request_agent_certificate(self):
-        return not self.requires_manager_approval()\
-            and not self.requires_authorized_signatures()\
+        return (
+            not self.requires_manager_approval()
+            and not self.requires_authorized_signatures()
             and self.allows_to_request_agent_certificate()
+        )
 
     # Misconfigured Enrollment Agent Templates - ESC3 - Condition 2
     def is_vuln_to_request_with_agent_certificate(self):
-        return not self.requires_manager_approval()\
-            and self.allows_authentication()\
+        return (
+            not self.requires_manager_approval()
+            and self.allows_authentication()
             and self.allows_to_use_agent_certificate()
+        )
 
     def is_vulnerable(self):
-        return self.is_vuln_to_request_with_agent_certificate()\
-            or self.is_vuln_to_request_agent_certificate()\
-            or self.is_vuln_to_any_purpose()\
+        return (
+            self.is_vuln_to_request_with_agent_certificate()
+            or self.is_vuln_to_request_agent_certificate()
+            or self.is_vuln_to_any_purpose()
             or self.is_vuln_to_san_impersonation()
-
+        )
 
     def is_enabled(self):
         return len(self.enroll_services) > 0
 
     @property
     def owner_sid(self):
-        return self.security_descriptor['OwnerSid']
+        return self.security_descriptor["OwnerSid"]
 
     @property
     def dacl(self):
@@ -248,7 +256,8 @@ class Template:
     @property
     def enrollment_flags_names(self):
         return [
-            ENROLLMENT_FLAGS_NAMES[flag] for flag in ENROLLMENT_FLAGS_NAMES
+            ENROLLMENT_FLAGS_NAMES[flag]
+            for flag in ENROLLMENT_FLAGS_NAMES
             if self.enrollment_flags & flag == flag
         ]
 
@@ -288,6 +297,7 @@ class Template:
     @property
     def certificate_name_flags_names(self):
         return [
-            CERTIFICATE_NAME_FLAGS_NAMES[flag] for flag in CERTIFICATE_NAME_FLAGS_NAMES
+            CERTIFICATE_NAME_FLAGS_NAMES[flag]
+            for flag in CERTIFICATE_NAME_FLAGS_NAMES
             if self.certificate_name_flags & flag == flag
         ]

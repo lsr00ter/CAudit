@@ -23,13 +23,15 @@ class PluginADIllegalPreW2kCompatibleAccessGroup(PluginADScanBase):
         query = "(&(objectclass=group)(!(member=null)))"
         attributes = ["cn", "distinguishedName", "member"]
 
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                         search_filter=query,
-                                                                         search_scope=SUBTREE,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=self.ldap_cli.domain_dn,
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
@@ -38,14 +40,15 @@ class PluginADIllegalPreW2kCompatibleAccessGroup(PluginADScanBase):
             #     continue
             distinguishedName1 = str(entry["attributes"]["distinguishedName"])
             ret = distinguishedName1.find(
-                "CN=Pre-Windows 2000 Compatible Access,CN=Builtin,")
+                "CN=Pre-Windows 2000 Compatible Access,CN=Builtin,"
+            )
             member1 = str(entry["attributes"]["member"])
             ret1 = member1.find("S-1-5-7")  # Anonymous Logon
             ret2 = member1.find("S-1-1-0")  # everyone
 
             if ret != -1 and (ret1 != -1 or ret2 != -1):
                 for member_res in entry["attributes"]["member"]:
-                    result['status'] = 1
+                    result["status"] = 1
                     instance = {}
                     instance["组名"] = entry["attributes"]["cn"]
                     instance["DN"] = entry["attributes"]["distinguishedName"]
@@ -53,5 +56,5 @@ class PluginADIllegalPreW2kCompatibleAccessGroup(PluginADScanBase):
                     instance_list.append(instance)
                 break
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

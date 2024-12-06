@@ -23,20 +23,22 @@ class PluginExchangeInvalidDelegationRelationship(PluginExchangeScanBase):
         query = "(objectClass=*)"
         attributes = ["cn", "msExchDelegateListLink"]
         ldap_cli = "CN=Users," + self.ldap_cli.domain_dn
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=ldap_cli,
-                                                                         search_filter=query,
-                                                                         search_scope=LEVEL,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=ldap_cli,
+            search_filter=query,
+            search_scope=LEVEL,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         for entry in entry_generator:
-            if entry["attributes"]['msExchDelegateListLink']:
-                for link in entry["attributes"]['msExchDelegateListLink']:
-                    result['status'] = 1
-                    instance ={}
+            if entry["attributes"]["msExchDelegateListLink"]:
+                for link in entry["attributes"]["msExchDelegateListLink"]:
+                    result["status"] = 1
+                    instance = {}
                     instance["被委托账户(低权限账户)"] = link
                     instance_list.append(instance)
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

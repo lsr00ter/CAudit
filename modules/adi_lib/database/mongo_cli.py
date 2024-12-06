@@ -9,16 +9,16 @@ import os
 # from modules.adi_lib.common.util import Singleton
 
 MONGO_CONFIG = {
-    'host': os.getenv('MONGO_HOST', '10.133.35.103'),  # 主机
-    'port': int(os.getenv('MONGO_PORT', 27017)),  # 端口
-    'maxPoolSize': 1000,  # 最大连接池
-    'socketTimeoutMS': None,
-    'connectTimeoutMS': None,
-    'authSource': os.getenv('MONGO_AUTH_SOURCE', 'admin'),  # 身份认证所用库
-    'authMechanism': os.getenv('MONGO_AUTH_MECHANISM', 'SCRAM-SHA-1'),  # 认证机制
-    'username': os.getenv('MONGO_USERNAME', "root"),  # 用于登录 MongoDB 服务的用户名
-    'password': os.getenv('MONGO_PASSWORD', "root"),  # 用于登录 MongoDB 服务的用户密码
-    'connect': False
+    "host": os.getenv("MONGO_HOST", "10.133.35.103"),  # 主机
+    "port": int(os.getenv("MONGO_PORT", 27017)),  # 端口
+    "maxPoolSize": 1000,  # 最大连接池
+    "socketTimeoutMS": None,
+    "connectTimeoutMS": None,
+    "authSource": os.getenv("MONGO_AUTH_SOURCE", "admin"),  # 身份认证所用库
+    "authMechanism": os.getenv("MONGO_AUTH_MECHANISM", "SCRAM-SHA-1"),  # 认证机制
+    "username": os.getenv("MONGO_USERNAME", "root"),  # 用于登录 MongoDB 服务的用户名
+    "password": os.getenv("MONGO_PASSWORD", "root"),  # 用于登录 MongoDB 服务的用户密码
+    "connect": False,
 }
 
 

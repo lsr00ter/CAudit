@@ -7,7 +7,7 @@ import jinja2
 from colorama import Fore
 
 __doc__ = """
-日志记录, 输出到控制台和文件. BaseScreen为基类, Output类继承该类并重写
+日志记录，输出到控制台和文件。BaseScreen 为基类，Output 类继承该类并重写
 写入文件功能暂未实现
 
 Example:
@@ -25,42 +25,43 @@ from utils.consts import AllPluginTypes
 def print_centralization_help():
     from utils import read_version
 
-    print(f"""
-   █████████    █████████                  █████  ███   █████   
-  ███░░░░░███  ███░░░░░███                ░░███  ░░░   ░░███    
- ███     ░░░  ░███    ░███  █████ ████  ███████  ████  ███████  
-░███          ░███████████ ░░███ ░███  ███░░███ ░░███ ░░░███░   
-░███          ░███░░░░░███  ░███ ░███ ░███ ░███  ░███   ░███    
+    print(
+        f"""
+   █████████    █████████                  █████  ███   █████
+  ███░░░░░███  ███░░░░░███                ░░███  ░░░   ░░███
+ ███     ░░░  ░███    ░███  █████ ████  ███████  ████  ███████
+░███          ░███████████ ░░███ ░███  ███░░███ ░░███ ░░░███░
+░███          ░███░░░░░███  ░███ ░███ ░███ ░███  ░███   ░███
 ░░███     ███ ░███    ░███  ░███ ░███ ░███ ░███  ░███   ░███ ███
- ░░█████████  █████   █████ ░░████████░░████████ █████  ░░█████ 
-  ░░░░░░░░░  ░░░░░   ░░░░░   ░░░░░░░░  ░░░░░░░░ ░░░░░    ░░░░░  
-                                                       {read_version()}         
-                                                                
-                                                                
+ ░░█████████  █████   █████ ░░████████░░████████ █████  ░░█████
+  ░░░░░░░░░  ░░░░░   ░░░░░   ░░░░░░░░  ░░░░░░░░ ░░░░░    ░░░░░
+                                                       {read_version()}
+
+
 {output.RED}全局参数{output.RESET}
     --debug    开启调试模式
-    --thread   设置线程数(scan 模式下生效)
+    --thread   设置线程数 (scan 模式下生效)
     --save     结果保存文件名
-    
+
 {output.RED}可用模块{output.RESET}:
     {'':^4}{output.YELLOW}{' '.join(module_base_class.keys())}{output.RESET}
 {output.RED}AD{output.RESET}:
    {output.YELLOW}scan{output.RESET}
        [-h] (--all | --no-all | --plugin PLUGINS [PLUGINS ...]) [-U USERNAME] [-P PASSWORD] -D DOMAIN_FQDN [--dc-ip DOMAIN_IP]
-       
+
        --all       加载全部扫描插件
        --plugin PLUGINS [PLUGINS ...]
-                   选择一个/多个扫描插件,输入插件别名,程序会寻找别名对应的插件
+                   选择一个/多个扫描插件，输入插件别名，程序会寻找别名对应的插件
        -U USERNAME, --username USERNAME
-                   指定域控用户名(大部分扫描插件需要)
+                   指定域控用户名 (大部分扫描插件需要)
        -P PASSWORD, --password PASSWORD
                    密码
        -D DOMAIN_FQDN, --domain DOMAIN_FQDN
-                   指定域控FQDN (DC01.test.lab)
+                   指定域控 FQDN (DC01.test.lab)
        --dc-ip DOMAIN_IP
-                   手动指定域控ip地址
+                   手动指定域控 ip 地址
    {output.YELLOW}exploit{output.RESET}
-       (程序设计)每个漏洞利用插件都有自己的参数, 使用 -h/--help查看对应参数
+       (程序设计) 每个漏洞利用插件都有自己的参数，使用 -h/--help查看对应参数
 
 {output.RED}Exchange{output.RESET}:
    ....
@@ -76,11 +77,12 @@ def print_centralization_help():
             {output.GREEN}./main.py AD exploit kerb_ue -h{output.RESET}
         使用全部扫描插件
             {output.GREEN}./main.py AD scan --all -D dc.test.lab --dc-ip 20.0.0.100 -U administrator -P 123.com{output.RESET}
-        使用全部扫描插件,并指定线程, 保存结果到文件
+        使用全部扫描插件，并指定线程，保存结果到文件
             {output.GREEN}./main.py --thread 50 --save ad_result.html AD scan --all -D dc.test.lab --dc-ip 20.0.0.100 -U administrator -P 123.com{output.RESET}
         使用指定的扫描插件
             {output.GREEN}./main.py AD scan --plugin no_recycle_bin_dc nver_expire_priv_act -D dc.test.lab --dc-ip 20.0.0.100 -U administrator -P 123.com{output.RESET}
-""")
+"""
+    )
     exit(0)
 
 
@@ -108,14 +110,19 @@ class BaseScreen:
         "CRITICAL": "blue",
     }
 
-    def __init__(self, fmt: str = '%(asctime)s %(filename)s:%(lineno)d %(message)s', datefmt: str = '%Y-%m-%d %H:%M'):
+    def __init__(
+        self,
+        fmt: str = "%(asctime)s %(filename)s:%(lineno)d %(message)s",
+        datefmt: str = "%Y-%m-%d %H:%M",
+    ):
         # 初始化颜色
         colorama.init(autoreset=True)
 
         # 屏幕输出器 - 基本输出器
         # self.screenFormat = logging.Formatter(fmt=fmt, datefmt=datefmt)
-        self.screenFormat = colorlog.ColoredFormatter(fmt='%(log_color)s' + fmt, datefmt=datefmt,
-                                                      log_colors=self.log_color)
+        self.screenFormat = colorlog.ColoredFormatter(
+            fmt="%(log_color)s" + fmt, datefmt=datefmt, log_colors=self.log_color
+        )
         self.screenHandle = logging.StreamHandler()
         self.screenHandle.setFormatter(self.screenFormat)
         self.screenLogger = logging.getLogger("screen")
@@ -140,7 +147,7 @@ class BaseScreen:
 
 class Output(BaseScreen):
     def __init__(self):
-        super().__init__(fmt='%(message)s')
+        super().__init__(fmt="%(message)s")
         self.save = "results.html"
         self.isDebug = False
 
@@ -152,9 +159,7 @@ class Output(BaseScreen):
             print(f"valid module:")
             [print(f'{"":^4}{x}') for x in module_base_class.keys()]
         else:
-            print(f"{mod} sub command:\n"
-                  f"{'':^4}scan\n"
-                  f"{'':^4}exploit")
+            print(f"{mod} sub command:\n" f"{'':^4}scan\n" f"{'':^4}exploit")
 
     def show_results(self, results: dict, scan_type) -> None:
         """
@@ -163,17 +168,12 @@ class Output(BaseScreen):
         :return: None
         """
 
-        # root节点
+        # root 节点
         success_plugin_nodes = []
         title = ["Plugin Name", "Display", "Status", "Result"]
         run_status_string = ["Failed", "Success", "Error"]
 
-        total = {
-            "total": len(results),
-            "s_count":0,
-            "f_count":0,
-            "e_count":0
-        }
+        total = {"total": len(results), "s_count": 0, "f_count": 0, "e_count": 0}
 
         html_template_data = {}
 
@@ -208,12 +208,17 @@ class Output(BaseScreen):
                 except KeyError:
                     result_value = str(v["results"]["error"])
 
-                if len(result_value)> 50:
+                if len(result_value) > 50:
                     result_value = "..."
-                result_table.add_row([plugin_name, v["display"], status, result_value.strip()])
+                result_table.add_row(
+                    [plugin_name, v["display"], status, result_value.strip()]
+                )
 
-                # html只显示成功的结果
-                if status == "Success" and len(v["results"]["data"]["instance_list"]) > 0:
+                # html 只显示成功的结果
+                if (
+                    status == "Success"
+                    and len(v["results"]["data"]["instance_list"]) > 0
+                ):
                     html_template_data[plugin_name] = v
 
             # 添加攻击链节点
@@ -224,8 +229,7 @@ class Output(BaseScreen):
             if status == "Failed":
                 total["f_count"] += 1
 
-        output.success(f"script results{output.RESET}\n"
-                       f"{result_table}\n")
+        output.success(f"script results{output.RESET}\n" f"{result_table}\n")
 
         # Load the HTML template using Jinja2
         templateLoader = jinja2.FileSystemLoader(searchpath="./utils/template")
@@ -255,11 +259,13 @@ class Output(BaseScreen):
                 a_chains.match(n)
             a_chains.print_chains()
 
-        output.info(f"Total:\n"
-                    f"{'':^4}Number of plugin executions: {total['total']}\n"
-                    f"{'':^4}Number of plugin hits:       {total['s_count']}\n"
-                    f"{'':^4}Number of plugin misses:     {total['f_count']}\n"
-                    f"{'':^4}Number of plugin runtime errors:  {total['e_count']}\n")
+        output.info(
+            f"Total:\n"
+            f"{'':^4}Number of plugin executions: {total['total']}\n"
+            f"{'':^4}Number of plugin hits:       {total['s_count']}\n"
+            f"{'':^4}Number of plugin misses:     {total['f_count']}\n"
+            f"{'':^4}Number of plugin runtime errors:  {total['e_count']}\n"
+        )
 
 
 output = Output()

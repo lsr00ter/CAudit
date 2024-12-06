@@ -32,7 +32,11 @@ class _LocalCacheThread(object):
 
     def get(self, key):
         value = self.weak.get(key)
-        if value is not None and hasattr(value, 'expire') and self.nowTime() > value['expire']:
+        if (
+            value is not None
+            and hasattr(value, "expire")
+            and self.nowTime() > value["expire"]
+        ):
             value = None
         return value
 

@@ -4,13 +4,18 @@ import sys
 from importlib import import_module
 
 from plugins import PluginBase
-from utils.consts import PLUGIN_DIR, module_base_class, plugin_contain_name, AllPluginTypes
+from utils.consts import (
+    PLUGIN_DIR,
+    module_base_class,
+    plugin_contain_name,
+    AllPluginTypes,
+)
 from utils.logger import output
 
 
 def load_plugin(mod_name: str) -> dict:
     """
-    初始化所有模块插件, 返回插件名称对应的插件类(不实例化)
+    初始化所有模块插件，返回插件名称对应的插件类 (不实例化)
     :param mod_name: 用户选择的模块名称
     :return:
     """
@@ -20,14 +25,25 @@ def load_plugin(mod_name: str) -> dict:
     plugin_class: dict[str, PluginBase] = dict()
 
     # 当前绝对路径，正确的情况是获取到 modules 绝对路径
-    base_dir = '\\'.join(os.path.dirname(__file__).split('\\')[0:-1]) + "\\" + PLUGIN_DIR + "\\" + mod_name
-    # 如果是main执行上面的os.path.dirname，返回的是空，则需要调用abspath获取绝对路径
+    base_dir = os.path.normpath(
+        os.path.join(os.path.dirname(__file__), "..", PLUGIN_DIR, mod_name)
+    )
+    # 如果是 main 执行上面的 os.path.dirname，返回的是空，则需要调用 abspath 获取绝对路径
     if not base_dir:
-        base_dir = '\\'.join(os.path.dirname(os.path.abspath(__file__)).split('\\')[
-                             0:-1]) + "\\" + PLUGIN_DIR + "\\" + mod_name
+        base_dir = os.path.normpath(
+            os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), "..", PLUGIN_DIR, mod_name
+            )
+        )
 
     if sys.platform in ["darwin", "linux", "unix"]:
-        base_dir = '/'.join(os.path.dirname(__file__).split("/")[0:-1]) + "/" + PLUGIN_DIR + "/" + mod_name
+        base_dir = (
+            "/".join(os.path.dirname(__file__).split("/")[0:-1])
+            + "/"
+            + PLUGIN_DIR
+            + "/"
+            + mod_name
+        )
 
     output.debug(f"Reading plugin dir: {base_dir}")
 
@@ -46,8 +62,12 @@ def load_plugin(mod_name: str) -> dict:
         plugin_cls = list(dir(module))
 
         # 获取插件类（同时要过滤掉基类）
-        type_a_class = [x for x in plugin_cls if
-                        x.startswith(plugin_contain_name) and x not in module_base_class[mod_name]]
+        type_a_class = [
+            x
+            for x in plugin_cls
+            if x.startswith(plugin_contain_name)
+            and x not in module_base_class[mod_name]
+        ]
         for class_name in type_a_class:
             # 实例化类并添加到列表
             # class_ins = getattr(module, class_name)
@@ -121,7 +141,11 @@ def get_plugin_type() -> dict[str, str]:
 
 
 def get_exploit_plugin(all_plugins: dict) -> list[PluginBase]:
-    a = [plugin for n, plugin in all_plugins.items() if plugin.p_type == AllPluginTypes.Exploit]
+    a = [
+        plugin
+        for n, plugin in all_plugins.items()
+        if plugin.p_type == AllPluginTypes.Exploit
+    ]
     return a
 
 
@@ -134,7 +158,10 @@ def filter_user_plugin(all_plugins: dict, user_args, select_plugin) -> list[Plug
     """
     execute_plugins = []
     for n, p in all_plugins.items():
-        if user_args.scan_type == AllPluginTypes.Scan and user_args.scan_type == p.p_type:
+        if (
+            user_args.scan_type == AllPluginTypes.Scan
+            and user_args.scan_type == p.p_type
+        ):
             if user_args.all:
                 # scan --all
                 execute_plugins.append(p)

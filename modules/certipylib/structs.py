@@ -35,6 +35,7 @@ class IntFlag(enum.IntFlag):
     def __repr__(self):
         return str(self)
 
+
 class Flag(enum.Flag):
     def __str__(self):
         cls = self.__class__
@@ -49,6 +50,7 @@ class Flag(enum.Flag):
                     [to_pascal_case(str(m._name_ or m._value_)) for m in members]
                 ),
             )
+
 
 # KerberosV5Spec2 DEFINITIONS EXPLICIT TAGS ::=
 TAG = "explicit"

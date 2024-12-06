@@ -22,19 +22,24 @@ class PluginExchangeExistsMailForwardRules(PluginExchangeScanBase):
         instance_list = []
         query = "(objectClass=*)"
         attributes = ["cn", "msExchDelegateListLink"]
-        ldap_cli = "CN=TransportVersioned,CN=Rules,CN=Transport Settings,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration," + self.ldap_cli.domain_dn
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=ldap_cli,
-                                                                         search_filter=query,
-                                                                         search_scope=LEVEL,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        ldap_cli = (
+            "CN=TransportVersioned,CN=Rules,CN=Transport Settings,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,"
+            + self.ldap_cli.domain_dn
+        )
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=ldap_cli,
+            search_filter=query,
+            search_scope=LEVEL,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         for entry in entry_generator:
-            result['status'] = 1
-            instance ={}
-            instance["转发规则"] = entry["attributes"]['cn']
+            result["status"] = 1
+            instance = {}
+            instance["转发规则"] = entry["attributes"]["cn"]
             instance_list.append(instance)
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

@@ -28,14 +28,20 @@ class PluginVCenterInvalidStorageInfo(PluginVCenterScanBase):
 
     def run_script(self, args) -> dict:
         sslContext = None
-        if hasattr(ssl, '_create_unverified_context'):
+        if hasattr(ssl, "_create_unverified_context"):
             sslContext = ssl._create_unverified_context()
-        vc_cont = connect.SmartConnect(host=self.dc_ip, user=self.ldap_conf['user'], pwd=self.ldap_conf['password'],
-                                       sslContext=sslContext)
+        vc_cont = connect.SmartConnect(
+            host=self.dc_ip,
+            user=self.ldap_conf["user"],
+            pwd=self.ldap_conf["password"],
+            sslContext=sslContext,
+        )
         result = copy(self.result)
         instance_list = []
         content = vc_cont.RetrieveContent()
-        object_view = content.viewManager.CreateContainerView(content.rootFolder, [vim.HostSystem], True)
+        object_view = content.viewManager.CreateContainerView(
+            content.rootFolder, [vim.HostSystem], True
+        )
 
         for host_system in object_view.view:
 
@@ -44,12 +50,11 @@ class PluginVCenterInvalidStorageInfo(PluginVCenterScanBase):
                     pass
                 else:
                     if (ds.summary.freeSpace / ds.summary.capacity) * 100 < 5:
-                        result['status'] = 1
+                        result["status"] = 1
                         instance = {}
-                        instance['主机'] = host_system.name
-                        instance['磁盘名称'] = ds.name
-                        instance['剩余磁盘'] = self.hum_convert(ds.summary.freeSpace)
+                        instance["主机"] = host_system.name
+                        instance["磁盘名称"] = ds.name
+                        instance["剩余磁盘"] = self.hum_convert(ds.summary.freeSpace)
                         instance_list.append(instance)
-            result['data'] = {"instance_list": instance_list}
+            result["data"] = {"instance_list": instance_list}
         return result
-

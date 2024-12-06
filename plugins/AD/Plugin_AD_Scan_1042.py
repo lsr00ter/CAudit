@@ -26,12 +26,12 @@ class PluginADPwdNeverExpiresPrivilegeAccount(PluginADScanBase):
                 continue
             flag = str(entry["attributes"]["cn"]).find("krbtgt")
             if flag == -1:
-                result['status'] = 1
+                result["status"] = 1
                 instance = {}
                 instance["用户名"] = entry["attributes"]["cn"]
                 instance["DN"] = entry["attributes"]["distinguishedName"]
-                instance["描述"] = des_dict.get(entry["attributes"]["objectSid"], '')
+                instance["描述"] = des_dict.get(entry["attributes"]["objectSid"], "")
                 instance_list.append(instance)
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

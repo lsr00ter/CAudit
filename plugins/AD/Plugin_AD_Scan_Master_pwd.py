@@ -17,18 +17,29 @@ class PluginADMasterPwd(PluginADScanBase):
         super().__init__(*args, **kwargs)
 
     def run_script(self, args) -> dict:
-        MIMIKATZ_BACKDOOR = 'mimikatz'
+        MIMIKATZ_BACKDOOR = "mimikatz"
         try:
-            userName = Principal(self.ldap_username, type=constants.PrincipalNameType.NT_PRINCIPAL.value)
-            getKerberosTGT(userName, MIMIKATZ_BACKDOOR, self.dc_domain, None, None, kdcHost=self.dc_ip)
+            userName = Principal(
+                self.ldap_username, type=constants.PrincipalNameType.NT_PRINCIPAL.value
+            )
+            getKerberosTGT(
+                userName,
+                MIMIKATZ_BACKDOOR,
+                self.dc_domain,
+                None,
+                None,
+                kdcHost=self.dc_ip,
+            )
 
-            self.result['status'] = 1
-            self.result['instance_list'] = [{"ip address": self.dc_ip}]
+            self.result["status"] = 1
+            self.result["instance_list"] = [{"ip address": self.dc_ip}]
         except Exception as e:
-            if 'KDC_ERR_PREAUTH_FAILED' in str(e) or 'SessionKeyDecryptionError' in str(e):
+            if "KDC_ERR_PREAUTH_FAILED" in str(e) or "SessionKeyDecryptionError" in str(
+                e
+            ):
                 pass
             else:
-                self.result['status'] = -1
-                self.result['error'] = str(e)
+                self.result["status"] = -1
+                self.result["error"] = str(e)
 
         return self.result

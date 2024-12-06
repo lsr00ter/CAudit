@@ -1,4 +1,3 @@
-
 from __future__ import unicode_literals
 from multiprocessing import Pool
 from impacket.uuid import string_to_bin, bin_to_string
@@ -14,20 +13,23 @@ EXTRIGHTS_GUID_MAPPING = {
     "WriteMember": string_to_bin("bf9679c0-0de6-11d0-a285-00aa003049e2"),
     "UserForceChangePassword": string_to_bin("00299570-246d-11d0-a768-00aa006e0529"),
     "AllowedToAct": string_to_bin("3f78c3e5-f79a-46bd-a0b8-9d18116ddc79"),
-    "UserAccountRestrictionsSet": string_to_bin("4c164200-20c0-11d0-a768-00aa006e0529")
+    "UserAccountRestrictionsSet": string_to_bin("4c164200-20c0-11d0-a768-00aa006e0529"),
 }
 
+
 def can_write_property(ace_object, binproperty):
-    '''
+    """
     Checks if the access is sufficient to write to a specific property.
     This can either be because we have the right ADS_RIGHT_DS_WRITE_PROP and the correct GUID
     is set in ObjectType, or if we have the ADS_RIGHT_DS_WRITE_PROP right and the ObjectType
     is empty, in which case we can write to any property. This is documented in
     [MS-ADTS] section 5.1.3.2: https://msdn.microsoft.com/en-us/library/cc223511.aspx
-    '''
+    """
     if not ace_object.acedata.mask.has_priv(ACCESS_MASK.ADS_RIGHT_DS_WRITE_PROP):
         return False
-    if not ace_object.acedata.has_flag(ACCESS_ALLOWED_OBJECT_ACE.ACE_OBJECT_TYPE_PRESENT):
+    if not ace_object.acedata.has_flag(
+        ACCESS_ALLOWED_OBJECT_ACE.ACE_OBJECT_TYPE_PRESENT
+    ):
         # No ObjectType present - we have generic access on all properties
         return True
     # Both are binary here
@@ -35,17 +37,20 @@ def can_write_property(ace_object, binproperty):
         return True
     return False
 
+
 def has_extended_right(ace_object, binrightguid):
-    '''
+    """
     Checks if the access is sufficient to control the right with the given GUID.
     This can either be because we have the right ADS_RIGHT_DS_CONTROL_ACCESS and the correct GUID
     is set in ObjectType, or if we have the ADS_RIGHT_DS_CONTROL_ACCESS right and the ObjectType
     is empty, in which case we have all extended rights. This is documented in
     [MS-ADTS] section 5.1.3.2: https://msdn.microsoft.com/en-us/library/cc223511.aspx
-    '''
+    """
     if not ace_object.acedata.mask.has_priv(ACCESS_MASK.ADS_RIGHT_DS_CONTROL_ACCESS):
         return False
-    if not ace_object.acedata.has_flag(ACCESS_ALLOWED_OBJECT_ACE.ACE_OBJECT_TYPE_PRESENT):
+    if not ace_object.acedata.has_flag(
+        ACCESS_ALLOWED_OBJECT_ACE.ACE_OBJECT_TYPE_PRESENT
+    ):
         # No ObjectType present - we have all extended rights
         return True
     # Both are binary here
@@ -53,26 +58,30 @@ def has_extended_right(ace_object, binrightguid):
         return True
     return False
 
+
 def ace_applies(ace_guid, object_class, objecttype_guid_map):
-    '''
+    """
     Checks if an ACE applies to this object (based on object classes).
     Note that this function assumes you already verified that InheritedObjectType is set (via the flag).
     If this is not set, the ACE applies to all object types.
-    '''
+    """
     if ace_guid == objecttype_guid_map[object_class]:
         return True
     # If none of these match, the ACE does not apply to this object
     return False
 
-def build_relation(sid, relation, acetype='', inherited=False):
-    if acetype != '':
+
+def build_relation(sid, relation, acetype="", inherited=False):
+    if acetype != "":
         raise ValueError("BH 4.0 incompatible output called")
-    return {'rightname': relation, 'sid': sid, 'inherited': inherited}
+    return {"rightname": relation, "sid": sid, "inherited": inherited}
+
 
 class AclEnumerator(object):
     """
     Helper class for ACL parsing.
     """
+
     def __init__(self, addomain, addc, collect):
         self.addomain = addomain
         self.addc = addc
@@ -83,11 +92,13 @@ class AclEnumerator(object):
     def init_pool(self):
         self.pool = Pool()
 
+
 """
 The following is Security Descriptor parsing using cstruct
 Thanks to Erik Schamper for helping me implement this!
 """
-cdef = native_str("""
+cdef = native_str(
+    """
 struct SECURITY_DESCRIPTOR {
     uint8   Revision;
     uint8   Sbz1;
@@ -150,7 +161,8 @@ struct ACCESS_DENIED_OBJECT_ACE {
     char    InheritedObjectType[Flags & 2 * 8];
     LDAP_SID Sid;
 };
-""")
+"""
+)
 c_secd = cstruct()
 c_secd.load(cdef, compiled=True)
 
@@ -167,26 +179,26 @@ class SecurityDescriptor(object):
     DC = 7  # DACL Computed Inheritance Required
     SS = 8  # Server Security
     DT = 9  # DACL Trusted
-    SD = 10 # SACL Defaulted
-    SP = 11 # SACL Present
-    DD = 12 # DACL Defaulted
-    DP = 13 # DACL Present
-    GD = 14 # Group Defaulted
-    OD = 15 # Owner Defaulted
+    SD = 10  # SACL Defaulted
+    SP = 11  # SACL Present
+    DD = 12  # DACL Defaulted
+    DP = 13  # DACL Present
+    GD = 14  # Group Defaulted
+    OD = 15  # Owner Defaulted
 
     def has_control(self, control):
         # Convert to bin representation and
         # look up index. Slice off 0b
-        return bin(self.control)[2:][control] == '1'
+        return bin(self.control)[2:][control] == "1"
 
     def __init__(self, fh):
         self.fh = fh
         self.descriptor = c_secd.SECURITY_DESCRIPTOR(fh)
         self.control = self.descriptor.Control
-        self.owner_sid = b''
-        self.group_sid = b''
-        self.sacl = b''
-        self.dacl = b''
+        self.owner_sid = b""
+        self.group_sid = b""
+        self.sacl = b""
+        self.dacl = b""
 
         if self.descriptor.OffsetOwner != 0:
             fh.seek(self.descriptor.OffsetOwner)
@@ -214,7 +226,11 @@ class LdapSid(object):
             self.ldap_sid = in_obj
 
     def __repr__(self):
-        return "S-{}-{}-{}".format(self.ldap_sid.Revision, bytearray(self.ldap_sid.IdentifierAuthority.Value)[5], "-".join(['{:d}'.format(v) for v in self.ldap_sid.SubAuthority]))
+        return "S-{}-{}-{}".format(
+            self.ldap_sid.Revision,
+            bytearray(self.ldap_sid.IdentifierAuthority.Value)[5],
+            "-".join(["{:d}".format(v) for v in self.ldap_sid.SubAuthority]),
+        )
 
 
 class ACL(object):
@@ -236,12 +252,16 @@ class ACCESS_ALLOWED_ACE(object):
         self.mask = ACCESS_MASK(self.data.Mask)
 
     def __repr__(self):
-        return "<ACCESS_ALLOWED_OBJECT_ACE Sid=%s Mask=%s>" % (str(self.sid), str(self.mask))
+        return "<ACCESS_ALLOWED_OBJECT_ACE Sid=%s Mask=%s>" % (
+            str(self.sid),
+            str(self.mask),
+        )
+
 
 class ACCESS_ALLOWED_OBJECT_ACE(object):
     # Flag constants
-    ACE_OBJECT_TYPE_PRESENT             = 0x01
-    ACE_INHERITED_OBJECT_TYPE_PRESENT   = 0x02
+    ACE_OBJECT_TYPE_PRESENT = 0x01
+    ACE_INHERITED_OBJECT_TYPE_PRESENT = 0x02
 
     def __init__(self, fh):
         self.fh = fh
@@ -265,55 +285,62 @@ class ACCESS_ALLOWED_OBJECT_ACE(object):
     def __repr__(self):
         out = []
         for name, value in iteritems(vars(ACCESS_ALLOWED_OBJECT_ACE)):
-            if not name.startswith('_') and type(value) is int and self.has_flag(value):
+            if not name.startswith("_") and type(value) is int and self.has_flag(value):
                 out.append(name)
-        data = (' | '.join(out),
-                str(self.sid),
-                str(self.mask),
-                self.get_object_type(),
-                self.get_inherited_object_type())
-        return "<ACCESS_ALLOWED_OBJECT_ACE Flags=%s Sid=%s \n\t\tMask=%s \n\t\tObjectType=%s InheritedObjectType=%s>" % data
+        data = (
+            " | ".join(out),
+            str(self.sid),
+            str(self.mask),
+            self.get_object_type(),
+            self.get_inherited_object_type(),
+        )
+        return (
+            "<ACCESS_ALLOWED_OBJECT_ACE Flags=%s Sid=%s \n\t\tMask=%s \n\t\tObjectType=%s InheritedObjectType=%s>"
+            % data
+        )
 
 
 """
 ACCESS_MASK as described in 2.4.3
 https://msdn.microsoft.com/en-us/library/cc230294.aspx
 """
+
+
 class ACCESS_MASK(object):
     # Flag constants
 
     # These constants are only used when WRITING
     # and are then translated into their actual rights
-    SET_GENERIC_READ        = 0x80000000
-    SET_GENERIC_WRITE       = 0x04000000
-    SET_GENERIC_EXECUTE     = 0x20000000
-    SET_GENERIC_ALL         = 0x10000000
+    SET_GENERIC_READ = 0x80000000
+    SET_GENERIC_WRITE = 0x04000000
+    SET_GENERIC_EXECUTE = 0x20000000
+    SET_GENERIC_ALL = 0x10000000
     # When reading, these constants are actually represented by
     # the following for Active Directory specific Access Masks
     # Reference: https://docs.microsoft.com/en-us/dotnet/api/system.directoryservices.activedirectoryrights?view=netframework-4.7.2
-    GENERIC_READ            = 0x00020094
-    GENERIC_WRITE           = 0x00020028
-    GENERIC_EXECUTE         = 0x00020004
-    GENERIC_ALL             = 0x000F01FF
+    GENERIC_READ = 0x00020094
+    GENERIC_WRITE = 0x00020028
+    GENERIC_EXECUTE = 0x00020004
+    GENERIC_ALL = 0x000F01FF
 
     # These are actual rights (for all ACE types)
-    MAXIMUM_ALLOWED         = 0x02000000
-    ACCESS_SYSTEM_SECURITY  = 0x01000000
-    SYNCHRONIZE             = 0x00100000
-    WRITE_OWNER             = 0x00080000
-    WRITE_DACL              = 0x00040000
-    READ_CONTROL            = 0x00020000
-    DELETE                  = 0x00010000
+    MAXIMUM_ALLOWED = 0x02000000
+    ACCESS_SYSTEM_SECURITY = 0x01000000
+    SYNCHRONIZE = 0x00100000
+    WRITE_OWNER = 0x00080000
+    WRITE_DACL = 0x00040000
+    READ_CONTROL = 0x00020000
+    DELETE = 0x00010000
 
     # ACE type specific mask constants (for ACCESS_ALLOWED_OBJECT_ACE)
     # Note that while not documented, these also seem valid
     # for ACCESS_ALLOWED_ACE types
-    ADS_RIGHT_DS_CONTROL_ACCESS         = 0x00000100
-    ADS_RIGHT_DS_CREATE_CHILD           = 0x00000001
-    ADS_RIGHT_DS_DELETE_CHILD           = 0x00000002
-    ADS_RIGHT_DS_READ_PROP              = 0x00000010
-    ADS_RIGHT_DS_WRITE_PROP             = 0x00000020
-    ADS_RIGHT_DS_SELF                   = 0x00000008
+    ADS_RIGHT_DS_CONTROL_ACCESS = 0x00000100
+    ADS_RIGHT_DS_CREATE_CHILD = 0x00000001
+    ADS_RIGHT_DS_DELETE_CHILD = 0x00000002
+    ADS_RIGHT_DS_READ_PROP = 0x00000010
+    ADS_RIGHT_DS_WRITE_PROP = 0x00000020
+    ADS_RIGHT_DS_SELF = 0x00000008
 
     def __init__(self, mask):
         self.mask = mask
@@ -330,20 +357,19 @@ class ACCESS_MASK(object):
     def __repr__(self):
         out = []
         for name, value in iteritems(vars(ACCESS_MASK)):
-            if not name.startswith('_') and type(value) is int and self.has_priv(value):
+            if not name.startswith("_") and type(value) is int and self.has_priv(value):
                 out.append(name)
-        return "<ACCESS_MASK RawMask=%d Flags=%s>" % (self.mask, ' | '.join(out))
-
+        return "<ACCESS_MASK RawMask=%d Flags=%s>" % (self.mask, " | ".join(out))
 
 
 class ACE(object):
-    CONTAINER_INHERIT_ACE       = 0x02
-    FAILED_ACCESS_ACE_FLAG      = 0x80
-    INHERIT_ONLY_ACE            = 0x08
-    INHERITED_ACE               = 0x10
-    NO_PROPAGATE_INHERIT_ACE    = 0x04
-    OBJECT_INHERIT_ACE          = 0x01
-    SUCCESSFUL_ACCESS_ACE_FLAG  = 0x04
+    CONTAINER_INHERIT_ACE = 0x02
+    FAILED_ACCESS_ACE_FLAG = 0x80
+    INHERIT_ONLY_ACE = 0x08
+    INHERITED_ACE = 0x10
+    NO_PROPAGATE_INHERIT_ACE = 0x04
+    OBJECT_INHERIT_ACE = 0x01
+    SUCCESSFUL_ACCESS_ACE_FLAG = 0x04
 
     def __init__(self, fh):
         self.fh = fh
@@ -365,9 +391,14 @@ class ACE(object):
     def __repr__(self):
         out = []
         for name, value in iteritems(vars(ACE)):
-            if not name.startswith('_') and type(value) is int and self.has_flag(value):
+            if not name.startswith("_") and type(value) is int and self.has_flag(value):
                 out.append(name)
-        return "<ACE Type=%s Flags=%s RawFlags=%d \n\tAce=%s>" % (self.ace.AceType, ' | '.join(out), self.ace.AceFlags, str(self.acedata))
+        return "<ACE Type=%s Flags=%s RawFlags=%d \n\tAce=%s>" % (
+            self.ace.AceType,
+            " | ".join(out),
+            self.ace.AceFlags,
+            str(self.acedata),
+        )
 
     def has_flag(self, flag):
         return self.ace.AceFlags & flag == flag

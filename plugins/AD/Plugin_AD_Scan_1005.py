@@ -26,23 +26,32 @@ class PluginADInactiveComputer(PluginADScanBase):
         min_logon_day = 180
 
         query = "(objectclass=computer)"
-        attributes = ["cn", "lastLogonTimestamp",
-                      "pwdLastSet", "distinguishedName", "whenCreated"]
+        attributes = [
+            "cn",
+            "lastLogonTimestamp",
+            "pwdLastSet",
+            "distinguishedName",
+            "whenCreated",
+        ]
 
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                         search_filter=query,
-                                                                         search_scope=SUBTREE,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=self.ldap_cli.domain_dn,
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
                 continue
-            if isinstance(entry["attributes"]["lastLogonTimestamp"], list) and len(
-                    entry["attributes"]["lastLogonTimestamp"]) == 0:
-                result['status'] = 1
+            if (
+                isinstance(entry["attributes"]["lastLogonTimestamp"], list)
+                and len(entry["attributes"]["lastLogonTimestamp"]) == 0
+            ):
+                result["status"] = 1
                 instance = {}
                 instance["主机名"] = entry["attributes"]["cn"]
                 instance["DN"] = entry["attributes"]["distinguishedName"]
@@ -56,11 +65,13 @@ class PluginADInactiveComputer(PluginADScanBase):
                 lastLogon = entry["attributes"]["lastLogonTimestamp"]
                 time_lastLogon = datetime.datetime.combine(lastLogon, datetime.time.min)
                 whenCreated = entry["attributes"]["whenCreated"]
-                time_whenCreated = datetime.datetime.combine(whenCreated, datetime.time.min)
+                time_whenCreated = datetime.datetime.combine(
+                    whenCreated, datetime.time.min
+                )
                 num_days1 = datetime.datetime.now() - time_whenCreated
                 num_days2 = datetime.datetime.now() - time_lastLogon
                 if num_days1.days > min_created_day and num_days2.days > min_logon_day:
-                    result['status'] = 1
+                    result["status"] = 1
                     instance = {}
                     instance["主机名"] = entry["attributes"]["cn"]
                     instance["DN"] = entry["attributes"]["distinguishedName"]
@@ -70,5 +81,5 @@ class PluginADInactiveComputer(PluginADScanBase):
                     instance["上次密码修改时间"] = entry["attributes"]["pwdLastSet"]
                     instance_list.append(instance)
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

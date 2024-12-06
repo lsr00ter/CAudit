@@ -16,7 +16,11 @@ from modules.certipylib.target import Target
 from utils.logger import output as outter
 
 
-def get_kerberos_type1(target: Target, target_name: str = "", service: str = "host", ) -> Tuple[type, Key, bytes]:
+def get_kerberos_type1(
+    target: Target,
+    target_name: str = "",
+    service: str = "host",
+) -> Tuple[type, Key, bytes]:
     tgs, cipher, session_key, username, domain = get_TGS(target, target_name, service)
 
     principal = Principal(username, type=constants.PrincipalNameType.NT_PRINCIPAL.value)
@@ -59,6 +63,7 @@ def get_kerberos_type1(target: Target, target_name: str = "", service: str = "ho
     blob["MechToken"] = encoder.encode(ap_req)
 
     return cipher, session_key, blob.getData(), username
+
 
 def get_TGS(
     target: Target,

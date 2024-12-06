@@ -21,25 +21,31 @@ class PluginVCenterMultipleHighAccount(PluginVCenterScanBase):
 
         instance_list = []
         result = copy(self.result)
-        c = Connection(self.dc_ip, user=ccc, password=self.ldap_conf["password"], auto_bind=True)
+        c = Connection(
+            self.dc_ip, user=ccc, password=self.ldap_conf["password"], auto_bind=True
+        )
 
-        c.search(search_base="cn=AclModel,cn=VmwAuthz,cn=services,dc=vsphere,dc=local",
-                 search_filter='(&(objectClass=vmwAuthzAclMap)(vmwAuthzPermissionRoleId=-1))',
-                 search_scope='SUBTREE', attributes=['vmwAuthzPrincipalName']
-                 )
+        c.search(
+            search_base="cn=AclModel,cn=VmwAuthz,cn=services,dc=vsphere,dc=local",
+            search_filter="(&(objectClass=vmwAuthzAclMap)(vmwAuthzPermissionRoleId=-1))",
+            search_scope="SUBTREE",
+            attributes=["vmwAuthzPrincipalName"],
+        )
         resp = c.response
         for r in resp:
-            admin_g_cn = r['attributes']['vmwAuthzPrincipalName'].split('\\')[-1]
-            c.search(search_base="dc=vsphere,dc=local",
-                     search_filter=f'(&(objectClass=group)(cn={admin_g_cn}))',
-                     search_scope='SUBTREE', attributes=['member']
-                     )
+            admin_g_cn = r["attributes"]["vmwAuthzPrincipalName"].split("\\")[-1]
+            c.search(
+                search_base="dc=vsphere,dc=local",
+                search_filter=f"(&(objectClass=group)(cn={admin_g_cn}))",
+                search_scope="SUBTREE",
+                attributes=["member"],
+            )
             for r in c.response:
-                for it in r['attributes']['member']:
+                for it in r["attributes"]["member"]:
                     instance = {}
-                    instance['高权限'] = it.split(',')[0]
+                    instance["高权限"] = it.split(",")[0]
                     instance_list.append(instance)
-        if (len(instance_list) > 10):
-            result['status'] = 1
-            result['data'] = {"instance_list": instance_list}
+        if len(instance_list) > 10:
+            result["status"] = 1
+            result["data"] = {"instance_list": instance_list}
         return result

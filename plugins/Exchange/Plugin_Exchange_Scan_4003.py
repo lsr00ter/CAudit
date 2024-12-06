@@ -24,27 +24,32 @@ class PluginExchangInvalidOrganizationManagementGroup(PluginExchangeScanBase):
         instance_list = []
         query = "(&(objectclass=top)(objectclass=group))"
         attributes = ["member", "cn"]
-        ldap_cli = "CN=Organization Management,OU=Microsoft Exchange Security Groups," + self.ldap_cli.domain_dn
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=ldap_cli,  # TODO  确认是否一致
-                                                                         search_filter=query,
-                                                                         search_scope=SUBTREE,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        ldap_cli = (
+            "CN=Organization Management,OU=Microsoft Exchange Security Groups,"
+            + self.ldap_cli.domain_dn
+        )
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=ldap_cli,  # TODO  确认是否一致
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
                 continue
-            attrs = entry["attributes"]['member']
+            attrs = entry["attributes"]["member"]
             for attr in attrs:
                 if "CN=Administrator" in attr:
                     continue
                 else:
-                    result['status'] = 1
+                    result["status"] = 1
                     instance = {}
-                    instance["账户名"] = entry["attributes"]['cn']
+                    instance["账户名"] = entry["attributes"]["cn"]
                     instance["异常成员"] = attr
                     instance_list.append(instance)
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

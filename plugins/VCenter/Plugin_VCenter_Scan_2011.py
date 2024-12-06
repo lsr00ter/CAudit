@@ -22,13 +22,19 @@ class PluginVCenterCertExpired(PluginVCenterScanBase):
 
     def run_script(self, args) -> dict:
         sslContext = None
-        if hasattr(ssl, '_create_unverified_context'):
+        if hasattr(ssl, "_create_unverified_context"):
             sslContext = ssl._create_unverified_context()
-        vc_cont = connect.SmartConnect(host=self.dc_ip, user=self.ldap_conf['user'], pwd=self.ldap_conf['password'],
-                                       sslContext=sslContext)
+        vc_cont = connect.SmartConnect(
+            host=self.dc_ip,
+            user=self.ldap_conf["user"],
+            pwd=self.ldap_conf["password"],
+            sslContext=sslContext,
+        )
         result = copy(self.result)
         content = vc_cont.RetrieveContent()
-        object_view = content.viewManager.CreateContainerView(content.rootFolder, [vim.HostSystem], True)
+        object_view = content.viewManager.CreateContainerView(
+            content.rootFolder, [vim.HostSystem], True
+        )
         instance_list = []
         for host_system in object_view.view:
             instance = {}
@@ -39,14 +45,16 @@ class PluginVCenterCertExpired(PluginVCenterScanBase):
                 output.debug(e)
                 return result
 
-            time1 = str(host_system.configManager.certificateManager.certificateInfo.notAfter).split(' ')[0]
-            time2 = str(datetime.datetime.now()).split(' ')[0]
+            time1 = str(
+                host_system.configManager.certificateManager.certificateInfo.notAfter
+            ).split(" ")[0]
+            time2 = str(datetime.datetime.now()).split(" ")[0]
             timecert = datetime.datetime.strptime(time1, "%Y-%m-%d")
             timenow = datetime.datetime.strptime(time2, "%Y-%m-%d")
             if timecert < timenow:
-                result['status'] = 1
-                instance['host'] = host_system.name
-                instance['证书过期时间'] = timecert
+                result["status"] = 1
+                instance["host"] = host_system.name
+                instance["证书过期时间"] = timecert
                 instance_list.append(instance)
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

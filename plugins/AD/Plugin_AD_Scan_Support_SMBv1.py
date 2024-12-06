@@ -20,16 +20,21 @@ class PluginADEnableSMBv1(PluginADScanBase):
     def run_script(self, args) -> dict:
         timeout = 2
         try:
-            SMBConnection(self.dc_hostname, self.dc_ip, preferredDialect=SMB_DIALECT, timeout=timeout)
+            SMBConnection(
+                self.dc_hostname,
+                self.dc_ip,
+                preferredDialect=SMB_DIALECT,
+                timeout=timeout,
+            )
 
-            self.result['status'] = 1
-            self.result["data"]['instance_list'] = [{"ip address": self.dc_ip}]
+            self.result["status"] = 1
+            self.result["data"]["instance_list"] = [{"ip address": self.dc_ip}]
 
         except NetBIOSError:
-            self.result['status'] = 0
+            self.result["status"] = 0
 
         except Exception as e:
-            self.result['error'] = str(e)
-            self.result['status'] = -1
+            self.result["error"] = str(e)
+            self.result["status"] = -1
 
         return self.result

@@ -20,22 +20,27 @@ class PluginVCenterManageESXIStatus(PluginVCenterScanBase):
 
     def run_script(self, args) -> dict:
         sslContext = None
-        if hasattr(ssl, '_create_unverified_context'):
+        if hasattr(ssl, "_create_unverified_context"):
             sslContext = ssl._create_unverified_context()
-        vc_cont = connect.SmartConnect(host=self.dc_ip, user=self.ldap_conf['user'], pwd=self.ldap_conf['password'],
-                                       sslContext=sslContext)
+        vc_cont = connect.SmartConnect(
+            host=self.dc_ip,
+            user=self.ldap_conf["user"],
+            pwd=self.ldap_conf["password"],
+            sslContext=sslContext,
+        )
         result = copy(self.result)
         instance_list = []
         content = vc_cont.RetrieveContent()
-        object_view = content.viewManager.CreateContainerView(content.rootFolder, [vim.HostSystem], True)
+        object_view = content.viewManager.CreateContainerView(
+            content.rootFolder, [vim.HostSystem], True
+        )
 
         for host_system in object_view.view:
             if host_system.summary.runtime.connectionState == "disconnected":
-                result['status'] = 1
+                result["status"] = 1
                 instance = {}
-                instance['host'] = host_system.name
-                instance['connection_state'] = 'disconnected'
+                instance["host"] = host_system.name
+                instance["connection_state"] = "disconnected"
                 instance_list.append(instance)
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result
-

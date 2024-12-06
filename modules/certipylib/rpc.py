@@ -91,23 +91,23 @@ def get_dynamic_endpoint(interface: bytes, target: str, timeout: int = 5) -> str
     rpctransport = transport.DCERPCTransportFactory(string_binding)
     rpctransport.set_connect_timeout(timeout)
     dce = rpctransport.get_dce_rpc()
-    output. debug(
+    output.debug(
         "Trying to resolve dynamic endpoint %s" % repr(uuid.bin_to_string(interface))
     )
     try:
         dce.connect()
     except Exception as e:
-        output. warning("Failed to connect to endpoint mapper: %s" % e)
+        output.warning("Failed to connect to endpoint mapper: %s" % e)
         return None
     try:
         endpoint = epm.hept_map(target, interface, protocol="ncacn_ip_tcp", dce=dce)
-        output. debug(
+        output.debug(
             "Resolved dynamic endpoint %s to %s"
             % (repr(uuid.bin_to_string(interface)), repr(endpoint))
         )
         return endpoint
     except Exception:
-        output. debug(
+        output.debug(
             "Failed to resolve dynamic endpoint %s"
             % repr(uuid.bin_to_string(interface))
         )
@@ -129,17 +129,17 @@ def get_dce_rpc(
             string_binding, target, timeout, auth_level=auth_level
         )
 
-        output. debug("Trying to connect to endpoint: %s" % string_binding)
+        output.debug("Trying to connect to endpoint: %s" % string_binding)
         try:
             dce.connect()
         except Exception as e:
             if verbose:
-                output. warning(
+                output.warning(
                     "Failed to connect to endpoint %s: %s" % (string_binding, e)
                 )
             return None
 
-        output. debug("Connected to endpoint: %s" % string_binding)
+        output.debug("Connected to endpoint: %s" % string_binding)
 
         dce.bind(interface)
 
@@ -156,7 +156,7 @@ def get_dce_rpc(
             # Possible errors:
             # - TCP Port 135 is firewalled off
             # - CertSvc is not running
-            output. error("Failed to get dynamic TCP endpoint for CertSvc")
+            output.error("Failed to get dynamic TCP endpoint for CertSvc")
             return None
 
         dce = _try_binding(string_binding, auth_level=auth_level_dyn)

@@ -23,6 +23,6 @@ for i in range(LOCK_COUNT):
 
 def get_lock(index):
     if index < 0 or index >= LOCK_COUNT:
-        raise Exception('cannot find a valid lock')
+        raise Exception("cannot find a valid lock")
 
     return lock_list[index]

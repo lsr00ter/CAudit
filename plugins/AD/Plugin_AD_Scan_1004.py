@@ -28,27 +28,35 @@ class PluginADIllegalPwdDC(PluginADScanBase):
 
         query = "(|(primarygroupid=516)(primarygroupid=521))"
         attributes = [
-            "cn", "lastLogonTimestamp", "whenCreated",
-            "pwdLastSet", "primaryGroupID",
-            "distinguishedName", "servicePrincipalName"
+            "cn",
+            "lastLogonTimestamp",
+            "whenCreated",
+            "pwdLastSet",
+            "primaryGroupID",
+            "distinguishedName",
+            "servicePrincipalName",
         ]
 
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                         search_filter=query,
-                                                                         search_scope=SUBTREE,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=self.ldap_cli.domain_dn,
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         instance = {}
 
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
                 continue
-            if isinstance(entry["attributes"]["lastLogonTimestamp"], list) and len(
-                    entry["attributes"]["lastLogonTimestamp"]) == 0:
-                result['status'] = 1
+            if (
+                isinstance(entry["attributes"]["lastLogonTimestamp"], list)
+                and len(entry["attributes"]["lastLogonTimestamp"]) == 0
+            ):
+                result["status"] = 1
 
                 instance["主机名"] = entry["attributes"]["cn"]
                 instance["DN"] = entry["attributes"]["distinguishedName"]
@@ -60,13 +68,20 @@ class PluginADIllegalPwdDC(PluginADScanBase):
 
             else:
                 whenCreated = entry["attributes"]["whenCreated"]
-                time_whenCreated = datetime.datetime.combine(whenCreated, datetime.time.min)
+                time_whenCreated = datetime.datetime.combine(
+                    whenCreated, datetime.time.min
+                )
                 pwdLastSet = entry["attributes"]["pwdLastSet"]
-                time_pwdLastSet = datetime.datetime.combine(pwdLastSet, datetime.time.min)
+                time_pwdLastSet = datetime.datetime.combine(
+                    pwdLastSet, datetime.time.min
+                )
                 num_days1 = datetime.datetime.now() - time_whenCreated
                 num_days2 = datetime.datetime.now() - time_pwdLastSet
-                if num_days1.days > min_created_day and num_days2.days > min_pwd_set_day:
-                    result['status'] = 1
+                if (
+                    num_days1.days > min_created_day
+                    and num_days2.days > min_pwd_set_day
+                ):
+                    result["status"] = 1
                     instance = {}
                     instance["主机名"] = entry["attributes"]["cn"]
                     instance["DN"] = entry["attributes"]["distinguishedName"]
@@ -76,5 +91,5 @@ class PluginADIllegalPwdDC(PluginADScanBase):
                     instance["上次密码更改时间"] = entry["attributes"]["pwdLastSet"]
                     instance_list.append(instance)
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

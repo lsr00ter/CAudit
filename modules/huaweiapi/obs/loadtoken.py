@@ -31,20 +31,22 @@ class ENV(object):
 
     @staticmethod
     def search():
-        reAccessKey = 'OBS_ACCESS_KEY_ID'
-        reSecretKey = 'OBS_SECRET_ACCESS_KEY'
-        reSecurityToken = 'OBS_SECURITY_TOKEN'
+        reAccessKey = "OBS_ACCESS_KEY_ID"
+        reSecretKey = "OBS_SECRET_ACCESS_KEY"
+        reSecurityToken = "OBS_SECURITY_TOKEN"
 
         accessKey = os.environ.get(reAccessKey)
         secretKey = os.environ.get(reSecretKey)
         securityToken = os.environ.get(reSecurityToken)
 
         if accessKey is None or secretKey is None:
-            raise NoneTokenException('get token failed')
+            raise NoneTokenException("get token failed")
 
-        return {'accessKey': accessKey,
-                'secretKey': secretKey,
-                'securityToken': securityToken}
+        return {
+            "accessKey": accessKey,
+            "secretKey": secretKey,
+            "securityToken": securityToken,
+        }
 
 
 class ECS(object):
@@ -63,8 +65,8 @@ class ECS(object):
         from datetime import datetime
         from datetime import timedelta
 
-        hostIP = '169.254.169.254'
-        contactURL = '/openstack/latest/securitykey'
+        hostIP = "169.254.169.254"
+        contactURL = "/openstack/latest/securitykey"
 
         res = ECS._search_handle_expires(datetime, timedelta)
         if res is not None:
@@ -82,15 +84,15 @@ class ECS(object):
                 expiresAt = None
                 try:
                     conn = httplib.HTTPConnection(hostIP)
-                    conn.request('GET', contactURL)
+                    conn.request("GET", contactURL)
                     result = ECS._search_get_result(conn)
                     responseBody = result.read()
                 except Exception:
                     if ECS._search_judge(datetime):
                         return {
-                            'accessKey': ECS.ak,
-                            'secretKey': ECS.sk,
-                            'securityToken': ECS.token
+                            "accessKey": ECS.ak,
+                            "secretKey": ECS.sk,
+                            "securityToken": ECS.token,
                         }
                     raise
                 finally:
@@ -116,20 +118,25 @@ class ECS(object):
                 except Exception:
                     if ECS._search_judge(datetime):
                         return {
-                            'accessKey': ECS.ak,
-                            'secretKey': ECS.sk,
-                            'securityToken': ECS.token
+                            "accessKey": ECS.ak,
+                            "secretKey": ECS.sk,
+                            "securityToken": ECS.token,
                         }
                     raise
 
-                if resultA is None or resultS is None or resultT is None or resultE is None:
+                if (
+                    resultA is None
+                    or resultS is None
+                    or resultT is None
+                    or resultE is None
+                ):
                     if ECS._search_judge(datetime):
                         return {
-                            'accessKey': ECS.ak,
-                            'secretKey': ECS.sk,
-                            'securityToken': ECS.token
+                            "accessKey": ECS.ak,
+                            "secretKey": ECS.sk,
+                            "securityToken": ECS.token,
                         }
-                    raise NoneTokenException('get token failed')
+                    raise NoneTokenException("get token failed")
 
                 accessKey = resultA.group(1)
                 secretKey = resultS.group(1)
@@ -139,12 +146,12 @@ class ECS(object):
                 ECS.ak = accessKey
                 ECS.sk = secretKey
                 ECS.token = securityToken
-                ECS.expires = datetime.strptime(expiresAt, '%Y-%m-%dT%H:%M:%S.%fZ')
+                ECS.expires = datetime.strptime(expiresAt, "%Y-%m-%dT%H:%M:%S.%fZ")
 
                 return {
-                    'accessKey': accessKey,
-                    'secretKey': secretKey,
-                    'securityToken': securityToken
+                    "accessKey": accessKey,
+                    "secretKey": secretKey,
+                    "securityToken": securityToken,
                 }
             finally:
                 ECS.lock.release()
@@ -155,24 +162,26 @@ class ECS(object):
             token_date_now = datetime.utcnow()
             if token_date_now < (ECS.expires - timedelta(minutes=10)):
                 return {
-                    'accessKey': ECS.ak,
-                    'secretKey': ECS.sk,
-                    'securityToken': ECS.token
+                    "accessKey": ECS.ak,
+                    "secretKey": ECS.sk,
+                    "securityToken": ECS.token,
                 }
 
     @staticmethod
     def _search_handle_lock_acquire(datetime, timedelta):
-        if ECS.expires is not None and datetime.utcnow() < (ECS.expires - timedelta(minutes=10)):
+        if ECS.expires is not None and datetime.utcnow() < (
+            ECS.expires - timedelta(minutes=10)
+        ):
             return {
-                'accessKey': ECS.ak,
-                'secretKey': ECS.sk,
-                'securityToken': ECS.token
+                "accessKey": ECS.ak,
+                "secretKey": ECS.sk,
+                "securityToken": ECS.token,
             }
 
     @staticmethod
     def _search_handle_response_body(responseBody):
         if not const.IS_PYTHON2:
-            return responseBody.decode('utf-8')
+            return responseBody.decode("utf-8")
         return responseBody
 
     @staticmethod

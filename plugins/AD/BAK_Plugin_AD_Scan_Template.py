@@ -5,9 +5,7 @@ from utils.consts import AllPluginTypes
 
 
 class PluginADXXX(PluginADScanBase):
-    """
-
-    """
+    """ """
 
     display = ""
     alias = ""

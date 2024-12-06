@@ -27,7 +27,7 @@ class ProgressNotifier(object):
     def __init__(self, callback=None, totalAmount=0, interval=102400):
         self.callback = callback
         if self.callback is None or not callable(self.callback):
-            raise Exception('Invalid callback')
+            raise Exception("Invalid callback")
         self.totalAmount = totalAmount
         self.interval = interval
         self._transferredAmount = const.LONG(0)
@@ -44,7 +44,8 @@ class ProgressNotifier(object):
             self._transferredAmount += data
             self._newlyTransferredAmount += data
             if self._newlyTransferredAmount >= self.interval and (
-                    self._transferredAmount < self.totalAmount or self.totalAmount <= 0):
+                self._transferredAmount < self.totalAmount or self.totalAmount <= 0
+            ):
                 self._newlyTransferredAmount = 0
                 self.callback(*self._calculate())
 
@@ -57,7 +58,11 @@ class ProgressNotifier(object):
 
     def _calculate(self):
         totalSeconds = time.time() - self._startCheckpoint
-        return self._transferredAmount, self.totalAmount, totalSeconds if totalSeconds > 0 else 0.001
+        return (
+            self._transferredAmount,
+            self.totalAmount,
+            totalSeconds if totalSeconds > 0 else 0.001,
+        )
 
     def send(self, data):
         if isinstance(data, (const.LONG, int)):

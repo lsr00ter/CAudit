@@ -11,9 +11,11 @@ from utils.consts import AllPluginTypes
 
 def start(remoteHost, username, password, caname):
     try:
-        rpctransport = transport.SMBTransport(remoteHost, 445, r'\winreg', username, password, "", "", "", "")
-    except (Exception) as e:
-        
+        rpctransport = transport.SMBTransport(
+            remoteHost, 445, r"\winreg", username, password, "", "", "", ""
+        )
+    except Exception as e:
+
         return
 
     try:
@@ -21,20 +23,26 @@ def start(remoteHost, username, password, caname):
         rrpclient = rpctransport.get_dce_rpc()
         rrpclient.connect()
         rrpclient.bind(rrp.MSRPC_UUID_RRP)
-    except (Exception) as e:
-        
+    except Exception as e:
+
         return
 
     try:
         ans = rrp.hOpenLocalMachine(rrpclient)
-        hRootKey = ans['phKey']
-        subkey = rrp.hBaseRegOpenKey(rrpclient, hRootKey, (
-            "SYSTEM\\CurrentControlSet\\Services\\CertSvc\\Configuration\\%s\\PolicyModules\\CertificateAuthority_MicrosoftDefault.Policy") % caname)
+        hRootKey = ans["phKey"]
+        subkey = rrp.hBaseRegOpenKey(
+            rrpclient,
+            hRootKey,
+            (
+                "SYSTEM\\CurrentControlSet\\Services\\CertSvc\\Configuration\\%s\\PolicyModules\\CertificateAuthority_MicrosoftDefault.Policy"
+            )
+            % caname,
+        )
         # rrp.hBaseRegSetValue(rrpclient, subkey["phkResult"], "DirectoryServiceExtPt", 1, "test")
         return rrp.hBaseRegQueryValue(rrpclient, subkey["phkResult"], "EditFlags")
 
-    except (Exception) as e:
-        
+    except Exception as e:
+
         return
 
 
@@ -46,7 +54,7 @@ def lookuphostname(hostname, dnsip):
         dnsresolver.nameservers = [dnsip]
     except socket.error:
         pass
-    res = dnsresolver.resolve(hostname, 'A')
+    res = dnsresolver.resolve(hostname, "A")
     return str(res.response.answer[0][0])
 
 
@@ -74,7 +82,8 @@ class PluginADESC6(PluginADScanBase):
             get_operational_attributes=True,
             attributes=attributes,
             paged_size=1000,
-            generator=True)
+            generator=True,
+        )
 
         flag = 0
         hostname_list = []
@@ -83,9 +92,11 @@ class PluginADESC6(PluginADScanBase):
             if entry["type"] != "searchResEntry":
                 continue
             name = entry["attributes"]["distinguishedName"].split(",")
-            caname, hostname = name[0].strip('CN='), name[1].strip('CN=')
+            caname, hostname = name[0].strip("CN="), name[1].strip("CN=")
 
-            caip = lookuphostname(hostname + "." + self.dc_conf["name"], self.ldap_conf["server"])
+            caip = lookuphostname(
+                hostname + "." + self.dc_conf["name"], self.ldap_conf["server"]
+            )
             EditFlags = start(caip, self.ldap_username, self.ldap_user_password, caname)
             if ((EditFlags[1] & 262144) == 262144) == True:
                 flag = 1
@@ -95,11 +106,11 @@ class PluginADESC6(PluginADScanBase):
                 continue
 
         if flag == 1:
-            result['status'] = 1
+            result["status"] = 1
             instance = {}
             instance["证书服务器"] = hostname_list
             instance["证书CA"] = caname_list
             instance_list.append(instance)
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

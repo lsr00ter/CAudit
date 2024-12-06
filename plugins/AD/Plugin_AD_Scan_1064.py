@@ -24,32 +24,33 @@ class PluginADNoLAPS(PluginADScanBase):
         try:
 
             query = "(&(objectclass=computer)(!(|(primaryGroupID=516)(primaryGroupID=521))))"
-            attributes = [
-                "cn", "ms-Mcs-AdmPwd",
-                "ms-Mcs-AdmPwdExpirationTime"
-            ]
+            attributes = ["cn", "ms-Mcs-AdmPwd", "ms-Mcs-AdmPwdExpirationTime"]
 
-            entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                             search_filter=query,
-                                                                             search_scope=SUBTREE,
-                                                                             get_operational_attributes=True,
-                                                                             attributes=attributes,
-                                                                             paged_size=1000,
-                                                                             generator=True)
+            entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+                search_base=self.ldap_cli.domain_dn,
+                search_filter=query,
+                search_scope=SUBTREE,
+                get_operational_attributes=True,
+                attributes=attributes,
+                paged_size=1000,
+                generator=True,
+            )
 
             for entry in entry_generator:
                 if entry["type"] != "searchResEntry":
                     continue
 
-                if isinstance(entry["attributes"]["ms-Mcs-AdmPwd"], list) and isinstance(entry["attributes"]["ms-Mcs-AdmPwdExpirationTime"], list) :
+                if isinstance(
+                    entry["attributes"]["ms-Mcs-AdmPwd"], list
+                ) and isinstance(
+                    entry["attributes"]["ms-Mcs-AdmPwdExpirationTime"], list
+                ):
                     instance = {}
                     result["status"] = 1
                     instance["cn"] = entry["attributes"]["cn"]
                     instance["Status"] = "LAPS配置未生效"
-                    instance_list.append(
-                        instance)
-                    result['data'] = {"instance_list": instance_list}
-
+                    instance_list.append(instance)
+                    result["data"] = {"instance_list": instance_list}
 
                 # 检测LAPS生效的逻辑
                 # print(len((entry["attributes"]["ms-Mcs-AdmPwd"])))
@@ -59,14 +60,12 @@ class PluginADNoLAPS(PluginADScanBase):
                 #     #print(entry["attributes"]["cn"])
                 #     break
 
-
         except Exception as e:
             if "invalid attribute type ms-Mcs-AdmPwd" in str(e):
                 instance = {}
                 result["status"] = 1
                 instance["Status"] = "该域未安装LAPS工具"
                 instance_list.append(instance)
-                result['data'] = {"instance_list": instance_list}
+                result["data"] = {"instance_list": instance_list}
 
         return result
-

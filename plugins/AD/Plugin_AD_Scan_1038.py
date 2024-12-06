@@ -24,25 +24,27 @@ class PluginADEmptyAccountOperators(PluginADScanBase):
         query = "(&(objectclass=group)(|(sAMAccountName=Account Operators)(sAMAccountName=Server Operators)(sAMAccountName=Access Control Assistance Operators)(sAMAccountName=Backup Operators)(sAMAccountName=Cryptographic Operators)(sAMAccountName=Network Configuration Operators)(sAMAccountName=Print Operators)))"
         attributes = ["cn", "member", "distinguishedName"]
 
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                         search_filter=query,
-                                                                         search_scope=SUBTREE,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=self.ldap_cli.domain_dn,
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
                 continue
             if entry["attributes"]["member"] != None:
                 for member_res in entry["attributes"]["member"]:
-                    result['status'] = 1
+                    result["status"] = 1
                     instance = {}
                     instance["组名"] = entry["attributes"]["cn"]
                     instance["DN"] = entry["attributes"]["distinguishedName"]
                     instance["成员"] = member_res
                     instance_list.append(instance)
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

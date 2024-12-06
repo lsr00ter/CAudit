@@ -34,18 +34,18 @@ class PluginADNoRecycleBinDC(PluginADScanBase):
             get_operational_attributes=True,
             attributes=attributes,
             paged_size=1000,
-            generator=True)
+            generator=True,
+        )
 
         s = ""
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
                 continue
-            msDSEnabledFeature = str(
-                entry["attributes"]["msDS-EnabledFeature"])
+            msDSEnabledFeature = str(entry["attributes"]["msDS-EnabledFeature"])
             s = s + msDSEnabledFeature
         if "['CN=Recycle Bin Feature," not in s:
-            result['status'] = 1
-            instance_list.append({"ip address":self.dc_ip})
+            result["status"] = 1
+            instance_list.append({"ip address": self.dc_ip})
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

@@ -1,6 +1,1 @@
-__all__ = [
-    'common',
-    'config',
-    'ldap',
-    "plugin"
-]
+__all__ = ["common", "config", "ldap", "plugin"]

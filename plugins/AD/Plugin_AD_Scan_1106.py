@@ -29,16 +29,21 @@ class PluginADNotAdminGroupPrivilegeAccount(PluginADScanBase):
 
             name = entry["attributes"]["cn"]
 
-            if member.find("Administrators") != -1 or member.find("Domain Admins") != -1 or member.find("Enterprise Admins") != -1 or member.find("DnsAdmins") != -1:
+            if (
+                member.find("Administrators") != -1
+                or member.find("Domain Admins") != -1
+                or member.find("Enterprise Admins") != -1
+                or member.find("DnsAdmins") != -1
+            ):
                 continue
             else:
-                result['status'] = 1
+                result["status"] = 1
                 instance = {}
                 instance["用户名"] = entry["attributes"]["cn"]
                 instance["DN"] = entry["attributes"]["distinguishedName"]
-                instance["描述"] = des_dict.get(entry["attributes"]["objectSid"], '')
+                instance["描述"] = des_dict.get(entry["attributes"]["objectSid"], "")
                 instance_list.append(instance)
 
-        if result['status'] == 1:
-            result['data'] = {"instance_list": instance_list}
+        if result["status"] == 1:
+            result["data"] = {"instance_list": instance_list}
         return result

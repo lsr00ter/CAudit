@@ -67,7 +67,7 @@ class Target:
 
     @staticmethod
     def from_options(
-            options, dc_as_target: bool = False, ptt: bool = False
+        options, dc_as_target: bool = False, ptt: bool = False
     ) -> "Target":
         self = Target()
 
@@ -110,12 +110,12 @@ class Target:
 
         password = options.password
         if (
-                not password
-                and username != ""
-                and options.hashes is None
-                and options.aes is None
-                and options.no_pass is not True
-                and options.do_kerberos is not True
+            not password
+            and username != ""
+            and options.hashes is None
+            and options.aes is None
+            and options.no_pass is not True
+            and options.do_kerberos is not True
         ):
             from getpass import getpass
 
@@ -138,9 +138,15 @@ class Target:
             options.do_kerberos = True
 
         remote_name = options.target
-        if ((options.do_kerberos or options.use_sspi) and not remote_name and not ptt and not dc_as_target):
+        if (
+            (options.do_kerberos or options.use_sspi)
+            and not remote_name
+            and not ptt
+            and not dc_as_target
+        ):
             output.error(
-                "Target name (-target) not specified and Kerberos or SSPI authentication is used. This might fail")
+                "Target name (-target) not specified and Kerberos or SSPI authentication is used. This might fail"
+            )
 
         if remote_name is None:
             if options.target_ip:
@@ -191,20 +197,20 @@ class Target:
 
     @staticmethod
     def create(
-            domain: str = None,
-            username: str = None,
-            password: str = None,
-            hashes: str = None,
-            target_ip: str = None,
-            remote_name: str = None,
-            no_pass: bool = False,
-            do_kerberos: bool = False,
-            use_sspi: bool = False,
-            aes: str = None,
-            dc_ip: str = None,
-            ns: str = None,
-            dns_tcp: bool = False,
-            timeout: int = 5,
+        domain: str = None,
+        username: str = None,
+        password: str = None,
+        hashes: str = None,
+        target_ip: str = None,
+        remote_name: str = None,
+        no_pass: bool = False,
+        do_kerberos: bool = False,
+        use_sspi: bool = False,
+        aes: str = None,
+        dc_ip: str = None,
+        ns: str = None,
+        dns_tcp: bool = False,
+        timeout: int = 5,
     ) -> "Target":
 
         self = Target()
@@ -226,11 +232,11 @@ class Target:
         username = username.upper()
 
         if (
-                not password
-                and username != ""
-                and hashes is None
-                and aes is None
-                and no_pass is not True
+            not password
+            and username != ""
+            and hashes is None
+            and aes is None
+            and no_pass is not True
         ):
             from getpass import getpass
 
@@ -308,7 +314,7 @@ class DnsResolver:
 
     @staticmethod
     def create(
-            target: "Target" = None, ns: str = None, dns_tcp: bool = False
+        target: "Target" = None, ns: str = None, dns_tcp: bool = False
     ) -> "DnsResolver":
         self = DnsResolver()
 

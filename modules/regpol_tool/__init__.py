@@ -14,7 +14,7 @@ class Entry:
         self.data = data
 
 
-magic_string = b'\x50\x52\x65\x67\x01\x00\x00\x00'
+magic_string = b"\x50\x52\x65\x67\x01\x00\x00\x00"
 
 # from: https://github.com/wine-mirror/wine/blob/master/include/winnt.h
 REG_NONE = 0  # /* no type */
@@ -57,38 +57,41 @@ def parser_reg_pol(filename):
     with open(filename, "rb") as f:
         file_data = f.read()
     if not file_data.startswith(magic_string):
-        print("Missing Registry.pol magic string: {0}".format(magic_string), file=sys.stderr)
+        print(
+            "Missing Registry.pol magic string: {0}".format(magic_string),
+            file=sys.stderr,
+        )
 
-    body = file_data[len(magic_string):]
+    body = file_data[len(magic_string) :]
 
     entries = []
 
     while len(body) > 0:
-        if body[0:2] != b'[\x00':
-            print("Error: Entry does not start with \"[\"", file=sys.stderr)
+        if body[0:2] != b"[\x00":
+            print('Error: Entry does not start with "["', file=sys.stderr)
             break
         body = body[2:]
 
         # key
-        key, _, body = body.partition(b';\x00')
+        key, _, body = body.partition(b";\x00")
         # print(len(key))
         # print(key)
         key = decode_key(key)
 
         # value
-        value, _, body = body.partition(b';\x00')
+        value, _, body = body.partition(b";\x00")
         # print(len(key))
         # print(key)
         value = decode_value(value)
 
         # type
         regtype = body[0:4]
-        body = body[4 + 2:]  # len of field plus semicolon delimieter
+        body = body[4 + 2 :]  # len of field plus semicolon delimieter
         regtype = struct.unpack("<I", regtype)[0]
 
         # size
         size = body[0:4]
-        body = body[4 + 2:]
+        body = body[4 + 2 :]
         size = struct.unpack("<I", size)[0]
 
         # data
@@ -98,8 +101,8 @@ def parser_reg_pol(filename):
         entry = Entry(key=key, value=value, regtype=regtype, size=size, data=data)
         entries.append(entry)
 
-        if body[0:2] != b']\x00':
-            print("Error: Entry does not end with \"]\"", file=sys.stderr)
+        if body[0:2] != b"]\x00":
+            print('Error: Entry does not end with "]"', file=sys.stderr)
             break
         body = body[2:]
 
@@ -110,14 +113,14 @@ def decode_key(regkey):
     # if regkey[-1:] != b'\x00':
     #     print("Warning: Key is not null-terminated: {0}".format(regkey), file=sys.stderr)
     # regkey = regkey[:-1]
-    return regkey.decode('utf-16-le')
+    return regkey.decode("utf-16-le")
 
 
 def decode_value(value):
     # if value[-1:] != b'\x00':
     #     print("Warning: Value is not null-terminated: {0}".format(value), file=sys.stderr)
     # value = value[:-1]
-    return value.decode('utf-16-le')
+    return value.decode("utf-16-le")
 
 
 def pprint_entries(entries):
@@ -130,5 +133,5 @@ def pprint_entries(entries):
         print()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(parser_reg_pol("openRegistry.pol"))

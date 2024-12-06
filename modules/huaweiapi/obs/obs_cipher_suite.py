@@ -37,13 +37,17 @@ class CipherGenerator(object):
             raise Exception("Crypto mod is not in object's metadata")
         header_dict["crypto_mod"] = header_dict.pop("encrypted-algorithm")
         if header_dict["crypto_mod"] != self.crypto_mod:
-            raise Exception("Object's crypto mod is not equals cipher-generator's, "
-                            "please change a different cipher-generator")
+            raise Exception(
+                "Object's crypto mod is not equals cipher-generator's, "
+                "please change a different cipher-generator"
+            )
         return header_dict
 
     def check_record(self, record, crypto_info):
-        return record["crypto_mod"] == crypto_info["crypto_mod"] \
-               and record["master_key_sha256"] == self.master_key_sha256
+        return (
+            record["crypto_mod"] == crypto_info["crypto_mod"]
+            and record["master_key_sha256"] == self.master_key_sha256
+        )
 
 
 class OBSCipher(object):
@@ -74,15 +78,22 @@ class OBSCipher(object):
 
     def gen_need_metadata_and_headers(self, metadata, headers=None):
         if self.need_sha256:
-            metadata["plaintext-sha256"], metadata["encrypted-sha256"], metadata[
-                "plaintext-content-length"] = self.calculate_sha256()
+            (
+                metadata["plaintext-sha256"],
+                metadata["encrypted-sha256"],
+                metadata["plaintext-content-length"],
+            ) = self.calculate_sha256()
             if headers is not None:
                 headers.sha256 = metadata["encrypted-sha256"]
         metadata["encrypted-algorithm"] = self.crypto_mod
         return metadata
 
     def calculate_sha256(self, read_length=None):
-        return self.sha256.hexdigest(), self.encrypted_sha256.hexdigest(), self.read_count
+        return (
+            self.sha256.hexdigest(),
+            self.encrypted_sha256.hexdigest(),
+            self.read_count,
+        )
 
     def get_content_length(self):
         current_pointer = self._file.tell()
@@ -112,7 +123,7 @@ class OBSCipher(object):
         return {"crypto_mod": self.crypto_mod}
 
     def close(self):
-        if hasattr(self._file, 'close') and callable(self._file.close):
+        if hasattr(self._file, "close") and callable(self._file.close):
             self._file.close()
 
     def __str__(self):
@@ -120,7 +131,9 @@ class OBSCipher(object):
 
 
 class CTRCipherGenerator(CipherGenerator):
-    def __init__(self, crypto_key, master_key_info=None, crypto_iv=None, *args, **kwargs):
+    def __init__(
+        self, crypto_key, master_key_info=None, crypto_iv=None, *args, **kwargs
+    ):
         super(CTRCipherGenerator, self).__init__(*args, **kwargs)
         self.crypto_key = util.covert_string_to_bytes(crypto_key)
         self.crypto_iv = util.covert_string_to_bytes(crypto_iv)
@@ -131,16 +144,39 @@ class CTRCipherGenerator(CipherGenerator):
     def new(self, readable, is_decrypt=False, crypto_info=None):
         if crypto_info is not None:
             iv = binascii.a2b_base64(crypto_info["crypto_iv"])
-            return OBSCtrCipher(readable, self.crypto_key, self.master_key_info, self.master_key_sha256,
-                                iv, is_decrypt, self.need_sha256)
+            return OBSCtrCipher(
+                readable,
+                self.crypto_key,
+                self.master_key_info,
+                self.master_key_sha256,
+                iv,
+                is_decrypt,
+                self.need_sha256,
+            )
         if self.crypto_iv is None:
-            return OBSCtrCipher(readable, self.crypto_key, self.master_key_info, self.master_key_sha256,
-                                self.gen_random_key(16), is_decrypt, self.need_sha256)
-        return OBSCtrCipher(readable, self.crypto_key, self.master_key_info, self.master_key_sha256,
-                            self.crypto_iv, is_decrypt, self.need_sha256)
+            return OBSCtrCipher(
+                readable,
+                self.crypto_key,
+                self.master_key_info,
+                self.master_key_sha256,
+                self.gen_random_key(16),
+                is_decrypt,
+                self.need_sha256,
+            )
+        return OBSCtrCipher(
+            readable,
+            self.crypto_key,
+            self.master_key_info,
+            self.master_key_sha256,
+            self.crypto_iv,
+            is_decrypt,
+            self.need_sha256,
+        )
 
     def get_crypto_info_from_headers(self, header_dict):
-        header_dict = super(CTRCipherGenerator, self).get_crypto_info_from_headers(header_dict)
+        header_dict = super(CTRCipherGenerator, self).get_crypto_info_from_headers(
+            header_dict
+        )
         if "encrypted-start" not in header_dict:
             raise Exception("Encryption info is not in metadata")
         header_dict["crypto_iv"] = header_dict.pop("encrypted-start")
@@ -151,28 +187,45 @@ class CTRCipherGenerator(CipherGenerator):
         return header_dict
 
     def check_download_record(self, record, crypto_info):
-        return super(CTRCipherGenerator, self).check_record(record, crypto_info) \
-               and record["master_key_sha256"] == crypto_info["master_key_sha256"] \
-               and record["crypto_iv"] == crypto_info["crypto_iv"]
+        return (
+            super(CTRCipherGenerator, self).check_record(record, crypto_info)
+            and record["master_key_sha256"] == crypto_info["master_key_sha256"]
+            and record["crypto_iv"] == crypto_info["crypto_iv"]
+        )
 
     def check_upload_record(self, record, crypto_info):
-        is_iv_match = binascii.a2b_base64(record["crypto_iv"]) == self.crypto_iv if self.crypto_iv else True
-        return super(CTRCipherGenerator, self).check_record(record, crypto_info) \
-               and is_iv_match \
-               and record["master_key_info"] == crypto_info["master_key_info"] \
-               and record["master_key_sha256"] == crypto_info["master_key_sha256"]
+        is_iv_match = (
+            binascii.a2b_base64(record["crypto_iv"]) == self.crypto_iv
+            if self.crypto_iv
+            else True
+        )
+        return (
+            super(CTRCipherGenerator, self).check_record(record, crypto_info)
+            and is_iv_match
+            and record["master_key_info"] == crypto_info["master_key_info"]
+            and record["master_key_sha256"] == crypto_info["master_key_sha256"]
+        )
 
 
 class OBSCtrCipher(OBSCipher):
-    def __init__(self, readable, crypto_key, master_key_info, master_key_sha256,
-                 crypto_iv=None, is_decrypt=False, need_sha256=False):
+    def __init__(
+        self,
+        readable,
+        crypto_key,
+        master_key_info,
+        master_key_sha256,
+        crypto_iv=None,
+        is_decrypt=False,
+        need_sha256=False,
+    ):
         super(OBSCtrCipher, self).__init__(readable, is_decrypt, need_sha256)
         self.master_key_sha256 = master_key_sha256
         ctr = Counter.new(128, initial_value=bytes_to_long(crypto_iv))
         self.crypto_iv = crypto_iv
         self.crypto_mod = "AES256-Ctr/iv_base64/NoPadding"
-        if (const.IS_PYTHON2 and isinstance(crypto_key, unicode)) \
-                or (not const.IS_PYTHON2 and isinstance(crypto_key, str)):
+        if (const.IS_PYTHON2 and isinstance(crypto_key, unicode)) or (
+            not const.IS_PYTHON2 and isinstance(crypto_key, str)
+        ):
             crypto_key = crypto_key.encode("UTF-8")
         self.crypto_key = crypto_key
         self.master_key_info = master_key_info
@@ -182,7 +235,9 @@ class OBSCtrCipher(OBSCipher):
         chunk = self._file.read(n)
         if not isinstance(chunk, bytes):
             # todo 这个说明是否合适
-            raise Exception("Only support bytes for encrypt, please open your stream with 'rb' mode")
+            raise Exception(
+                "Only support bytes for encrypt, please open your stream with 'rb' mode"
+            )
         encrypted_chunk = self.aes.encrypt(chunk)
         return encrypted_chunk
 
@@ -190,25 +245,41 @@ class OBSCtrCipher(OBSCipher):
         return self.aes.decrypt(self.original_response.read(n))
 
     def gen_need_metadata_and_headers(self, metadata, headers=None):
-        metadata["encrypted-start"] = binascii.b2a_base64(self.crypto_iv).strip().decode("UTF-8")
+        metadata["encrypted-start"] = (
+            binascii.b2a_base64(self.crypto_iv).strip().decode("UTF-8")
+        )
         metadata["master-key-info"] = self.master_key_info
-        return super(OBSCtrCipher, self).gen_need_metadata_and_headers(metadata, headers)
+        return super(OBSCtrCipher, self).gen_need_metadata_and_headers(
+            metadata, headers
+        )
 
     def calculate_sha256(self, total_read_length=None):
         current_pointer = self._file.tell()
         current_read_length = 0
         while True:
-            if total_read_length is not None and total_read_length - current_read_length > const.READ_ONCE_LENGTH:
+            if (
+                total_read_length is not None
+                and total_read_length - current_read_length > const.READ_ONCE_LENGTH
+            ):
                 read_size = total_read_length - current_read_length
             else:
                 read_size = const.READ_ONCE_LENGTH
             chunk = self._file.read(read_size)
-            if not chunk or (total_read_length is not None and current_read_length == total_read_length):
+            if not chunk or (
+                total_read_length is not None
+                and current_read_length == total_read_length
+            ):
                 self.seek(current_pointer)
-                return self.sha256.hexdigest(), self.encrypted_sha256.hexdigest(), self.read_count
+                return (
+                    self.sha256.hexdigest(),
+                    self.encrypted_sha256.hexdigest(),
+                    self.read_count,
+                )
             if not isinstance(chunk, bytes):
                 # todo 这个说明是否合适
-                raise Exception("Only support bytes for encrypt, please open your stream with 'rb' mode")
+                raise Exception(
+                    "Only support bytes for encrypt, please open your stream with 'rb' mode"
+                )
             self.sha256.update(chunk)
             encrypted_chunk = self.aes.encrypt(chunk)
             self.encrypted_sha256.update(encrypted_chunk)
@@ -236,20 +307,26 @@ class OBSCtrCipher(OBSCipher):
             self.aes.encrypt(b"1" * (offset % 16))
 
     def gen_need_record(self, record):
-        record["crypto_iv"] = binascii.b2a_base64(self.crypto_iv).strip().decode("UTF-8")
+        record["crypto_iv"] = (
+            binascii.b2a_base64(self.crypto_iv).strip().decode("UTF-8")
+        )
         record["master_key_info"] = self.master_key_info
         record["master_key_sha256"] = self.master_key_sha256
         return super(OBSCtrCipher, self).gen_need_record(record)
 
     def safe_crypto_info(self):
         crypto_info = super(OBSCtrCipher, self).safe_crypto_info()
-        crypto_info["crypto_iv"] = binascii.b2a_base64(self.crypto_iv).strip().decode("UTF-8")
+        crypto_info["crypto_iv"] = (
+            binascii.b2a_base64(self.crypto_iv).strip().decode("UTF-8")
+        )
         crypto_info["master_key_info"] = self.master_key_info
         crypto_info["master_key_sha256"] = self.master_key_sha256
         return crypto_info
 
     def __str__(self):
-        return "OBSCtrCipher Encrypted Object start at " + binascii.b2a_base64(self.crypto_iv).strip().decode("UTF-8")
+        return "OBSCtrCipher Encrypted Object start at " + binascii.b2a_base64(
+            self.crypto_iv
+        ).strip().decode("UTF-8")
 
 
 class CtrRSACipherGenerator(CipherGenerator):
@@ -267,18 +344,39 @@ class CtrRSACipherGenerator(CipherGenerator):
         if crypto_info is not None:
             iv = binascii.a2b_base64(crypto_info["crypto_iv"])
             if "object_encryption_key" in crypto_info:
-                object_encryption_key = binascii.a2b_base64(crypto_info["object_encryption_key"])
+                object_encryption_key = binascii.a2b_base64(
+                    crypto_info["object_encryption_key"]
+                )
             else:
-                object_encryption_key = self.decrypt_object_encryption_key(crypto_info["encrypted_object_key"])
+                object_encryption_key = self.decrypt_object_encryption_key(
+                    crypto_info["encrypted_object_key"]
+                )
                 if object_encryption_key == 0:
-                    raise Exception("Wrong private key, could not decrypt object encryption key")
-            return OBSCtrRSACipher(readable, object_encryption_key, crypto_info["encrypted_object_key"],
-                                   self.master_key_info, self.master_key_sha256, iv, is_decrypt, self.need_sha256)
+                    raise Exception(
+                        "Wrong private key, could not decrypt object encryption key"
+                    )
+            return OBSCtrRSACipher(
+                readable,
+                object_encryption_key,
+                crypto_info["encrypted_object_key"],
+                self.master_key_info,
+                self.master_key_sha256,
+                iv,
+                is_decrypt,
+                self.need_sha256,
+            )
         random_key = self.gen_random_key(32)
         random_iv = self.gen_random_key(16)
-        return OBSCtrRSACipher(readable, random_key, self.encrypt_object_encryption_key(random_key),
-                               self.master_key_info,
-                               self.master_key_sha256, random_iv, is_decrypt, self.need_sha256)
+        return OBSCtrRSACipher(
+            readable,
+            random_key,
+            self.encrypt_object_encryption_key(random_key),
+            self.master_key_info,
+            self.master_key_sha256,
+            random_iv,
+            is_decrypt,
+            self.need_sha256,
+        )
 
     def encrypt_object_encryption_key(self, key_str):
         return binascii.b2a_base64(self.rsa.encrypt(key_str)).strip().decode("UTF-8")
@@ -287,7 +385,9 @@ class CtrRSACipherGenerator(CipherGenerator):
         return self.rsa.decrypt(binascii.a2b_base64(key_str), 0)
 
     def get_crypto_info_from_headers(self, header_dict):
-        header_dict = super(CtrRSACipherGenerator, self).get_crypto_info_from_headers(header_dict)
+        header_dict = super(CtrRSACipherGenerator, self).get_crypto_info_from_headers(
+            header_dict
+        )
         if "encrypted-object-key" not in header_dict:
             raise Exception("Encryption info is not in metadata")
         header_dict["encrypted_object_key"] = header_dict.pop("encrypted-object-key")
@@ -297,39 +397,65 @@ class CtrRSACipherGenerator(CipherGenerator):
         return header_dict
 
     def check_download_record(self, record, crypto_info):
-        return super(CtrRSACipherGenerator, self).check_record(record, crypto_info) \
-               and record["master_key_sha256"] == crypto_info["master_key_sha256"] \
-               and record["crypto_iv"] == crypto_info["crypto_iv"] \
-               and record["encrypted_object_key"] == crypto_info["encrypted_object_key"]
+        return (
+            super(CtrRSACipherGenerator, self).check_record(record, crypto_info)
+            and record["master_key_sha256"] == crypto_info["master_key_sha256"]
+            and record["crypto_iv"] == crypto_info["crypto_iv"]
+            and record["encrypted_object_key"] == crypto_info["encrypted_object_key"]
+        )
 
     def check_upload_record(self, record, crypto_info):
-        return super(CtrRSACipherGenerator, self).check_record(record, crypto_info) \
-               and record["master_key_info"] == crypto_info["master_key_info"] \
-               and record["master_key_sha256"] == crypto_info["master_key_sha256"]
+        return (
+            super(CtrRSACipherGenerator, self).check_record(record, crypto_info)
+            and record["master_key_info"] == crypto_info["master_key_info"]
+            and record["master_key_sha256"] == crypto_info["master_key_sha256"]
+        )
 
 
 class OBSCtrRSACipher(OBSCtrCipher):
-    def __init__(self, readable, crypto_key, encrypted_object_key, master_key_info, master_key_sha256,
-                 crypto_iv=None, is_decrypt=False, need_sha256=False):
-        super(OBSCtrRSACipher, self).__init__(readable, crypto_key, master_key_info, master_key_sha256, crypto_iv,
-                                              is_decrypt, need_sha256)
+    def __init__(
+        self,
+        readable,
+        crypto_key,
+        encrypted_object_key,
+        master_key_info,
+        master_key_sha256,
+        crypto_iv=None,
+        is_decrypt=False,
+        need_sha256=False,
+    ):
+        super(OBSCtrRSACipher, self).__init__(
+            readable,
+            crypto_key,
+            master_key_info,
+            master_key_sha256,
+            crypto_iv,
+            is_decrypt,
+            need_sha256,
+        )
         self.encrypted_object_key = encrypted_object_key
         self.crypto_mod = "AES256-Ctr/RSA-Object-Key/NoPadding"
         self.master_key_info = master_key_info
 
     def gen_need_metadata_and_headers(self, metadata, headers=None):
         metadata["encrypted-object-key"] = self.encrypted_object_key
-        return super(OBSCtrRSACipher, self).gen_need_metadata_and_headers(metadata, headers)
+        return super(OBSCtrRSACipher, self).gen_need_metadata_and_headers(
+            metadata, headers
+        )
 
     def gen_need_record(self, record):
         record["encrypted_object_key"] = self.encrypted_object_key
         record["master_key_sha256"] = self.master_key_sha256
-        record["object_encryption_key"] = binascii.b2a_base64(self.crypto_key).strip().decode("UTF-8")
+        record["object_encryption_key"] = (
+            binascii.b2a_base64(self.crypto_key).strip().decode("UTF-8")
+        )
         return super(OBSCtrRSACipher, self).gen_need_record(record)
 
     def crypto_info(self):
         crypto_info = self.safe_crypto_info()
-        crypto_info["object_encryption_key"] = binascii.b2a_base64(self.crypto_key).strip().decode("UTF-8")
+        crypto_info["object_encryption_key"] = (
+            binascii.b2a_base64(self.crypto_key).strip().decode("UTF-8")
+        )
         return crypto_info
 
     def safe_crypto_info(self):
@@ -340,5 +466,6 @@ class OBSCtrRSACipher(OBSCtrCipher):
         return crypto_info
 
     def __str__(self):
-        return "OBSCtrRSACipher Encrypted Object start at " \
-               + binascii.b2a_base64(self.crypto_iv).strip().decode("UTF-8")
+        return "OBSCtrRSACipher Encrypted Object start at " + binascii.b2a_base64(
+            self.crypto_iv
+        ).strip().decode("UTF-8")

@@ -23,9 +23,7 @@ class PluginBase:
         """
         self.result = {
             "status": 0,  # 0=失败 1=成功 -1=插件报错
-            "data": {
-                "instance_list": list[dict[str, str]]
-            },
+            "data": {"instance_list": list[dict[str, str]]},
             "desc": "",
             "error": "",
         }

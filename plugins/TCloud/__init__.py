@@ -11,13 +11,29 @@ from qcloud_cos import CosConfig, CosS3Client
 from tencentcloud.common import credential
 from tencentcloud.common.profile.client_profile import ClientProfile
 from tencentcloud.common.profile.http_profile import HttpProfile
-from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
-from tencentcloud.sts.v20180813 import sts_client as v20180813_sts_client, models as v20180813_modules
-from tencentcloud.cam.v20190116 import cam_client as v20190116_cam_client, models as v20190116_modules
-from tencentcloud.cvm.v20170312 import cvm_client as v20170312_cvm_client, models as v20170312_models
-from tencentcloud.lighthouse.v20200324 import lighthouse_client as v20200324_lighthouse_client, \
-    models as v20200324_models
-from tencentcloud.tat.v20201028 import tat_client as v20201028_tat_client, models as v20201028_models
+from tencentcloud.common.exception.tencent_cloud_sdk_exception import (
+    TencentCloudSDKException,
+)
+from tencentcloud.sts.v20180813 import (
+    sts_client as v20180813_sts_client,
+    models as v20180813_modules,
+)
+from tencentcloud.cam.v20190116 import (
+    cam_client as v20190116_cam_client,
+    models as v20190116_modules,
+)
+from tencentcloud.cvm.v20170312 import (
+    cvm_client as v20170312_cvm_client,
+    models as v20170312_models,
+)
+from tencentcloud.lighthouse.v20200324 import (
+    lighthouse_client as v20200324_lighthouse_client,
+    models as v20200324_models,
+)
+from tencentcloud.tat.v20201028 import (
+    tat_client as v20201028_tat_client,
+    models as v20201028_models,
+)
 
 from modules import convert_size
 from plugins import PluginBase
@@ -32,7 +48,9 @@ __help__ = "TencentCloud module"
 __all__ = [__type__, __help__]
 
 
-def enrollment_parameters(parser: ArgumentParser, all_plugins: dict[str, PluginBase], exp_sub_name: str) -> None:
+def enrollment_parameters(
+    parser: ArgumentParser, all_plugins: dict[str, PluginBase], exp_sub_name: str
+) -> None:
     """
     注册模块参数
 
@@ -44,14 +62,17 @@ def enrollment_parameters(parser: ArgumentParser, all_plugins: dict[str, PluginB
     # VCenter-scan 模块
     ad_sub_mode = parser.add_subparsers(dest="scan_type")
 
-    exploit_mode = ad_sub_mode.add_parser("exploit", formatter_class=argparse.RawDescriptionHelpFormatter)
+    exploit_mode = ad_sub_mode.add_parser(
+        "exploit", formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     exp_plugin_mode = exploit_mode.add_subparsers()
 
     # 加载所有exploit插件，读取参数，注册
     for name, exp in all_plugins.items():
         if exp.p_type == AllPluginTypes.Exploit:
-            exp_sub_plugin_mode = exp_plugin_mode.add_parser(exp.alias,
-                                                             formatter_class=argparse.RawDescriptionHelpFormatter)
+            exp_sub_plugin_mode = exp_plugin_mode.add_parser(
+                exp.alias, formatter_class=argparse.RawDescriptionHelpFormatter
+            )
         # 防止没有输入alice的错误
         if exp.alias != "" and exp.alias == exp_sub_name:
             c: PluginBase = exp()
@@ -100,15 +121,20 @@ class TencentAPi:
             output.error(err)
 
     def list_oss_objects(self, region, bucket_name):
-        scheme = 'https'
+        scheme = "https"
         results = []
 
-        config = CosConfig(Region=region, SecretId=self.secret_id, SecretKey=self.secret_key, Scheme=scheme)
+        config = CosConfig(
+            Region=region,
+            SecretId=self.secret_id,
+            SecretKey=self.secret_key,
+            Scheme=scheme,
+        )
         client = CosS3Client(config)
 
         response = client.list_objects(Bucket=bucket_name)
-        if 'Contents' in response:
-            for content in response['Contents']:
+        if "Contents" in response:
+            for content in response["Contents"]:
                 size = convert_size(int(content["Size"]))
 
                 url = client.get_object_url(Bucket=bucket_name, Key=content["Key"])
@@ -156,9 +182,7 @@ class TencentAPi:
 
             # 实例化一个请求对象,每个接口都会对应一个request对象
             req = v20190116_modules.ListAttachedUserPoliciesRequest()
-            params = {
-                "TargetUin": user_id
-            }
+            params = {"TargetUin": user_id}
             req.from_json_string(json.dumps(params))
 
             resp = client.ListAttachedUserPolicies(req)
@@ -184,7 +208,9 @@ class TencentAPi:
 
                 clientProfile = ClientProfile()
                 clientProfile.httpProfile = httpProfile
-                client = v20170312_cvm_client.CvmClient(self.cred, r.Region, clientProfile)
+                client = v20170312_cvm_client.CvmClient(
+                    self.cred, r.Region, clientProfile
+                )
 
                 req = v20170312_models.DescribeInstancesRequest()
                 params = {}
@@ -216,7 +242,9 @@ class TencentAPi:
 
                 clientProfile = ClientProfile()
                 clientProfile.httpProfile = httpProfile
-                client = v20200324_lighthouse_client.LighthouseClient(self.cred, r.Region, clientProfile)
+                client = v20200324_lighthouse_client.LighthouseClient(
+                    self.cred, r.Region, clientProfile
+                )
 
                 req = v20200324_models.DescribeInstancesRequest()
                 params = {}
@@ -252,9 +280,11 @@ class TencentAPi:
 
             req = v20201028_models.CreateCommandRequest()
             params = {
-                "CommandName": ''.join(random.sample(string.ascii_letters + string.digits, 5)),
+                "CommandName": "".join(
+                    random.sample(string.ascii_letters + string.digits, 5)
+                ),
                 "CommandType": command_type,
-                "Content": base64.b64encode(command.encode()).decode()
+                "Content": base64.b64encode(command.encode()).decode(),
             }
             req.from_json_string(json.dumps(params))
 
@@ -271,10 +301,7 @@ class TencentAPi:
             client = v20201028_tat_client.TatClient(self.cred, region, clientProfile)
 
             req = v20201028_models.InvokeCommandRequest()
-            params = {
-                "CommandId": command_id,
-                "InstanceIds": [instance_id]
-            }
+            params = {"CommandId": command_id, "InstanceIds": [instance_id]}
             req.from_json_string(json.dumps(params))
 
             resp = client.InvokeCommand(req)
@@ -292,17 +319,17 @@ class TencentAPi:
             client = v20201028_tat_client.TatClient(self.cred, region, clientProfile)
 
             req = v20201028_models.DescribeInvocationTasksRequest()
-            params = {
-                "HideOutput": False
-            }
+            params = {"HideOutput": False}
             req.from_json_string(json.dumps(params))
             resp = client.DescribeInvocationTasks(req)
 
             get_resulted = False
             while not get_resulted:
                 if resp.InvocationTaskSet[0].CommandId == command_id:
-                    output.debug(f"get command base64 string:\n\n"
-                                 f"{resp.InvocationTaskSet[0].TaskResult.Output}\n")
+                    output.debug(
+                        f"get command base64 string:\n\n"
+                        f"{resp.InvocationTaskSet[0].TaskResult.Output}\n"
+                    )
                     command_result_base64 = resp.InvocationTaskSet[0].TaskResult.Output
                     get_resulted = True
                 else:

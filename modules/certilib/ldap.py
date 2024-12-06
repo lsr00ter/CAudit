@@ -1,4 +1,3 @@
-
 from impacket.ldap import ldap, ldapasn1
 from impacket.ldap.ldaptypes import SR_SECURITY_DESCRIPTOR, ACCESS_ALLOWED_OBJECT_ACE
 
@@ -7,6 +6,7 @@ from .smb import get_machine_name
 
 from ldap3.protocol.microsoft import security_descriptor_control
 
+
 def ldap_results(resp):
     for item in resp:
         if isinstance(item, ldapasn1.SearchResultEntry):
@@ -14,15 +14,15 @@ def ldap_results(resp):
 
 
 def connect_ldap(
-        domain,
-        user,
-        password="",
-        lmhash="",
-        nthash="",
-        aesKey="",
-        dc_ip=None,
-        kerberos=False,
-        ssl=False,
+    domain,
+    user,
+    password="",
+    lmhash="",
+    nthash="",
+    aesKey="",
+    dc_ip=None,
+    kerberos=False,
+    ssl=False,
 ):
 
     base_dn = get_base_dn(domain)
@@ -38,11 +38,7 @@ def connect_ldap(
     protocol = "ldaps" if ssl else "ldap"
     url = "%s://%s" % (protocol, target)
 
-    ldap_conn = ldap.LDAPConnection(
-        url=url,
-        baseDN=base_dn,
-        dstIp=dc_ip
-    )
+    ldap_conn = ldap.LDAPConnection(url=url, baseDN=base_dn, dstIp=dc_ip)
 
     if kerberos:
         ldap_conn.kerberosLogin(
@@ -65,7 +61,10 @@ def connect_ldap(
 
     return ldap_conn
 
-def search_ldap(ldap_conn, search_filter, search_base=None, attributes=None, controls=None):
+
+def search_ldap(
+    ldap_conn, search_filter, search_base=None, attributes=None, controls=None
+):
     try:
         return ldap_conn.search(
             searchFilter=search_filter,
@@ -75,19 +74,22 @@ def search_ldap(ldap_conn, search_filter, search_base=None, attributes=None, con
         )
 
     except ldap.LDAPSearchError as e:
-        if e.getErrorString().find('sizeLimitExceeded') >= 0:
-            output.debug('sizeLimitExceeded exception caught, giving up and processing the data received')
+        if e.getErrorString().find("sizeLimitExceeded") >= 0:
+            output.debug(
+                "sizeLimitExceeded exception caught, giving up and processing the data received"
+            )
             # We reached the sizeLimit, process the answers we have already and that's it. Until we implement
             # paged queries
             return e.getAnswers()
         else:
             raise
 
+
 def get_base_dn(domain):
-    domain_parts = domain.split('.')
-    base_dn = ''
+    domain_parts = domain.split(".")
+    base_dn = ""
     for i in domain_parts:
-        base_dn += 'dc=%s,' % i
+        base_dn += "dc=%s," % i
 
     base_dn = base_dn[:-1]
     return base_dn

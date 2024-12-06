@@ -18,123 +18,123 @@ from modules.huaweiapi.obs import util
 from modules.huaweiapi.obs import progress
 
 __all__ = [
-    'BaseModel',
-    'GetResult',
-    'CompletePart',
-    'Permission',
-    'StorageClass',
-    'EventType',
-    'RestoreTier',
-    'Group',
-    'Grantee',
-    'Grant',
-    'ExtensionGrant',
-    'Owner',
-    'Initiator',
-    'ACL',
-    'Bucket',
-    'CommonPrefix',
-    'Condition',
-    'Content',
-    'DateTime',
-    'SseHeader',
-    'SseCHeader',
-    'SseKmsHeader',
-    'CopyObjectHeader',
-    'SetObjectMetadataHeader',
-    'CorsRule',
-    'CreateBucketHeader',
-    'ErrorDocument',
-    'IndexDocument',
-    'Expiration',
-    'NoncurrentVersionExpiration',
-    'GetObjectHeader',
-    'HeadPermission',
-    'Lifecycle',
-    'Notification',
-    'TopicConfiguration',
-    'FunctionGraphConfiguration',
-    'FilterRule',
-    'Replication',
-    'ReplicationRule',
-    'ObjectDeleteMarker',
-    'ObjectVersionHead',
-    'ObjectVersion',
-    'Options',
-    'Policy',
-    'PutObjectHeader',
-    'AppendObjectHeader',
-    'AppendObjectContent',
-    'RedirectAllRequestTo',
-    'Redirect',
-    'RoutingRule',
-    'Tag',
-    'TagInfo',
-    'Transition',
-    'Part',
-    'NoncurrentVersionTransition',
-    'Rule',
-    'Upload',
-    'Versions',
-    'Object',
-    'WebsiteConfiguration',
-    'Logging',
-    'ObjectVersions',
-    'CompleteMultipartUploadRequest',
-    'CompleteMultipartUploadResponse',
-    'CopyObjectResponse',
-    'CopyPartResponse',
-    'DeleteObjectResponse',
-    'DeleteObjectsRequest',
-    'DeleteObjectsResponse',
-    'ErrorResult',
-    'DeleteObjectResult',
-    'ListMultipartUploadsRequest',
-    'ListPartsResponse',
-    'GetBucketMetadataResponse',
-    'GetBucketQuotaResponse',
-    'GetBucketStorageInfoResponse',
-    'GetBucketStoragePolicyResponse',
-    'GetObjectMetadataResponse',
-    'SetObjectMetadataResponse',
-    'GetObjectRequest',
-    'InitiateMultipartUploadResponse',
-    'LifecycleResponse',
-    'ListBucketsResponse',
-    'ListMultipartUploadsResponse',
-    'ListObjectsResponse',
-    'LocationResponse',
-    'OptionsResponse',
-    'PutContentResponse',
-    'AppendObjectResponse',
-    'UploadPartResponse',
-    'ResponseWrapper',
-    'ObjectStream',
-    'GetBucketEncryptionResponse',
-    'UploadFileHeader',
-    'GetBucketRequestPaymentResponse',
-    'Payer',
-    'ExtensionHeader',
-    'FetchStatus',
-    'FetchPolicy',
-    '_FetchJob',
-    'FetchJobResponse',
-    'SetBucketFetchJobResponse',
-    'GetBucketFetchJobResponse',
-    'CreateWorkflowTemplateResponse',
-    'GetWorkflowTemplateResponse',
-    'ListWorkflowTemplateResponse',
-    'CreateWorkflowResponse',
-    'GetWorkflowResponse',
-    'UpdateWorkflowResponse',
-    'ListWorkflowResponse',
-    'AsyncAPIStartWorkflowResponse',
-    'ListWorkflowExecutionResponse',
-    'GetWorkflowExecutionResponse',
-    'RestoreFailedWorkflowExecutionResponse',
-    'GetTriggerPolicyResponse',
-    'BucketAliasModel',
-    'ListBucketAliasModel'
+    "BaseModel",
+    "GetResult",
+    "CompletePart",
+    "Permission",
+    "StorageClass",
+    "EventType",
+    "RestoreTier",
+    "Group",
+    "Grantee",
+    "Grant",
+    "ExtensionGrant",
+    "Owner",
+    "Initiator",
+    "ACL",
+    "Bucket",
+    "CommonPrefix",
+    "Condition",
+    "Content",
+    "DateTime",
+    "SseHeader",
+    "SseCHeader",
+    "SseKmsHeader",
+    "CopyObjectHeader",
+    "SetObjectMetadataHeader",
+    "CorsRule",
+    "CreateBucketHeader",
+    "ErrorDocument",
+    "IndexDocument",
+    "Expiration",
+    "NoncurrentVersionExpiration",
+    "GetObjectHeader",
+    "HeadPermission",
+    "Lifecycle",
+    "Notification",
+    "TopicConfiguration",
+    "FunctionGraphConfiguration",
+    "FilterRule",
+    "Replication",
+    "ReplicationRule",
+    "ObjectDeleteMarker",
+    "ObjectVersionHead",
+    "ObjectVersion",
+    "Options",
+    "Policy",
+    "PutObjectHeader",
+    "AppendObjectHeader",
+    "AppendObjectContent",
+    "RedirectAllRequestTo",
+    "Redirect",
+    "RoutingRule",
+    "Tag",
+    "TagInfo",
+    "Transition",
+    "Part",
+    "NoncurrentVersionTransition",
+    "Rule",
+    "Upload",
+    "Versions",
+    "Object",
+    "WebsiteConfiguration",
+    "Logging",
+    "ObjectVersions",
+    "CompleteMultipartUploadRequest",
+    "CompleteMultipartUploadResponse",
+    "CopyObjectResponse",
+    "CopyPartResponse",
+    "DeleteObjectResponse",
+    "DeleteObjectsRequest",
+    "DeleteObjectsResponse",
+    "ErrorResult",
+    "DeleteObjectResult",
+    "ListMultipartUploadsRequest",
+    "ListPartsResponse",
+    "GetBucketMetadataResponse",
+    "GetBucketQuotaResponse",
+    "GetBucketStorageInfoResponse",
+    "GetBucketStoragePolicyResponse",
+    "GetObjectMetadataResponse",
+    "SetObjectMetadataResponse",
+    "GetObjectRequest",
+    "InitiateMultipartUploadResponse",
+    "LifecycleResponse",
+    "ListBucketsResponse",
+    "ListMultipartUploadsResponse",
+    "ListObjectsResponse",
+    "LocationResponse",
+    "OptionsResponse",
+    "PutContentResponse",
+    "AppendObjectResponse",
+    "UploadPartResponse",
+    "ResponseWrapper",
+    "ObjectStream",
+    "GetBucketEncryptionResponse",
+    "UploadFileHeader",
+    "GetBucketRequestPaymentResponse",
+    "Payer",
+    "ExtensionHeader",
+    "FetchStatus",
+    "FetchPolicy",
+    "_FetchJob",
+    "FetchJobResponse",
+    "SetBucketFetchJobResponse",
+    "GetBucketFetchJobResponse",
+    "CreateWorkflowTemplateResponse",
+    "GetWorkflowTemplateResponse",
+    "ListWorkflowTemplateResponse",
+    "CreateWorkflowResponse",
+    "GetWorkflowResponse",
+    "UpdateWorkflowResponse",
+    "ListWorkflowResponse",
+    "AsyncAPIStartWorkflowResponse",
+    "ListWorkflowExecutionResponse",
+    "GetWorkflowExecutionResponse",
+    "RestoreFailedWorkflowExecutionResponse",
+    "GetTriggerPolicyResponse",
+    "BucketAliasModel",
+    "ListBucketAliasModel",
 ]
 
 
@@ -143,33 +143,52 @@ class BaseModel(dict):
         super(BaseModel, self).__init__(**kwargs)
 
     def __getattr__(self, key):
-        if key == 'allowedAttr':
+        if key == "allowedAttr":
             return {}
-        key = key[:1].lower() + key[1:] if key is not None else ''
+        key = key[:1].lower() + key[1:] if key is not None else ""
         if key in self.allowedAttr:
             return self.get(key)
         return None
 
     def __setattr__(self, key, value):
-        key = key[:1].lower() + key[1:] if key is not None else ''
+        key = key[:1].lower() + key[1:] if key is not None else ""
         if key in self.allowedAttr:
             if util.verify_attr_type(value, self.allowedAttr[key]):
                 self[key] = value
 
     def __delattr__(self, key):
-        key = key[:1].lower() + key[1:] if key is not None else ''
+        key = key[:1].lower() + key[1:] if key is not None else ""
         if key in self.allowedAttr and key in self:
             del self[key]
 
 
 class GetResult(BaseModel):
-    allowedAttr = {'status': int, 'reason': BASESTRING, 'errorCode': BASESTRING, 'errorMessage': BASESTRING,
-                   'body': object, 'requestId': BASESTRING, 'hostId': BASESTRING, 'resource': BASESTRING,
-                   'header': list,
-                   'indicator': BASESTRING}
+    allowedAttr = {
+        "status": int,
+        "reason": BASESTRING,
+        "errorCode": BASESTRING,
+        "errorMessage": BASESTRING,
+        "body": object,
+        "requestId": BASESTRING,
+        "hostId": BASESTRING,
+        "resource": BASESTRING,
+        "header": list,
+        "indicator": BASESTRING,
+    }
 
-    def __init__(self, code=None, message=None, status=None, reason=None, body=None, requestId=None, hostId=None,
-                 resource=None, header=None, indicator=None):
+    def __init__(
+        self,
+        code=None,
+        message=None,
+        status=None,
+        reason=None,
+        body=None,
+        requestId=None,
+        hostId=None,
+        resource=None,
+        header=None,
+        indicator=None,
+    ):
         self.status = status
         self.reason = reason
         self.errorCode = code
@@ -183,7 +202,7 @@ class GetResult(BaseModel):
 
 
 class CompletePart(BaseModel):
-    allowedAttr = {'partNum': int, 'etag': BASESTRING}
+    allowedAttr = {"partNum": int, "etag": BASESTRING}
 
     def __init__(self, partNum=None, etag=None):
         self.partNum = partNum
@@ -191,60 +210,64 @@ class CompletePart(BaseModel):
 
 
 class AvailableZone(object):
-    MULTI_AZ = '3az'
+    MULTI_AZ = "3az"
 
 
 class Permission(object):
-    READ = 'READ'
-    WRITE = 'WRITE'
-    READ_ACP = 'READ_ACP'
-    WRITE_ACP = 'WRITE_ACP'
-    FULL_CONTROL = 'FULL_CONTROL'
+    READ = "READ"
+    WRITE = "WRITE"
+    READ_ACP = "READ_ACP"
+    WRITE_ACP = "WRITE_ACP"
+    FULL_CONTROL = "FULL_CONTROL"
 
 
 class Group(object):
-    ALL_USERS = 'Everyone'
-    AUTHENTICATED_USERS = 'AuthenticatedUsers'
-    LOG_DELIVERY = 'LogDelivery'
+    ALL_USERS = "Everyone"
+    AUTHENTICATED_USERS = "AuthenticatedUsers"
+    LOG_DELIVERY = "LogDelivery"
 
 
 class HeadPermission(object):
-    PRIVATE = 'private'
-    PUBLIC_READ = 'public-read'
-    PUBLIC_READ_WRITE = 'public-read-write'
-    PUBLIC_READ_DELIVERED = 'public-read-delivered'
-    PUBLIC_READ_WRITE_DELIVERED = 'public-read-write-delivered'
-    AUTHENTICATED_READ = 'authenticated-read'
-    BUCKET_OWNER_READ = 'bucket-owner-read'
-    BUCKET_OWNER_FULL_CONTROL = 'bucket-owner-full-control'
-    LOG_DELIVERY_WRITE = 'log-delivery-write'
+    PRIVATE = "private"
+    PUBLIC_READ = "public-read"
+    PUBLIC_READ_WRITE = "public-read-write"
+    PUBLIC_READ_DELIVERED = "public-read-delivered"
+    PUBLIC_READ_WRITE_DELIVERED = "public-read-write-delivered"
+    AUTHENTICATED_READ = "authenticated-read"
+    BUCKET_OWNER_READ = "bucket-owner-read"
+    BUCKET_OWNER_FULL_CONTROL = "bucket-owner-full-control"
+    LOG_DELIVERY_WRITE = "log-delivery-write"
 
 
 class StorageClass(object):
-    STANDARD = 'STANDARD'
-    WARM = 'WARM'
-    COLD = 'COLD'
+    STANDARD = "STANDARD"
+    WARM = "WARM"
+    COLD = "COLD"
 
 
 class RestoreTier(object):
-    EXPEDITED = 'Expedited'
-    STANDARD = 'STANDARD'
-    BULK = 'Bulk'
+    EXPEDITED = "Expedited"
+    STANDARD = "STANDARD"
+    BULK = "Bulk"
 
 
 class EventType(object):
-    OBJECT_CREATED_ALL = 'ObjectCreated:*'
-    OBJECT_CREATED_PUT = 'ObjectCreated:Put'
-    OBJECT_CREATED_POST = 'ObjectCreated:Post'
-    OBJECT_CREATED_COPY = 'ObjectCreated:Copy'
-    OBJECT_CREATED_COMPLETE_MULTIPART_UPLOAD = 'ObjectCreated:CompleteMultipartUpload'
-    OBJECT_REMOVED_ALL = 'ObjectRemoved:*'
-    OBJECT_REMOVED_DELETE = 'ObjectRemoved:Delete'
-    OBJECT_REMOVED_DELETE_MARKER_CREATED = 'ObjectRemoved:DeleteMarkerCreated'
+    OBJECT_CREATED_ALL = "ObjectCreated:*"
+    OBJECT_CREATED_PUT = "ObjectCreated:Put"
+    OBJECT_CREATED_POST = "ObjectCreated:Post"
+    OBJECT_CREATED_COPY = "ObjectCreated:Copy"
+    OBJECT_CREATED_COMPLETE_MULTIPART_UPLOAD = "ObjectCreated:CompleteMultipartUpload"
+    OBJECT_REMOVED_ALL = "ObjectRemoved:*"
+    OBJECT_REMOVED_DELETE = "ObjectRemoved:Delete"
+    OBJECT_REMOVED_DELETE_MARKER_CREATED = "ObjectRemoved:DeleteMarkerCreated"
 
 
 class Grantee(BaseModel):
-    allowedAttr = {'grantee_id': BASESTRING, 'grantee_name': BASESTRING, 'group': BASESTRING}
+    allowedAttr = {
+        "grantee_id": BASESTRING,
+        "grantee_name": BASESTRING,
+        "group": BASESTRING,
+    }
 
     def __init__(self, grantee_id=None, grantee_name=None, group=None):
         self.grantee_id = grantee_id
@@ -253,7 +276,11 @@ class Grantee(BaseModel):
 
 
 class Grant(BaseModel):
-    allowedAttr = {'grantee': Grantee, 'permission': BASESTRING, 'delivered': [bool, BASESTRING]}
+    allowedAttr = {
+        "grantee": Grantee,
+        "permission": BASESTRING,
+        "delivered": [bool, BASESTRING],
+    }
 
     def __init__(self, grantee=None, permission=None, delivered=None):
         self.grantee = grantee
@@ -262,7 +289,7 @@ class Grant(BaseModel):
 
 
 class Owner(BaseModel):
-    allowedAttr = {'owner_id': BASESTRING, 'owner_name': BASESTRING}
+    allowedAttr = {"owner_id": BASESTRING, "owner_name": BASESTRING}
 
     def __init__(self, owner_id=None, owner_name=None):
         self.owner_id = owner_id
@@ -270,7 +297,7 @@ class Owner(BaseModel):
 
 
 class Initiator(BaseModel):
-    allowedAttr = {'id': BASESTRING, 'name': BASESTRING}
+    allowedAttr = {"id": BASESTRING, "name": BASESTRING}
 
     def __init__(self, id=None, name=None):
         self.id = id
@@ -278,7 +305,7 @@ class Initiator(BaseModel):
 
 
 class ACL(BaseModel):
-    allowedAttr = {'owner': Owner, 'grants': list, 'delivered': [bool, BASESTRING]}
+    allowedAttr = {"owner": Owner, "grants": list, "delivered": [bool, BASESTRING]}
 
     def __init__(self, owner=None, grants=None, delivered=None):
         self.owner = owner
@@ -293,7 +320,12 @@ class ACL(BaseModel):
 
 
 class Bucket(BaseModel):
-    allowedAttr = {'name': BASESTRING, 'create_date': BASESTRING, 'location': BASESTRING, "bucket_type": BASESTRING}
+    allowedAttr = {
+        "name": BASESTRING,
+        "create_date": BASESTRING,
+        "location": BASESTRING,
+        "bucket_type": BASESTRING,
+    }
 
     def __init__(self, name=None, create_date=None, location=None, bucket_type=None):
         self.name = name
@@ -303,14 +335,14 @@ class Bucket(BaseModel):
 
 
 class CommonPrefix(BaseModel):
-    allowedAttr = {'prefix': BASESTRING}
+    allowedAttr = {"prefix": BASESTRING}
 
     def __init__(self, prefix=None):
         self.prefix = prefix
 
 
 class Condition(BaseModel):
-    allowedAttr = {'keyPrefixEquals': BASESTRING, 'httpErrorCodeReturnedEquals': int}
+    allowedAttr = {"keyPrefixEquals": BASESTRING, "httpErrorCodeReturnedEquals": int}
 
     def __init__(self, keyPrefixEquals=None, httpErrorCodeReturnedEquals=None):
         self.keyPrefixEquals = keyPrefixEquals
@@ -318,11 +350,26 @@ class Condition(BaseModel):
 
 
 class Content(BaseModel):
-    allowedAttr = {'key': BASESTRING, 'lastModified': BASESTRING, 'etag': BASESTRING,
-                   'size': LONG, 'owner': Owner, 'storageClass': BASESTRING, 'isAppendable': bool}
+    allowedAttr = {
+        "key": BASESTRING,
+        "lastModified": BASESTRING,
+        "etag": BASESTRING,
+        "size": LONG,
+        "owner": Owner,
+        "storageClass": BASESTRING,
+        "isAppendable": bool,
+    }
 
-    def __init__(self, key=None, lastModified=None, etag=None, size=None, owner=None, storageClass=None,
-                 isAppendable=None):
+    def __init__(
+        self,
+        key=None,
+        lastModified=None,
+        etag=None,
+        size=None,
+        owner=None,
+        storageClass=None,
+        isAppendable=None,
+    ):
         self.key = key
         self.lastModified = lastModified
         self.etag = etag
@@ -336,7 +383,14 @@ class Content(BaseModel):
 
 
 class DateTime(BaseModel):
-    allowedAttr = {'year': int, 'month': int, 'day': int, 'hour': int, 'min': int, 'sec': int}
+    allowedAttr = {
+        "year": int,
+        "month": int,
+        "day": int,
+        "hour": int,
+        "min": int,
+        "sec": int,
+    }
 
     def __init__(self, year, month, day, hour=0, min=0, sec=0):
         self.year = year
@@ -347,17 +401,33 @@ class DateTime(BaseModel):
         self.sec = sec
 
     def ToUTTime(self):
-        strTime = '%04d-%02d-%02dT%02d:%02d:%02d.000Z' % (
-            self.year, self.month, self.day, self.hour, self.min, self.sec)
+        strTime = "%04d-%02d-%02dT%02d:%02d:%02d.000Z" % (
+            self.year,
+            self.month,
+            self.day,
+            self.hour,
+            self.min,
+            self.sec,
+        )
         return strTime
 
     def ToGMTTime(self):
-        strTime = (self.year, self.month, self.day, self.hour, self.min, self.sec, 0, 0, 0)
+        strTime = (
+            self.year,
+            self.month,
+            self.day,
+            self.hour,
+            self.min,
+            self.sec,
+            0,
+            0,
+            0,
+        )
         gmt_time = time.gmtime(time.mktime(strTime) - time.timezone)
-        return time.strftime('%a, %d %b %Y %H:%M:%S GMT', gmt_time)
+        return time.strftime("%a, %d %b %Y %H:%M:%S GMT", gmt_time)
 
     def ToUTMidTime(self):
-        strTime = '%04d-%02d-%02dT00:00:00.000Z' % (self.year, self.month, self.day)
+        strTime = "%04d-%02d-%02dT00:00:00.000Z" % (self.year, self.month, self.day)
         return strTime
 
     @staticmethod
@@ -365,8 +435,8 @@ class DateTime(BaseModel):
         if strUTC is None:
             return None
 
-        date_format = '%Y-%m-%dT%H:%M:%S.%fZ'
-        CST_FORMAT = '%Y/%m/%d %H:%M:%S'
+        date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+        CST_FORMAT = "%Y/%m/%d %H:%M:%S"
         try:
             gmt_time = time.strptime(strUTC, date_format)
 
@@ -382,8 +452,8 @@ class DateTime(BaseModel):
         if strUTC is None:
             return None
 
-        date_format = '%Y-%m-%dT%H:%M:%S.%fZ'
-        CST_FORMAT = '%Y/%m/%d 00:00:00'
+        date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+        CST_FORMAT = "%Y/%m/%d 00:00:00"
         try:
             gmt_time = time.strptime(util.to_string(strUTC), date_format)
 
@@ -395,35 +465,64 @@ class DateTime(BaseModel):
 
 
 class SseHeader(BaseModel):
-    allowedAttr = {'encryption': BASESTRING, 'key': BASESTRING}
+    allowedAttr = {"encryption": BASESTRING, "key": BASESTRING}
 
 
 class SseCHeader(SseHeader):
     @staticmethod
-    def getInstance(key, encryption='AES256'):
+    def getInstance(key, encryption="AES256"):
         return SseCHeader(encryption=encryption, key=key)
 
 
 class SseKmsHeader(SseHeader):
     @staticmethod
-    def getInstance(key=None, encryption='kms'):
+    def getInstance(key=None, encryption="kms"):
         return SseKmsHeader(encryption=encryption, key=key)
 
 
 class CopyObjectHeader(BaseModel):
-    allowedAttr = {'acl': BASESTRING, 'directive': BASESTRING, 'if_match': BASESTRING,
-                   'if_none_match': BASESTRING, 'if_modified_since': [BASESTRING, DateTime],
-                   'if_unmodified_since': [BASESTRING, DateTime], 'location': BASESTRING,
-                   'destSseHeader': SseHeader, 'sourceSseHeader': SseHeader, 'cacheControl': BASESTRING,
-                   'contentDisposition': BASESTRING,
-                   'contentEncoding': BASESTRING, 'contentLanguage': BASESTRING, 'contentType': BASESTRING,
-                   'expires': BASESTRING,
-                   'storageClass': BASESTRING, 'successActionRedirect': BASESTRING, 'extensionGrants': list}
+    allowedAttr = {
+        "acl": BASESTRING,
+        "directive": BASESTRING,
+        "if_match": BASESTRING,
+        "if_none_match": BASESTRING,
+        "if_modified_since": [BASESTRING, DateTime],
+        "if_unmodified_since": [BASESTRING, DateTime],
+        "location": BASESTRING,
+        "destSseHeader": SseHeader,
+        "sourceSseHeader": SseHeader,
+        "cacheControl": BASESTRING,
+        "contentDisposition": BASESTRING,
+        "contentEncoding": BASESTRING,
+        "contentLanguage": BASESTRING,
+        "contentType": BASESTRING,
+        "expires": BASESTRING,
+        "storageClass": BASESTRING,
+        "successActionRedirect": BASESTRING,
+        "extensionGrants": list,
+    }
 
-    def __init__(self, acl=None, directive=None, if_match=None, if_none_match=None, if_modified_since=None,
-                 if_unmodified_since=None, location=None, destSseHeader=None, sourceSseHeader=None,
-                 cacheControl=None, contentDisposition=None, contentEncoding=None, contentLanguage=None,
-                 contentType=None, expires=None, storageClass=None, successActionRedirect=None, extensionGrants=None):
+    def __init__(
+        self,
+        acl=None,
+        directive=None,
+        if_match=None,
+        if_none_match=None,
+        if_modified_since=None,
+        if_unmodified_since=None,
+        location=None,
+        destSseHeader=None,
+        sourceSseHeader=None,
+        cacheControl=None,
+        contentDisposition=None,
+        contentEncoding=None,
+        contentLanguage=None,
+        contentType=None,
+        expires=None,
+        storageClass=None,
+        successActionRedirect=None,
+        extensionGrants=None,
+    ):
         self.acl = acl
         self.directive = directive
         self.if_match = if_match
@@ -445,13 +544,30 @@ class CopyObjectHeader(BaseModel):
 
 
 class SetObjectMetadataHeader(BaseModel):
-    allowedAttr = {'removeUnset': bool, 'cacheControl': BASESTRING, 'contentDisposition': BASESTRING,
-                   'contentEncoding': BASESTRING, 'contentLanguage': BASESTRING, 'contentType': BASESTRING,
-                   'expires': BASESTRING,
-                   'storageClass': BASESTRING, 'location': BASESTRING}
+    allowedAttr = {
+        "removeUnset": bool,
+        "cacheControl": BASESTRING,
+        "contentDisposition": BASESTRING,
+        "contentEncoding": BASESTRING,
+        "contentLanguage": BASESTRING,
+        "contentType": BASESTRING,
+        "expires": BASESTRING,
+        "storageClass": BASESTRING,
+        "location": BASESTRING,
+    }
 
-    def __init__(self, removeUnset=False, location=None, cacheControl=None, contentDisposition=None,
-                 contentEncoding=None, contentLanguage=None, contentType=None, expires=None, storageClass=None):
+    def __init__(
+        self,
+        removeUnset=False,
+        location=None,
+        cacheControl=None,
+        contentDisposition=None,
+        contentEncoding=None,
+        contentLanguage=None,
+        contentType=None,
+        expires=None,
+        storageClass=None,
+    ):
         self.removeUnset = removeUnset
         self.location = location
         self.cacheControl = cacheControl
@@ -464,11 +580,24 @@ class SetObjectMetadataHeader(BaseModel):
 
 
 class CorsRule(BaseModel):
-    allowedAttr = {'id': BASESTRING, 'allowedMethod': list, 'allowedOrigin': list,
-                   'allowedHeader': list, 'maxAgeSecond': [int, BASESTRING], 'exposeHeader': list}
+    allowedAttr = {
+        "id": BASESTRING,
+        "allowedMethod": list,
+        "allowedOrigin": list,
+        "allowedHeader": list,
+        "maxAgeSecond": [int, BASESTRING],
+        "exposeHeader": list,
+    }
 
-    def __init__(self, id=None, allowedMethod=None, allowedOrigin=None, allowedHeader=None, maxAgeSecond=None,
-                 exposeHeader=None):
+    def __init__(
+        self,
+        id=None,
+        allowedMethod=None,
+        allowedOrigin=None,
+        allowedHeader=None,
+        maxAgeSecond=None,
+        exposeHeader=None,
+    ):
         self.id = id
         self.allowedMethod = allowedMethod
         self.allowedOrigin = allowedOrigin
@@ -478,11 +607,24 @@ class CorsRule(BaseModel):
 
 
 class CreateBucketHeader(BaseModel):
-    allowedAttr = {'aclControl': BASESTRING, 'storageClass': BASESTRING, 'extensionGrants': list,
-                   'availableZone': BASESTRING, 'epid': BASESTRING, "isPFS": bool}
+    allowedAttr = {
+        "aclControl": BASESTRING,
+        "storageClass": BASESTRING,
+        "extensionGrants": list,
+        "availableZone": BASESTRING,
+        "epid": BASESTRING,
+        "isPFS": bool,
+    }
 
-    def __init__(self, aclControl=None, storageClass=None, extensionGrants=None,
-                 availableZone=None, epid=None, isPFS=False):
+    def __init__(
+        self,
+        aclControl=None,
+        storageClass=None,
+        extensionGrants=None,
+        availableZone=None,
+        epid=None,
+        isPFS=False,
+    ):
         """
         Headers that can be carried during bucket creation
         :param aclControl: ACL policy of a bucket
@@ -504,7 +646,7 @@ class CreateBucketHeader(BaseModel):
 
 
 class ExtensionGrant(BaseModel):
-    allowedAttr = {'permission': BASESTRING, 'granteeId': BASESTRING}
+    allowedAttr = {"permission": BASESTRING, "granteeId": BASESTRING}
 
     def __init__(self, granteeId=None, permission=None):
         self.granteeId = granteeId
@@ -512,21 +654,21 @@ class ExtensionGrant(BaseModel):
 
 
 class ErrorDocument(BaseModel):
-    allowedAttr = {'key': BASESTRING}
+    allowedAttr = {"key": BASESTRING}
 
     def __init__(self, key=None):
         self.key = key
 
 
 class IndexDocument(BaseModel):
-    allowedAttr = {'suffix': BASESTRING}
+    allowedAttr = {"suffix": BASESTRING}
 
     def __init__(self, suffix=None):
         self.suffix = suffix
 
 
 class Expiration(BaseModel):
-    allowedAttr = {'date': [BASESTRING, DateTime], 'days': int}
+    allowedAttr = {"date": [BASESTRING, DateTime], "days": int}
 
     def __init__(self, date=None, days=None):
         self.date = date
@@ -534,20 +676,35 @@ class Expiration(BaseModel):
 
 
 class NoncurrentVersionExpiration(BaseModel):
-    allowedAttr = {'noncurrentDays': int}
+    allowedAttr = {"noncurrentDays": int}
 
     def __init__(self, noncurrentDays=None):
         self.noncurrentDays = noncurrentDays
 
 
 class GetObjectHeader(BaseModel):
-    allowedAttr = {'range': BASESTRING, 'if_modified_since': [BASESTRING, DateTime],
-                   'if_unmodified_since': [BASESTRING, DateTime], 'if_match': BASESTRING, 'if_none_match': BASESTRING,
-                   'origin': BASESTRING, 'requestHeaders': BASESTRING, 'sseHeader': SseHeader}
+    allowedAttr = {
+        "range": BASESTRING,
+        "if_modified_since": [BASESTRING, DateTime],
+        "if_unmodified_since": [BASESTRING, DateTime],
+        "if_match": BASESTRING,
+        "if_none_match": BASESTRING,
+        "origin": BASESTRING,
+        "requestHeaders": BASESTRING,
+        "sseHeader": SseHeader,
+    }
 
-    def __init__(self, range=None, if_modified_since=None, if_unmodified_since=None, if_match=None, if_none_match=None,
-                 origin=None,
-                 requestHeaders=None, sseHeader=None):
+    def __init__(
+        self,
+        range=None,
+        if_modified_since=None,
+        if_unmodified_since=None,
+        if_match=None,
+        if_none_match=None,
+        origin=None,
+        requestHeaders=None,
+        sseHeader=None,
+    ):
         self.range = range
         self.if_modified_since = if_modified_since
         self.if_unmodified_since = if_unmodified_since
@@ -559,14 +716,14 @@ class GetObjectHeader(BaseModel):
 
 
 class Lifecycle(BaseModel):
-    allowedAttr = {'rule': list}
+    allowedAttr = {"rule": list}
 
     def __init__(self, rule=None):
         self.rule = rule
 
 
 class Replication(BaseModel):
-    allowedAttr = {'replicationRules': list, 'agency': BASESTRING}
+    allowedAttr = {"replicationRules": list, "agency": BASESTRING}
 
     def __init__(self, replicationRules=None, agency=None):
         self.replicationRules = replicationRules
@@ -574,11 +731,26 @@ class Replication(BaseModel):
 
 
 class ReplicationRule(BaseModel):
-    allowedAttr = {'id': BASESTRING, 'prefix': BASESTRING, 'status': BASESTRING, 'bucket': BASESTRING,
-                   'storageClass': BASESTRING, 'deleteData': BASESTRING, 'historicalObjectReplication': BASESTRING}
+    allowedAttr = {
+        "id": BASESTRING,
+        "prefix": BASESTRING,
+        "status": BASESTRING,
+        "bucket": BASESTRING,
+        "storageClass": BASESTRING,
+        "deleteData": BASESTRING,
+        "historicalObjectReplication": BASESTRING,
+    }
 
-    def __init__(self, id=None, prefix=None, status=None, bucket=None, storageClass=None, deleteData=None,
-                 historicalObjectReplication=None):
+    def __init__(
+        self,
+        id=None,
+        prefix=None,
+        status=None,
+        bucket=None,
+        storageClass=None,
+        deleteData=None,
+        historicalObjectReplication=None,
+    ):
         self.id = id
         self.prefix = prefix
         self.status = status
@@ -589,7 +761,7 @@ class ReplicationRule(BaseModel):
 
 
 class Notification(BaseModel):
-    allowedAttr = {'topicConfigurations': list, 'functionGraphConfigurations': list}
+    allowedAttr = {"topicConfigurations": list, "functionGraphConfigurations": list}
 
     def __init__(self, topicConfigurations=None, functionGraphConfigurations=None):
         self.topicConfigurations = topicConfigurations
@@ -597,7 +769,12 @@ class Notification(BaseModel):
 
 
 class TopicConfiguration(BaseModel):
-    allowedAttr = {'id': BASESTRING, 'topic': BASESTRING, 'events': list, 'filterRules': list}
+    allowedAttr = {
+        "id": BASESTRING,
+        "topic": BASESTRING,
+        "events": list,
+        "filterRules": list,
+    }
 
     def __init__(self, id=None, topic=None, events=None, filterRules=None):
         self.id = id
@@ -607,7 +784,12 @@ class TopicConfiguration(BaseModel):
 
 
 class FunctionGraphConfiguration(BaseModel):
-    allowedAttr = {'id': BASESTRING, 'functionGraph': BASESTRING, 'events': list, 'filterRules': list}
+    allowedAttr = {
+        "id": BASESTRING,
+        "functionGraph": BASESTRING,
+        "events": list,
+        "filterRules": list,
+    }
 
     def __init__(self, id=None, functionGraph=None, events=None, filterRules=None):
         self.id = id
@@ -617,7 +799,7 @@ class FunctionGraphConfiguration(BaseModel):
 
 
 class FilterRule(BaseModel):
-    allowedAttr = {'name': BASESTRING, 'value': BASESTRING}
+    allowedAttr = {"name": BASESTRING, "value": BASESTRING}
 
     def __init__(self, name=None, value=None):
         self.name = name
@@ -625,10 +807,17 @@ class FilterRule(BaseModel):
 
 
 class ObjectDeleteMarker(BaseModel):
-    allowedAttr = {'key': BASESTRING, 'versionId': BASESTRING, 'isLatest': bool, 'lastModified': BASESTRING,
-                   'owner': Owner}
+    allowedAttr = {
+        "key": BASESTRING,
+        "versionId": BASESTRING,
+        "isLatest": bool,
+        "lastModified": BASESTRING,
+        "owner": Owner,
+    }
 
-    def __init__(self, key=None, versionId=None, isLatest=None, lastModified=None, owner=None):
+    def __init__(
+        self, key=None, versionId=None, isLatest=None, lastModified=None, owner=None
+    ):
         self.key = key
         self.versionId = versionId
         self.isLatest = isLatest
@@ -637,13 +826,34 @@ class ObjectDeleteMarker(BaseModel):
 
 
 class ObjectVersionHead(BaseModel):
-    allowedAttr = {'name': BASESTRING, 'location': BASESTRING, 'prefix': BASESTRING, 'delimiter': BASESTRING,
-                   'keyMarker': BASESTRING,
-                   'versionIdMarker': BASESTRING, 'nextKeyMarker': BASESTRING, 'nextVersionIdMarker': BASESTRING,
-                   'maxKeys': int, 'isTruncated': bool, "encoding_type": BASESTRING}
+    allowedAttr = {
+        "name": BASESTRING,
+        "location": BASESTRING,
+        "prefix": BASESTRING,
+        "delimiter": BASESTRING,
+        "keyMarker": BASESTRING,
+        "versionIdMarker": BASESTRING,
+        "nextKeyMarker": BASESTRING,
+        "nextVersionIdMarker": BASESTRING,
+        "maxKeys": int,
+        "isTruncated": bool,
+        "encoding_type": BASESTRING,
+    }
 
-    def __init__(self, name=None, location=None, prefix=None, delimiter=None, keyMarker=None, versionIdMarker=None,
-                 nextKeyMarker=None, nextVersionIdMarker=None, maxKeys=None, isTruncated=None, encoding_type=None):
+    def __init__(
+        self,
+        name=None,
+        location=None,
+        prefix=None,
+        delimiter=None,
+        keyMarker=None,
+        versionIdMarker=None,
+        nextKeyMarker=None,
+        nextVersionIdMarker=None,
+        maxKeys=None,
+        isTruncated=None,
+        encoding_type=None,
+    ):
         self.name = name
         self.location = location
         self.prefix = prefix
@@ -658,11 +868,30 @@ class ObjectVersionHead(BaseModel):
 
 
 class ObjectVersion(BaseModel):
-    allowedAttr = {'key': BASESTRING, 'versionId': BASESTRING, 'isLatest': bool, 'lastModified': BASESTRING,
-                   'etag': BASESTRING, 'size': LONG, 'owner': Owner, 'storageClass': BASESTRING, 'isAppendable': bool}
+    allowedAttr = {
+        "key": BASESTRING,
+        "versionId": BASESTRING,
+        "isLatest": bool,
+        "lastModified": BASESTRING,
+        "etag": BASESTRING,
+        "size": LONG,
+        "owner": Owner,
+        "storageClass": BASESTRING,
+        "isAppendable": bool,
+    }
 
-    def __init__(self, key=None, versionId=None, isLatest=None, lastModified=None, etag=None,
-                 size=None, owner=None, storageClass=None, isAppendable=None):
+    def __init__(
+        self,
+        key=None,
+        versionId=None,
+        isLatest=None,
+        lastModified=None,
+        etag=None,
+        size=None,
+        owner=None,
+        storageClass=None,
+        isAppendable=None,
+    ):
         self.key = key
         self.versionId = versionId
         self.isLatest = isLatest
@@ -675,29 +904,59 @@ class ObjectVersion(BaseModel):
 
 
 class Options(BaseModel):
-    allowedAttr = {'origin': BASESTRING, 'accessControlRequestMethods': list, 'accessControlRequestHeaders': list}
+    allowedAttr = {
+        "origin": BASESTRING,
+        "accessControlRequestMethods": list,
+        "accessControlRequestHeaders": list,
+    }
 
-    def __init__(self, origin=None, accessControlRequestMethods=None, accessControlRequestHeaders=None):
+    def __init__(
+        self,
+        origin=None,
+        accessControlRequestMethods=None,
+        accessControlRequestHeaders=None,
+    ):
         self.origin = origin
         self.accessControlRequestMethods = accessControlRequestMethods
         self.accessControlRequestHeaders = accessControlRequestHeaders
 
 
 class Policy(BaseModel):
-    allowedAttr = {'policyJSON': BASESTRING}
+    allowedAttr = {"policyJSON": BASESTRING}
 
     def __init__(self, policyJSON=None):
         self.policyJSON = policyJSON
 
 
 class PutObjectHeader(BaseModel):
-    allowedAttr = {'md5': BASESTRING, 'acl': BASESTRING, 'location': BASESTRING,
-                   'contentType': BASESTRING, 'sseHeader': SseHeader, 'contentLength': [int, LONG, BASESTRING],
-                   'storageClass': BASESTRING, 'successActionRedirect': BASESTRING, 'expires': int,
-                   'extensionGrants': list, "sha256": BASESTRING}
+    allowedAttr = {
+        "md5": BASESTRING,
+        "acl": BASESTRING,
+        "location": BASESTRING,
+        "contentType": BASESTRING,
+        "sseHeader": SseHeader,
+        "contentLength": [int, LONG, BASESTRING],
+        "storageClass": BASESTRING,
+        "successActionRedirect": BASESTRING,
+        "expires": int,
+        "extensionGrants": list,
+        "sha256": BASESTRING,
+    }
 
-    def __init__(self, md5=None, acl=None, location=None, contentType=None, sseHeader=None, contentLength=None,
-                 storageClass=None, successActionRedirect=None, expires=None, extensionGrants=None, sha256=None):
+    def __init__(
+        self,
+        md5=None,
+        acl=None,
+        location=None,
+        contentType=None,
+        sseHeader=None,
+        contentLength=None,
+        storageClass=None,
+        successActionRedirect=None,
+        expires=None,
+        extensionGrants=None,
+        sha256=None,
+    ):
         self.md5 = md5
         self.sha256 = sha256
         self.acl = acl
@@ -715,12 +974,28 @@ AppendObjectHeader = PutObjectHeader
 
 
 class UploadFileHeader(BaseModel):
-    allowedAttr = {'acl': BASESTRING, 'websiteRedirectLocation': BASESTRING, 'contentType': BASESTRING,
-                   'sseHeader': SseHeader, 'storageClass': BASESTRING,
-                   'successActionRedirect': BASESTRING, 'expires': int, 'extensionGrants': list}
+    allowedAttr = {
+        "acl": BASESTRING,
+        "websiteRedirectLocation": BASESTRING,
+        "contentType": BASESTRING,
+        "sseHeader": SseHeader,
+        "storageClass": BASESTRING,
+        "successActionRedirect": BASESTRING,
+        "expires": int,
+        "extensionGrants": list,
+    }
 
-    def __init__(self, acl=None, websiteRedirectLocation=None, contentType=None, sseHeader=None,
-                 storageClass=None, successActionRedirect=None, expires=None, extensionGrants=None):
+    def __init__(
+        self,
+        acl=None,
+        websiteRedirectLocation=None,
+        contentType=None,
+        sseHeader=None,
+        storageClass=None,
+        successActionRedirect=None,
+        expires=None,
+        extensionGrants=None,
+    ):
         self.acl = acl
         self.websiteRedirectLocation = websiteRedirectLocation
         self.contentType = contentType
@@ -732,8 +1007,12 @@ class UploadFileHeader(BaseModel):
 
 
 class AppendObjectContent(BaseModel):
-    allowedAttr = {'content': [object], 'position': [LONG, int, BASESTRING], 'offset': [LONG, int, BASESTRING],
-                   'isFile': bool}
+    allowedAttr = {
+        "content": [object],
+        "position": [LONG, int, BASESTRING],
+        "offset": [LONG, int, BASESTRING],
+        "isFile": bool,
+    }
 
     def __init__(self, content=None, position=None, offset=None, isFile=False):
         self.content = content
@@ -743,7 +1022,7 @@ class AppendObjectContent(BaseModel):
 
 
 class RedirectAllRequestTo(BaseModel):
-    allowedAttr = {'hostName': BASESTRING, 'protocol': BASESTRING}
+    allowedAttr = {"hostName": BASESTRING, "protocol": BASESTRING}
 
     def __init__(self, hostName=None, protocol=None):
         self.hostName = hostName
@@ -751,11 +1030,22 @@ class RedirectAllRequestTo(BaseModel):
 
 
 class Redirect(BaseModel):
-    allowedAttr = {'protocol': BASESTRING, 'hostName': BASESTRING, 'replaceKeyPrefixWith': BASESTRING,
-                   'replaceKeyWith': BASESTRING, 'httpRedirectCode': int}
+    allowedAttr = {
+        "protocol": BASESTRING,
+        "hostName": BASESTRING,
+        "replaceKeyPrefixWith": BASESTRING,
+        "replaceKeyWith": BASESTRING,
+        "httpRedirectCode": int,
+    }
 
-    def __init__(self, protocol=None, hostName=None, replaceKeyPrefixWith=None, replaceKeyWith=None,
-                 httpRedirectCode=None):
+    def __init__(
+        self,
+        protocol=None,
+        hostName=None,
+        replaceKeyPrefixWith=None,
+        replaceKeyWith=None,
+        httpRedirectCode=None,
+    ):
         self.protocol = protocol
         self.hostName = hostName
         self.replaceKeyPrefixWith = replaceKeyPrefixWith
@@ -764,7 +1054,7 @@ class Redirect(BaseModel):
 
 
 class RoutingRule(BaseModel):
-    allowedAttr = {'condition': Condition, 'redirect': Redirect}
+    allowedAttr = {"condition": Condition, "redirect": Redirect}
 
     def __init__(self, condition=None, redirect=None):
         self.condition = condition
@@ -772,7 +1062,7 @@ class RoutingRule(BaseModel):
 
 
 class Tag(BaseModel):
-    allowedAttr = {'key': BASESTRING, 'value': BASESTRING}
+    allowedAttr = {"key": BASESTRING, "value": BASESTRING}
 
     def __init__(self, key=None, value=None):
         self.key = key
@@ -780,7 +1070,7 @@ class Tag(BaseModel):
 
 
 class TagInfo(BaseModel):
-    allowedAttr = {'tagSet': list}
+    allowedAttr = {"tagSet": list}
 
     def __init__(self, tagSet=None):
         self.tagSet = tagSet
@@ -793,7 +1083,11 @@ class TagInfo(BaseModel):
 
 
 class Transition(BaseModel):
-    allowedAttr = {'date': [BASESTRING, DateTime], 'days': int, 'storageClass': BASESTRING}
+    allowedAttr = {
+        "date": [BASESTRING, DateTime],
+        "days": int,
+        "storageClass": BASESTRING,
+    }
 
     def __init__(self, storageClass=None, date=None, days=None):
         self.storageClass = storageClass
@@ -802,7 +1096,12 @@ class Transition(BaseModel):
 
 
 class Part(BaseModel):
-    allowedAttr = {'partNumber': int, 'lastModified': BASESTRING, 'etag': BASESTRING, 'size': LONG}
+    allowedAttr = {
+        "partNumber": int,
+        "lastModified": BASESTRING,
+        "etag": BASESTRING,
+        "size": LONG,
+    }
 
     def __init__(self, partNumber=None, lastModified=None, etag=None, size=None):
         self.partNumber = partNumber
@@ -812,7 +1111,7 @@ class Part(BaseModel):
 
 
 class NoncurrentVersionTransition(BaseModel):
-    allowedAttr = {'noncurrentDays': int, 'storageClass': BASESTRING}
+    allowedAttr = {"noncurrentDays": int, "storageClass": BASESTRING}
 
     def __init__(self, storageClass=None, noncurrentDays=None):
         self.noncurrentDays = noncurrentDays
@@ -820,12 +1119,26 @@ class NoncurrentVersionTransition(BaseModel):
 
 
 class Rule(BaseModel):
-    allowedAttr = {'id': BASESTRING, 'prefix': BASESTRING, 'status': BASESTRING, 'expiration': Expiration,
-                   'noncurrentVersionExpiration': NoncurrentVersionExpiration,
-                   'transition': [Transition, list], 'noncurrentVersionTransition': [NoncurrentVersionTransition, list]}
+    allowedAttr = {
+        "id": BASESTRING,
+        "prefix": BASESTRING,
+        "status": BASESTRING,
+        "expiration": Expiration,
+        "noncurrentVersionExpiration": NoncurrentVersionExpiration,
+        "transition": [Transition, list],
+        "noncurrentVersionTransition": [NoncurrentVersionTransition, list],
+    }
 
-    def __init__(self, id=None, prefix=None, status=None, expiration=None, noncurrentVersionExpiration=None,
-                 transition=None, noncurrentVersionTransition=None):
+    def __init__(
+        self,
+        id=None,
+        prefix=None,
+        status=None,
+        expiration=None,
+        noncurrentVersionExpiration=None,
+        transition=None,
+        noncurrentVersionTransition=None,
+    ):
         self.id = id
         self.prefix = prefix
         self.status = status
@@ -836,10 +1149,24 @@ class Rule(BaseModel):
 
 
 class Upload(BaseModel):
-    allowedAttr = {'key': BASESTRING, 'uploadId': BASESTRING, 'initiator': Initiator,
-                   'owner': Owner, 'storageClass': BASESTRING, 'initiated': BASESTRING}
+    allowedAttr = {
+        "key": BASESTRING,
+        "uploadId": BASESTRING,
+        "initiator": Initiator,
+        "owner": Owner,
+        "storageClass": BASESTRING,
+        "initiated": BASESTRING,
+    }
 
-    def __init__(self, key=None, uploadId=None, initiator=None, owner=None, storageClass=None, initiated=None):
+    def __init__(
+        self,
+        key=None,
+        uploadId=None,
+        initiator=None,
+        owner=None,
+        storageClass=None,
+        initiated=None,
+    ):
         self.key = key
         self.uploadId = uploadId
         self.initiator = initiator
@@ -849,11 +1176,24 @@ class Upload(BaseModel):
 
 
 class Versions(BaseModel):
-    allowedAttr = {'prefix': BASESTRING, 'key_marker': BASESTRING, 'max_keys': [int, BASESTRING],
-                   'delimiter': BASESTRING, 'version_id_marker': BASESTRING, 'encoding_type': BASESTRING}
+    allowedAttr = {
+        "prefix": BASESTRING,
+        "key_marker": BASESTRING,
+        "max_keys": [int, BASESTRING],
+        "delimiter": BASESTRING,
+        "version_id_marker": BASESTRING,
+        "encoding_type": BASESTRING,
+    }
 
-    def __init__(self, prefix=None, key_marker=None, max_keys=None, delimiter=None, version_id_marker=None,
-                 encoding_type=None):
+    def __init__(
+        self,
+        prefix=None,
+        key_marker=None,
+        max_keys=None,
+        delimiter=None,
+        version_id_marker=None,
+        encoding_type=None,
+    ):
         self.prefix = prefix
         self.key_marker = key_marker
         self.max_keys = max_keys
@@ -863,7 +1203,7 @@ class Versions(BaseModel):
 
 
 class Object(BaseModel):
-    allowedAttr = {'key': BASESTRING, 'versionId': BASESTRING}
+    allowedAttr = {"key": BASESTRING, "versionId": BASESTRING}
 
     def __init__(self, key=None, versionId=None):
         self.key = key
@@ -871,13 +1211,20 @@ class Object(BaseModel):
 
 
 class WebsiteConfiguration(BaseModel):
-    allowedAttr = {'redirectAllRequestTo': RedirectAllRequestTo, 'indexDocument': IndexDocument,
-                   'errorDocument': ErrorDocument, 'routingRules': list}
+    allowedAttr = {
+        "redirectAllRequestTo": RedirectAllRequestTo,
+        "indexDocument": IndexDocument,
+        "errorDocument": ErrorDocument,
+        "routingRules": list,
+    }
 
-    def __init__(self, redirectAllRequestTo=None,
-                 indexDocument=None,
-                 errorDocument=None,
-                 routingRules=None):
+    def __init__(
+        self,
+        redirectAllRequestTo=None,
+        indexDocument=None,
+        errorDocument=None,
+        routingRules=None,
+    ):
         self.redirectAllRequestTo = redirectAllRequestTo
         self.indexDocument = indexDocument
         self.errorDocument = errorDocument
@@ -885,9 +1232,16 @@ class WebsiteConfiguration(BaseModel):
 
 
 class Logging(BaseModel):
-    allowedAttr = {'targetBucket': BASESTRING, 'targetPrefix': BASESTRING, 'targetGrants': list, 'agency': BASESTRING}
+    allowedAttr = {
+        "targetBucket": BASESTRING,
+        "targetPrefix": BASESTRING,
+        "targetGrants": list,
+        "agency": BASESTRING,
+    }
 
-    def __init__(self, targetBucket=None, targetPrefix=None, targetGrants=None, agency=None):
+    def __init__(
+        self, targetBucket=None, targetPrefix=None, targetGrants=None, agency=None
+    ):
         self.targetBucket = targetBucket
         self.targetPrefix = targetPrefix
         self.targetGrants = targetGrants
@@ -901,7 +1255,12 @@ class Logging(BaseModel):
 
 
 class ObjectVersions(BaseModel):
-    allowedAttr = {'head': ObjectVersionHead, 'versions': list, 'markers': list, 'commonPrefixs': list}
+    allowedAttr = {
+        "head": ObjectVersionHead,
+        "versions": list,
+        "markers": list,
+        "commonPrefixs": list,
+    }
 
     def __init__(self, head=None, versions=None, markers=None, commonPrefixs=None):
         self.head = head
@@ -911,7 +1270,7 @@ class ObjectVersions(BaseModel):
 
 
 class CompleteMultipartUploadRequest(BaseModel):
-    allowedAttr = {'parts': list}
+    allowedAttr = {"parts": list}
 
     def __init__(self, parts=None):
         self.parts = parts
@@ -924,13 +1283,34 @@ class CompleteMultipartUploadRequest(BaseModel):
 
 
 class CompleteMultipartUploadResponse(BaseModel):
-    allowedAttr = {'location': BASESTRING, 'bucket': BASESTRING, "encoding_type": BASESTRING,
-                   'key': BASESTRING, 'etag': BASESTRING, 'versionId': BASESTRING, 'sseKms': BASESTRING,
-                   'sseKmsKey': BASESTRING, 'sseC': BASESTRING, 'sseCKeyMd5': BASESTRING, 'objectUrl': BASESTRING}
+    allowedAttr = {
+        "location": BASESTRING,
+        "bucket": BASESTRING,
+        "encoding_type": BASESTRING,
+        "key": BASESTRING,
+        "etag": BASESTRING,
+        "versionId": BASESTRING,
+        "sseKms": BASESTRING,
+        "sseKmsKey": BASESTRING,
+        "sseC": BASESTRING,
+        "sseCKeyMd5": BASESTRING,
+        "objectUrl": BASESTRING,
+    }
 
-    def __init__(self, location=None, bucket=None, key=None, etag=None,
-                 versionId=None, sseKms=None, sseKmsKey=None, sseC=None,
-                 sseCKeyMd5=None, objectUrl=None, encoding_type=None):
+    def __init__(
+        self,
+        location=None,
+        bucket=None,
+        key=None,
+        etag=None,
+        versionId=None,
+        sseKms=None,
+        sseKmsKey=None,
+        sseC=None,
+        sseCKeyMd5=None,
+        objectUrl=None,
+        encoding_type=None,
+    ):
         self.location = location
         self.bucket = bucket
         self.key = key
@@ -945,12 +1325,28 @@ class CompleteMultipartUploadResponse(BaseModel):
 
 
 class CopyObjectResponse(BaseModel):
-    allowedAttr = {'lastModified': BASESTRING, 'etag': BASESTRING, 'copySourceVersionId': BASESTRING,
-                   'versionId': BASESTRING,
-                   'sseKms': BASESTRING, 'sseKmsKey': BASESTRING, 'sseC': BASESTRING, 'sseCKeyMd5': BASESTRING}
+    allowedAttr = {
+        "lastModified": BASESTRING,
+        "etag": BASESTRING,
+        "copySourceVersionId": BASESTRING,
+        "versionId": BASESTRING,
+        "sseKms": BASESTRING,
+        "sseKmsKey": BASESTRING,
+        "sseC": BASESTRING,
+        "sseCKeyMd5": BASESTRING,
+    }
 
-    def __init__(self, lastModified=None, etag=None, copySourceVersionId=None, versionId=None, sseKms=None,
-                 sseKmsKey=None, sseC=None, sseCKeyMd5=None):
+    def __init__(
+        self,
+        lastModified=None,
+        etag=None,
+        copySourceVersionId=None,
+        versionId=None,
+        sseKms=None,
+        sseKmsKey=None,
+        sseC=None,
+        sseCKeyMd5=None,
+    ):
         self.lastModified = lastModified
         self.etag = etag
         self.copySourceVersionId = copySourceVersionId
@@ -962,11 +1358,26 @@ class CopyObjectResponse(BaseModel):
 
 
 class CopyPartResponse(BaseModel):
-    allowedAttr = {'lastModified': BASESTRING, 'etag': BASESTRING, 'modifiedDate': BASESTRING,
-                   'sseKms': BASESTRING, 'sseKmsKey': BASESTRING, 'sseC': BASESTRING, 'sseCKeyMd5': BASESTRING}
+    allowedAttr = {
+        "lastModified": BASESTRING,
+        "etag": BASESTRING,
+        "modifiedDate": BASESTRING,
+        "sseKms": BASESTRING,
+        "sseKmsKey": BASESTRING,
+        "sseC": BASESTRING,
+        "sseCKeyMd5": BASESTRING,
+    }
 
-    def __init__(self, lastModified=None, etag=None, modifiedDate=None, sseKms=None, sseKmsKey=None, sseC=None,
-                 sseCKeyMd5=None):
+    def __init__(
+        self,
+        lastModified=None,
+        etag=None,
+        modifiedDate=None,
+        sseKms=None,
+        sseKmsKey=None,
+        sseC=None,
+        sseCKeyMd5=None,
+    ):
         self.lastModified = lastModified
         self.etag = etag
         self.modifiedDate = modifiedDate
@@ -977,7 +1388,7 @@ class CopyPartResponse(BaseModel):
 
 
 class DeleteObjectResponse(BaseModel):
-    allowedAttr = {'deleteMarker': bool, 'versionId': BASESTRING}
+    allowedAttr = {"deleteMarker": bool, "versionId": BASESTRING}
 
     def __init__(self, deleteMarker=None, versionId=None):
         self.deleteMarker = deleteMarker
@@ -985,7 +1396,7 @@ class DeleteObjectResponse(BaseModel):
 
 
 class DeleteObjectsRequest(BaseModel):
-    allowedAttr = {'quiet': bool, 'objects': list, "encoding_type": BASESTRING}
+    allowedAttr = {"quiet": bool, "objects": list, "encoding_type": BASESTRING}
 
     def __init__(self, quiet=None, objects=None, encoding_type=None):
         self.quiet = quiet
@@ -1000,7 +1411,7 @@ class DeleteObjectsRequest(BaseModel):
 
 
 class DeleteObjectsResponse(BaseModel):
-    allowedAttr = {'deleted': list, 'error': list, "encoding_type": BASESTRING}
+    allowedAttr = {"deleted": list, "error": list, "encoding_type": BASESTRING}
 
     def __init__(self, deleted=None, error=None, encoding_type=None):
         self.deleted = deleted
@@ -1009,7 +1420,12 @@ class DeleteObjectsResponse(BaseModel):
 
 
 class ErrorResult(BaseModel):
-    allowedAttr = {'key': BASESTRING, 'versionId': BASESTRING, 'code': BASESTRING, 'message': BASESTRING}
+    allowedAttr = {
+        "key": BASESTRING,
+        "versionId": BASESTRING,
+        "code": BASESTRING,
+        "message": BASESTRING,
+    }
 
     def __init__(self, key=None, versionId=None, code=None, message=None):
         self.key = key
@@ -1019,10 +1435,16 @@ class ErrorResult(BaseModel):
 
 
 class DeleteObjectResult(BaseModel):
-    allowedAttr = {'key': BASESTRING, 'versionId': BASESTRING, 'deleteMarker': bool,
-                   'deleteMarkerVersionId': BASESTRING}
+    allowedAttr = {
+        "key": BASESTRING,
+        "versionId": BASESTRING,
+        "deleteMarker": bool,
+        "deleteMarkerVersionId": BASESTRING,
+    }
 
-    def __init__(self, key=None, versionId=None, deleteMarker=None, deleteMarkerVersionId=None):
+    def __init__(
+        self, key=None, versionId=None, deleteMarker=None, deleteMarkerVersionId=None
+    ):
         self.key = key
         self.versionId = versionId
         self.deleteMarker = deleteMarker
@@ -1030,10 +1452,22 @@ class DeleteObjectResult(BaseModel):
 
 
 class ListMultipartUploadsRequest(BaseModel):
-    allowedAttr = {'delimiter': BASESTRING, 'prefix': BASESTRING, 'max_uploads': [int, BASESTRING],
-                   'key_marker': BASESTRING, 'upload_id_marker': BASESTRING}
+    allowedAttr = {
+        "delimiter": BASESTRING,
+        "prefix": BASESTRING,
+        "max_uploads": [int, BASESTRING],
+        "key_marker": BASESTRING,
+        "upload_id_marker": BASESTRING,
+    }
 
-    def __init__(self, delimiter=None, prefix=None, max_uploads=None, key_marker=None, upload_id_marker=None):
+    def __init__(
+        self,
+        delimiter=None,
+        prefix=None,
+        max_uploads=None,
+        key_marker=None,
+        upload_id_marker=None,
+    ):
         self.delimiter = delimiter
         self.prefix = prefix
         self.max_uploads = max_uploads
@@ -1042,14 +1476,36 @@ class ListMultipartUploadsRequest(BaseModel):
 
 
 class ListPartsResponse(BaseModel):
-    allowedAttr = {'bucketName': BASESTRING, 'objectKey': BASESTRING, 'uploadId': BASESTRING, 'initiator': Initiator,
-                   'owner': Owner, 'storageClass': BASESTRING, 'partNumberMarker': int, 'nextPartNumberMarker': int,
-                   'maxParts': int, "encoding_type": BASESTRING,
-                   'isTruncated': bool, 'parts': list}
+    allowedAttr = {
+        "bucketName": BASESTRING,
+        "objectKey": BASESTRING,
+        "uploadId": BASESTRING,
+        "initiator": Initiator,
+        "owner": Owner,
+        "storageClass": BASESTRING,
+        "partNumberMarker": int,
+        "nextPartNumberMarker": int,
+        "maxParts": int,
+        "encoding_type": BASESTRING,
+        "isTruncated": bool,
+        "parts": list,
+    }
 
-    def __init__(self, bucketName=None, objectKey=None, uploadId=None, initiator=None, owner=None,
-                 storageClass=None, partNumberMarker=None, nextPartNumberMarker=None, maxParts=None, isTruncated=None,
-                 parts=None, encoding_type=None):
+    def __init__(
+        self,
+        bucketName=None,
+        objectKey=None,
+        uploadId=None,
+        initiator=None,
+        owner=None,
+        storageClass=None,
+        partNumberMarker=None,
+        nextPartNumberMarker=None,
+        maxParts=None,
+        isTruncated=None,
+        parts=None,
+        encoding_type=None,
+    ):
         self.bucketName = bucketName
         self.objectKey = objectKey
         self.uploadId = uploadId
@@ -1065,16 +1521,32 @@ class ListPartsResponse(BaseModel):
 
 
 class GetBucketMetadataResponse(BaseModel):
-    allowedAttr = {'storageClass': BASESTRING, 'accessContorlAllowOrigin': BASESTRING,
-                   'accessContorlAllowHeaders': BASESTRING,
-                   'accessContorlAllowMethods': BASESTRING,
-                   'accessContorlExposeHeaders': BASESTRING,
-                   'accessContorlMaxAge': int, 'location': BASESTRING, 'obsVersion': BASESTRING,
-                   'availableZone': BASESTRING, 'epid': BASESTRING}
+    allowedAttr = {
+        "storageClass": BASESTRING,
+        "accessContorlAllowOrigin": BASESTRING,
+        "accessContorlAllowHeaders": BASESTRING,
+        "accessContorlAllowMethods": BASESTRING,
+        "accessContorlExposeHeaders": BASESTRING,
+        "accessContorlMaxAge": int,
+        "location": BASESTRING,
+        "obsVersion": BASESTRING,
+        "availableZone": BASESTRING,
+        "epid": BASESTRING,
+    }
 
-    def __init__(self, storageClass=None, accessContorlAllowOrigin=None, accessContorlAllowHeaders=None,
-                 accessContorlAllowMethods=None, accessContorlExposeHeaders=None, accessContorlMaxAge=None,
-                 location=None, obsVersion=None, availableZone=None, epid=None):
+    def __init__(
+        self,
+        storageClass=None,
+        accessContorlAllowOrigin=None,
+        accessContorlAllowHeaders=None,
+        accessContorlAllowMethods=None,
+        accessContorlExposeHeaders=None,
+        accessContorlMaxAge=None,
+        location=None,
+        obsVersion=None,
+        availableZone=None,
+        epid=None,
+    ):
         self.storageClass = storageClass
         self.accessContorlAllowOrigin = accessContorlAllowOrigin
         self.accessContorlAllowHeaders = accessContorlAllowHeaders
@@ -1088,14 +1560,14 @@ class GetBucketMetadataResponse(BaseModel):
 
 
 class GetBucketQuotaResponse(BaseModel):
-    allowedAttr = {'quota': LONG}
+    allowedAttr = {"quota": LONG}
 
     def __init__(self, quota=None):
         self.quota = quota
 
 
 class GetBucketStorageInfoResponse(BaseModel):
-    allowedAttr = {'size': LONG, 'objectNumber': int}
+    allowedAttr = {"size": LONG, "objectNumber": int}
 
     def __init__(self, size=None, objectNumber=None):
         self.size = size
@@ -1103,7 +1575,7 @@ class GetBucketStorageInfoResponse(BaseModel):
 
 
 class GetBucketEncryptionResponse(BaseModel):
-    allowedAttr = {'encryption': BASESTRING, 'key': BASESTRING}
+    allowedAttr = {"encryption": BASESTRING, "key": BASESTRING}
 
     def __init__(self, encryption=None, key=None):
         self.encryption = encryption
@@ -1111,28 +1583,59 @@ class GetBucketEncryptionResponse(BaseModel):
 
 
 class GetBucketStoragePolicyResponse(BaseModel):
-    allowedAttr = {'storageClass': BASESTRING}
+    allowedAttr = {"storageClass": BASESTRING}
 
     def __init__(self, storageClass=None):
         self.storageClass = storageClass
 
 
 class GetObjectMetadataResponse(BaseModel):
-    allowedAttr = {'storageClass': BASESTRING, 'accessContorlAllowOrigin': BASESTRING,
-                   'accessContorlAllowHeaders': BASESTRING, 'accessContorlAllowMethods': BASESTRING,
-                   'accessContorlExposeHeaders': BASESTRING, 'accessContorlMaxAge': int,
-                   'contentLength': LONG, 'contentType': BASESTRING, 'websiteRedirectLocation': BASESTRING,
-                   'lastModified': BASESTRING, 'etag': BASESTRING, 'versionId': BASESTRING,
-                   'restore': BASESTRING, 'expiration': BASESTRING, 'sseKms': BASESTRING,
-                   'sseKmsKey': BASESTRING, 'sseC': BASESTRING, 'sseCKeyMd5': BASESTRING, 'isAppendable': bool,
-                   'nextPosition': LONG}
+    allowedAttr = {
+        "storageClass": BASESTRING,
+        "accessContorlAllowOrigin": BASESTRING,
+        "accessContorlAllowHeaders": BASESTRING,
+        "accessContorlAllowMethods": BASESTRING,
+        "accessContorlExposeHeaders": BASESTRING,
+        "accessContorlMaxAge": int,
+        "contentLength": LONG,
+        "contentType": BASESTRING,
+        "websiteRedirectLocation": BASESTRING,
+        "lastModified": BASESTRING,
+        "etag": BASESTRING,
+        "versionId": BASESTRING,
+        "restore": BASESTRING,
+        "expiration": BASESTRING,
+        "sseKms": BASESTRING,
+        "sseKmsKey": BASESTRING,
+        "sseC": BASESTRING,
+        "sseCKeyMd5": BASESTRING,
+        "isAppendable": bool,
+        "nextPosition": LONG,
+    }
 
-    def __init__(self, storageClass=None, accessContorlAllowOrigin=None, accessContorlAllowHeaders=None,
-                 accessContorlAllowMethods=None, accessContorlExposeHeaders=None, accessContorlMaxAge=None,
-                 contentLength=None,
-                 contentType=None, websiteRedirectLocation=None, lastModified=None, etag=None, versionId=None,
-                 restore=None, expiration=None, sseKms=None, sseKmsKey=None, sseC=None, sseCKeyMd5=None,
-                 isAppendable=None, nextPosition=None):
+    def __init__(
+        self,
+        storageClass=None,
+        accessContorlAllowOrigin=None,
+        accessContorlAllowHeaders=None,
+        accessContorlAllowMethods=None,
+        accessContorlExposeHeaders=None,
+        accessContorlMaxAge=None,
+        contentLength=None,
+        contentType=None,
+        websiteRedirectLocation=None,
+        lastModified=None,
+        etag=None,
+        versionId=None,
+        restore=None,
+        expiration=None,
+        sseKms=None,
+        sseKmsKey=None,
+        sseC=None,
+        sseCKeyMd5=None,
+        isAppendable=None,
+        nextPosition=None,
+    ):
         self.storageClass = storageClass
         self.accessContorlAllowOrigin = accessContorlAllowOrigin
         self.accessContorlAllowHeaders = accessContorlAllowHeaders
@@ -1160,13 +1663,28 @@ SetObjectMetadataResponse = GetObjectMetadataResponse
 
 
 class GetObjectRequest(BaseModel):
-    allowedAttr = {'content_type': BASESTRING, 'content_language': BASESTRING,
-                   'expires': BASESTRING, 'cache_control': BASESTRING, 'content_disposition': BASESTRING,
-                   'content_encoding': BASESTRING, 'versionId': BASESTRING, 'imageProcess': BASESTRING}
+    allowedAttr = {
+        "content_type": BASESTRING,
+        "content_language": BASESTRING,
+        "expires": BASESTRING,
+        "cache_control": BASESTRING,
+        "content_disposition": BASESTRING,
+        "content_encoding": BASESTRING,
+        "versionId": BASESTRING,
+        "imageProcess": BASESTRING,
+    }
 
-    def __init__(self, content_type=None, content_language=None, expires=None, cache_control=None,
-                 content_disposition=None,
-                 content_encoding=None, versionId=None, imageProcess=None):
+    def __init__(
+        self,
+        content_type=None,
+        content_language=None,
+        expires=None,
+        cache_control=None,
+        content_disposition=None,
+        content_encoding=None,
+        versionId=None,
+        imageProcess=None,
+    ):
         self.content_type = content_type
         self.content_language = content_language
         self.expires = expires
@@ -1178,10 +1696,20 @@ class GetObjectRequest(BaseModel):
 
 
 class InitiateMultipartUploadResponse(BaseModel):
-    allowedAttr = {'bucketName': BASESTRING, 'objectKey': BASESTRING, 'uploadId': BASESTRING, 'sseKms': BASESTRING,
-                   'sseKmsKey': BASESTRING, 'sseC': BASESTRING, 'sseCKeyMd5': BASESTRING, "encoding_type": BASESTRING}
+    allowedAttr = {
+        "bucketName": BASESTRING,
+        "objectKey": BASESTRING,
+        "uploadId": BASESTRING,
+        "sseKms": BASESTRING,
+        "sseKmsKey": BASESTRING,
+        "sseC": BASESTRING,
+        "sseCKeyMd5": BASESTRING,
+        "encoding_type": BASESTRING,
+    }
 
-    def __init__(self, bucketName=None, objectKey=None, uploadId=None, encoding_type=None):
+    def __init__(
+        self, bucketName=None, objectKey=None, uploadId=None, encoding_type=None
+    ):
         self.bucketName = bucketName
         self.objectKey = objectKey
         self.uploadId = uploadId
@@ -1189,14 +1717,14 @@ class InitiateMultipartUploadResponse(BaseModel):
 
 
 class LifecycleResponse(BaseModel):
-    allowedAttr = {'lifecycleConfig': Lifecycle}
+    allowedAttr = {"lifecycleConfig": Lifecycle}
 
     def __init__(self, lifecycleConfig=None):
         self.lifecycleConfig = lifecycleConfig
 
 
 class ListBucketsResponse(BaseModel):
-    allowedAttr = {'buckets': list, 'owner': Owner}
+    allowedAttr = {"buckets": list, "owner": Owner}
 
     def __init__(self, buckets=None, owner=None):
         self.buckets = buckets
@@ -1204,14 +1732,36 @@ class ListBucketsResponse(BaseModel):
 
 
 class ListMultipartUploadsResponse(BaseModel):
-    allowedAttr = {'bucket': BASESTRING, 'keyMarker': BASESTRING, 'uploadIdMarker': BASESTRING,
-                   'nextKeyMarker': BASESTRING, 'nextUploadIdMarker': BASESTRING, 'maxUploads': int,
-                   'isTruncated': bool, 'prefix': BASESTRING, 'delimiter': BASESTRING, 'upload': list,
-                   'commonPrefixs': list, "encoding_type": BASESTRING}
+    allowedAttr = {
+        "bucket": BASESTRING,
+        "keyMarker": BASESTRING,
+        "uploadIdMarker": BASESTRING,
+        "nextKeyMarker": BASESTRING,
+        "nextUploadIdMarker": BASESTRING,
+        "maxUploads": int,
+        "isTruncated": bool,
+        "prefix": BASESTRING,
+        "delimiter": BASESTRING,
+        "upload": list,
+        "commonPrefixs": list,
+        "encoding_type": BASESTRING,
+    }
 
-    def __init__(self, bucket=None, keyMarker=None, uploadIdMarker=None, nextKeyMarker=None, nextUploadIdMarker=None,
-                 maxUploads=None, isTruncated=None, prefix=None, delimiter=None, upload=None, commonPrefixs=None,
-                 encoding_type=None):
+    def __init__(
+        self,
+        bucket=None,
+        keyMarker=None,
+        uploadIdMarker=None,
+        nextKeyMarker=None,
+        nextUploadIdMarker=None,
+        maxUploads=None,
+        isTruncated=None,
+        prefix=None,
+        delimiter=None,
+        upload=None,
+        commonPrefixs=None,
+        encoding_type=None,
+    ):
         self.bucket = bucket
         self.keyMarker = keyMarker
         self.uploadIdMarker = uploadIdMarker
@@ -1228,12 +1778,34 @@ class ListMultipartUploadsResponse(BaseModel):
 
 
 class ListObjectsResponse(BaseModel):
-    allowedAttr = {'name': BASESTRING, 'location': BASESTRING, 'prefix': BASESTRING, 'marker': BASESTRING,
-                   'delimiter': BASESTRING, 'commonPrefixs': list, 'encoding_type': BASESTRING,
-                   'max_keys': int, 'is_truncated': bool, 'next_marker': BASESTRING, 'contents': list}
+    allowedAttr = {
+        "name": BASESTRING,
+        "location": BASESTRING,
+        "prefix": BASESTRING,
+        "marker": BASESTRING,
+        "delimiter": BASESTRING,
+        "commonPrefixs": list,
+        "encoding_type": BASESTRING,
+        "max_keys": int,
+        "is_truncated": bool,
+        "next_marker": BASESTRING,
+        "contents": list,
+    }
 
-    def __init__(self, name=None, location=None, prefix=None, marker=None, delimiter=None, max_keys=None,
-                 is_truncated=None, next_marker=None, contents=None, commonPrefixs=None, encoding_type=None):
+    def __init__(
+        self,
+        name=None,
+        location=None,
+        prefix=None,
+        marker=None,
+        delimiter=None,
+        max_keys=None,
+        is_truncated=None,
+        next_marker=None,
+        contents=None,
+        commonPrefixs=None,
+        encoding_type=None,
+    ):
         self.name = name
         self.location = location
         self.prefix = prefix
@@ -1248,19 +1820,29 @@ class ListObjectsResponse(BaseModel):
 
 
 class LocationResponse(BaseModel):
-    allowedAttr = {'location': BASESTRING}
+    allowedAttr = {"location": BASESTRING}
 
     def __init__(self, location=None):
         self.location = location
 
 
 class OptionsResponse(BaseModel):
-    allowedAttr = {'accessContorlAllowOrigin': BASESTRING, 'accessContorlAllowHeaders': BASESTRING,
-                   'accessContorlAllowMethods': BASESTRING,
-                   'accessContorlExposeHeaders': BASESTRING, 'accessContorlMaxAge': int}
+    allowedAttr = {
+        "accessContorlAllowOrigin": BASESTRING,
+        "accessContorlAllowHeaders": BASESTRING,
+        "accessContorlAllowMethods": BASESTRING,
+        "accessContorlExposeHeaders": BASESTRING,
+        "accessContorlMaxAge": int,
+    }
 
-    def __init__(self, accessContorlAllowOrigin=None, accessContorlAllowHeaders=None, accessContorlAllowMethods=None,
-                 accessContorlExposeHeaders=None, accessContorlMaxAge=None):
+    def __init__(
+        self,
+        accessContorlAllowOrigin=None,
+        accessContorlAllowHeaders=None,
+        accessContorlAllowMethods=None,
+        accessContorlExposeHeaders=None,
+        accessContorlMaxAge=None,
+    ):
         self.accessContorlAllowOrigin = accessContorlAllowOrigin
         self.accessContorlAllowHeaders = accessContorlAllowHeaders
         self.accessContorlAllowMethods = accessContorlAllowMethods
@@ -1269,12 +1851,28 @@ class OptionsResponse(BaseModel):
 
 
 class PutContentResponse(BaseModel):
-    allowedAttr = {'storageClass': BASESTRING, 'etag': BASESTRING, 'versionId': BASESTRING,
-                   'sseKms': BASESTRING, 'sseKmsKey': BASESTRING, 'sseC': BASESTRING, 'sseCKeyMd5': BASESTRING,
-                   'objectUrl': BASESTRING}
+    allowedAttr = {
+        "storageClass": BASESTRING,
+        "etag": BASESTRING,
+        "versionId": BASESTRING,
+        "sseKms": BASESTRING,
+        "sseKmsKey": BASESTRING,
+        "sseC": BASESTRING,
+        "sseCKeyMd5": BASESTRING,
+        "objectUrl": BASESTRING,
+    }
 
-    def __init__(self, storageClass=None, etag=None, versionId=None, sseKms=None, sseKmsKey=None,
-                 sseC=None, sseCKeyMd5=None, objectUrl=None):
+    def __init__(
+        self,
+        storageClass=None,
+        etag=None,
+        versionId=None,
+        sseKms=None,
+        sseKmsKey=None,
+        sseC=None,
+        sseCKeyMd5=None,
+        objectUrl=None,
+    ):
         self.storageClass = storageClass
         self.etag = etag
         self.versionId = versionId
@@ -1286,12 +1884,28 @@ class PutContentResponse(BaseModel):
 
 
 class AppendObjectResponse(BaseModel):
-    allowedAttr = {'storageClass': BASESTRING, 'etag': BASESTRING, 'nextPosition': LONG,
-                   'sseKms': BASESTRING, 'sseKmsKey': BASESTRING, 'sseC': BASESTRING, 'sseCKeyMd5': BASESTRING,
-                   'objectUrl': BASESTRING}
+    allowedAttr = {
+        "storageClass": BASESTRING,
+        "etag": BASESTRING,
+        "nextPosition": LONG,
+        "sseKms": BASESTRING,
+        "sseKmsKey": BASESTRING,
+        "sseC": BASESTRING,
+        "sseCKeyMd5": BASESTRING,
+        "objectUrl": BASESTRING,
+    }
 
-    def __init__(self, storageClass=None, etag=None, nextPosition=None, sseKms=None, sseKmsKey=None,
-                 sseC=None, sseCKeyMd5=None, objectUrl=None):
+    def __init__(
+        self,
+        storageClass=None,
+        etag=None,
+        nextPosition=None,
+        sseKms=None,
+        sseKmsKey=None,
+        sseC=None,
+        sseCKeyMd5=None,
+        objectUrl=None,
+    ):
         self.storageClass = storageClass
         self.etag = etag
         self.nextPosition = nextPosition
@@ -1303,10 +1917,17 @@ class AppendObjectResponse(BaseModel):
 
 
 class UploadPartResponse(BaseModel):
-    allowedAttr = {'etag': BASESTRING, 'sseKms': BASESTRING, 'sseKmsKey': BASESTRING, 'sseC': BASESTRING,
-                   'sseCKeyMd5': BASESTRING}
+    allowedAttr = {
+        "etag": BASESTRING,
+        "sseKms": BASESTRING,
+        "sseKmsKey": BASESTRING,
+        "sseC": BASESTRING,
+        "sseCKeyMd5": BASESTRING,
+    }
 
-    def __init__(self, etag=None, sseKms=None, sseKmsKey=None, sseC=None, sseCKeyMd5=None):
+    def __init__(
+        self, etag=None, sseKms=None, sseKmsKey=None, sseC=None, sseCKeyMd5=None
+    ):
         self.etag = etag
         self.sseKms = sseKms
         self.sseKmsKey = sseKmsKey
@@ -1315,7 +1936,7 @@ class UploadPartResponse(BaseModel):
 
 
 class GetBucketRequestPaymentResponse(BaseModel):
-    allowedAttr = {'payer': BASESTRING}
+    allowedAttr = {"payer": BASESTRING}
 
     def __init__(self, payer=None):
         self.payer = payer
@@ -1339,14 +1960,22 @@ class ResponseWrapper(object):
             self.notifier = progress.NONE_NOTIFIER
 
     def __getattr__(self, name):
-        if name == 'read' and self.result:
+        if name == "read" and self.result:
+
             def _read(*args, **kwargs):
                 chunk = self.result.read(*args, **kwargs)
                 if not chunk:
-                    if self.contentLength is not None and self.contentLength != self.read_count:
+                    if (
+                        self.contentLength is not None
+                        and self.contentLength != self.read_count
+                    ):
                         raise Exception(
-                            'premature end of Content-Length delimiter message body (expected:' + util.to_string(
-                                self.contentLength) + '; received:' + util.to_string(self.read_count) + ')')
+                            "premature end of Content-Length delimiter message body (expected:"
+                            + util.to_string(self.contentLength)
+                            + "; received:"
+                            + util.to_string(self.read_count)
+                            + ")"
+                        )
                 else:
                     newReadCount = len(chunk)
                     if newReadCount > 0:
@@ -1365,23 +1994,68 @@ class ResponseWrapper(object):
 
 
 class ObjectStream(BaseModel):
-    allowedAttr = {'response': ResponseWrapper, 'buffer': object, 'size': LONG, 'url': BASESTRING, 'deleteMarker': bool,
-                   'storageClass': BASESTRING, 'accessContorlAllowOrigin': BASESTRING,
-                   'accessContorlAllowHeaders': BASESTRING, 'accessContorlAllowMethods': BASESTRING,
-                   'accessContorlExposeHeaders': BASESTRING, 'accessContorlMaxAge': int,
-                   'contentLength': LONG, 'cacheControl': BASESTRING, 'contentDisposition': BASESTRING,
-                   'contentEncoding': BASESTRING, 'contentLanguage': BASESTRING,
-                   'contentType': BASESTRING, 'expires': BASESTRING, 'websiteRedirectLocation': BASESTRING,
-                   'lastModified': BASESTRING, 'etag': BASESTRING, 'versionId': BASESTRING,
-                   'restore': BASESTRING, 'expiration': BASESTRING, 'sseKms': BASESTRING,
-                   'sseKmsKey': BASESTRING, 'sseC': BASESTRING, 'sseCKeyMd5': BASESTRING}
+    allowedAttr = {
+        "response": ResponseWrapper,
+        "buffer": object,
+        "size": LONG,
+        "url": BASESTRING,
+        "deleteMarker": bool,
+        "storageClass": BASESTRING,
+        "accessContorlAllowOrigin": BASESTRING,
+        "accessContorlAllowHeaders": BASESTRING,
+        "accessContorlAllowMethods": BASESTRING,
+        "accessContorlExposeHeaders": BASESTRING,
+        "accessContorlMaxAge": int,
+        "contentLength": LONG,
+        "cacheControl": BASESTRING,
+        "contentDisposition": BASESTRING,
+        "contentEncoding": BASESTRING,
+        "contentLanguage": BASESTRING,
+        "contentType": BASESTRING,
+        "expires": BASESTRING,
+        "websiteRedirectLocation": BASESTRING,
+        "lastModified": BASESTRING,
+        "etag": BASESTRING,
+        "versionId": BASESTRING,
+        "restore": BASESTRING,
+        "expiration": BASESTRING,
+        "sseKms": BASESTRING,
+        "sseKmsKey": BASESTRING,
+        "sseC": BASESTRING,
+        "sseCKeyMd5": BASESTRING,
+    }
 
-    def __init__(self, response=None, buffer=None, size=None, url=None, deleteMarker=None, storageClass=None,
-                 accessContorlAllowOrigin=None, accessContorlAllowHeaders=None, accessContorlAllowMethods=None,
-                 accessContorlExposeHeaders=None, accessContorlMaxAge=None, contentLength=None, cacheControl=None,
-                 contentDisposition=None, contentEncoding=None, contentLanguage=None, contentType=None, expires=None,
-                 websiteRedirectLocation=None, lastModified=None, etag=None, versionId=None, restore=None,
-                 expiration=None, sseKms=None, sseKmsKey=None, sseC=None, sseCKeyMd5=None):
+    def __init__(
+        self,
+        response=None,
+        buffer=None,
+        size=None,
+        url=None,
+        deleteMarker=None,
+        storageClass=None,
+        accessContorlAllowOrigin=None,
+        accessContorlAllowHeaders=None,
+        accessContorlAllowMethods=None,
+        accessContorlExposeHeaders=None,
+        accessContorlMaxAge=None,
+        contentLength=None,
+        cacheControl=None,
+        contentDisposition=None,
+        contentEncoding=None,
+        contentLanguage=None,
+        contentType=None,
+        expires=None,
+        websiteRedirectLocation=None,
+        lastModified=None,
+        etag=None,
+        versionId=None,
+        restore=None,
+        expiration=None,
+        sseKms=None,
+        sseKmsKey=None,
+        sseC=None,
+        sseCKeyMd5=None,
+    ):
         self.response = response
         self.buffer = buffer
         self.size = size
@@ -1413,7 +2087,7 @@ class ObjectStream(BaseModel):
 
 
 class ExtensionHeader(BaseModel):
-    allowedAttr = {'requesterPayer': BASESTRING, 'locationClusterGroupId': BASESTRING}
+    allowedAttr = {"requesterPayer": BASESTRING, "locationClusterGroupId": BASESTRING}
 
     def __init__(self, requesterPayer=None, locationClusterGroupId=None):
         self.requesterPayer = requesterPayer
@@ -1427,7 +2101,7 @@ class FetchStatus(object):
 
 
 class FetchPolicy(BaseModel):
-    allowedAttr = {'status': BASESTRING, 'agency': BASESTRING}
+    allowedAttr = {"status": BASESTRING, "agency": BASESTRING}
 
     def __init__(self, status=None, agency=None):
         self.status = status
@@ -1435,14 +2109,40 @@ class FetchPolicy(BaseModel):
 
 
 class _FetchJob(BaseModel):
-    allowedAttr = {'url': BASESTRING, 'host': BASESTRING, 'bucket': BASESTRING, 'key': BASESTRING, 'md5': BASESTRING,
-                   'callbackurl': BASESTRING, 'callbackbody': BASESTRING, 'callbackbodytype': BASESTRING,
-                   'callbackhost': BASESTRING, 'file_type': BASESTRING, 'ignore_same_key': bool, 'objectheaders': dict,
-                   'etag': BASESTRING, 'trustname': BASESTRING}
+    allowedAttr = {
+        "url": BASESTRING,
+        "host": BASESTRING,
+        "bucket": BASESTRING,
+        "key": BASESTRING,
+        "md5": BASESTRING,
+        "callbackurl": BASESTRING,
+        "callbackbody": BASESTRING,
+        "callbackbodytype": BASESTRING,
+        "callbackhost": BASESTRING,
+        "file_type": BASESTRING,
+        "ignore_same_key": bool,
+        "objectheaders": dict,
+        "etag": BASESTRING,
+        "trustname": BASESTRING,
+    }
 
-    def __init__(self, url=None, host=None, bucket=None, key=None, md5=None, callBackUrl=None,
-                 callBackBody=None, callBackBodyType=None, callBackHost=None, fileType=None,
-                 ignoreSameKey=False, objectHeaders=None, etag=None, trustName=None):
+    def __init__(
+        self,
+        url=None,
+        host=None,
+        bucket=None,
+        key=None,
+        md5=None,
+        callBackUrl=None,
+        callBackBody=None,
+        callBackBodyType=None,
+        callBackHost=None,
+        fileType=None,
+        ignoreSameKey=False,
+        objectHeaders=None,
+        etag=None,
+        trustName=None,
+    ):
         self.url = url
         self.host = host
         self.bucket = bucket
@@ -1468,13 +2168,34 @@ class SetBucketFetchJobResponse(BaseModel):
 
 
 class FetchJobResponse(BaseModel):
-    allowedAttr = {'url': BASESTRING, 'host': BASESTRING, 'bucket': BASESTRING, 'key': BASESTRING, 'md5': BASESTRING,
-                   'callBackUrl': BASESTRING, 'callBackBody': BASESTRING, 'callBackBodyType': BASESTRING,
-                   'callBackHost': BASESTRING, 'fileType': BASESTRING, 'ignoreSameKey': bool}
+    allowedAttr = {
+        "url": BASESTRING,
+        "host": BASESTRING,
+        "bucket": BASESTRING,
+        "key": BASESTRING,
+        "md5": BASESTRING,
+        "callBackUrl": BASESTRING,
+        "callBackBody": BASESTRING,
+        "callBackBodyType": BASESTRING,
+        "callBackHost": BASESTRING,
+        "fileType": BASESTRING,
+        "ignoreSameKey": bool,
+    }
 
-    def __init__(self, url=None, host=None, bucket=None, key=None, md5=None, callBackUrl=None,
-                 callBackBody=None, callBackBodyType=None, callBackHost=None, fileType=None,
-                 ignoreSameKey=False):
+    def __init__(
+        self,
+        url=None,
+        host=None,
+        bucket=None,
+        key=None,
+        md5=None,
+        callBackUrl=None,
+        callBackBody=None,
+        callBackBodyType=None,
+        callBackHost=None,
+        fileType=None,
+        ignoreSameKey=False,
+    ):
         self.url = url
         self.host = host
         self.bucket = bucket
@@ -1489,7 +2210,12 @@ class FetchJobResponse(BaseModel):
 
 
 class GetBucketFetchJobResponse(BaseModel):
-    allowedAttr = {"code": BASESTRING, "err": BASESTRING, "status": BASESTRING, "job": FetchJobResponse}
+    allowedAttr = {
+        "code": BASESTRING,
+        "err": BASESTRING,
+        "status": BASESTRING,
+        "job": FetchJobResponse,
+    }
 
     def __init__(self, code=None, status=None, job=None, err=None):
         self.code = code
@@ -1502,19 +2228,35 @@ class GetBucketFetchJobResponse(BaseModel):
 # begin workflow related
 # begin workflow related
 
+
 class CreateWorkflowTemplateResponse(BaseModel):
-    allowedAttr = {'templateName': BASESTRING}
+    allowedAttr = {"templateName": BASESTRING}
 
     def __init__(self, templateName=None):
         self.templateName = templateName
 
 
 class GetWorkflowTemplateResponse(BaseModel):
-    allowedAttr = {'templateName': BASESTRING, 'description': BASESTRING, 'states': list, 'inputs': list,
-                   'tags': list, 'createTime': BASESTRING, 'lastModifyTime': BASESTRING}
+    allowedAttr = {
+        "templateName": BASESTRING,
+        "description": BASESTRING,
+        "states": list,
+        "inputs": list,
+        "tags": list,
+        "createTime": BASESTRING,
+        "lastModifyTime": BASESTRING,
+    }
 
-    def __init__(self, templateName=None, description=None, states=None, inputs=None, tags=None, createTime=None,
-                 lastModifyTime=None):
+    def __init__(
+        self,
+        templateName=None,
+        description=None,
+        states=None,
+        inputs=None,
+        tags=None,
+        createTime=None,
+        lastModifyTime=None,
+    ):
         self.templateName = templateName
         self.description = description
         self.states = states
@@ -1525,7 +2267,12 @@ class GetWorkflowTemplateResponse(BaseModel):
 
 
 class ListWorkflowTemplateResponse(BaseModel):
-    allowedAttr = {'count': int, 'templates': list, 'nextStart': int, 'isTruncated': bool}
+    allowedAttr = {
+        "count": int,
+        "templates": list,
+        "nextStart": int,
+        "isTruncated": bool,
+    }
 
     def __init__(self, count=None, templates=None, nextStart=None, isTruncated=None):
         self.count = count
@@ -1535,7 +2282,11 @@ class ListWorkflowTemplateResponse(BaseModel):
 
 
 class CreateWorkflowResponse(BaseModel):
-    allowedAttr = {'graphName': BASESTRING, 'graphUrn': BASESTRING, 'createdAt': BASESTRING}
+    allowedAttr = {
+        "graphName": BASESTRING,
+        "graphUrn": BASESTRING,
+        "createdAt": BASESTRING,
+    }
 
     def __init__(self, graphName=None, graphUrn=None, createdAt=None):
         self.graphName = graphName
@@ -1544,10 +2295,22 @@ class CreateWorkflowResponse(BaseModel):
 
 
 class GetWorkflowResponse(BaseModel):
-    allowedAttr = {'name': BASESTRING, 'graphUrn': BASESTRING, 'createdAt': BASESTRING, 'definition': object,
-                   'description': BASESTRING}
+    allowedAttr = {
+        "name": BASESTRING,
+        "graphUrn": BASESTRING,
+        "createdAt": BASESTRING,
+        "definition": object,
+        "description": BASESTRING,
+    }
 
-    def __init__(self, name=None, graphUrn=None, createdAt=None, definition=None, description=None):
+    def __init__(
+        self,
+        name=None,
+        graphUrn=None,
+        createdAt=None,
+        definition=None,
+        description=None,
+    ):
         self.name = name
         self.graphUrn = graphUrn
         self.createdAt = createdAt
@@ -1556,7 +2319,11 @@ class GetWorkflowResponse(BaseModel):
 
 
 class UpdateWorkflowResponse(BaseModel):
-    allowedAttr = {'graphName': BASESTRING, 'graphUrn': BASESTRING, 'lastModified': BASESTRING}
+    allowedAttr = {
+        "graphName": BASESTRING,
+        "graphUrn": BASESTRING,
+        "lastModified": BASESTRING,
+    }
 
     def __init__(self, graphName=None, graphUrn=None, lastModified=None):
         self.graphName = graphName
@@ -1565,7 +2332,7 @@ class UpdateWorkflowResponse(BaseModel):
 
 
 class ListWorkflowResponse(BaseModel):
-    allowedAttr = {'count': int, 'graphs': list, 'nextStart': int, 'isTruncated': bool}
+    allowedAttr = {"count": int, "graphs": list, "nextStart": int, "isTruncated": bool}
 
     def __init__(self, count=None, graphs=None, nextStart=None, isTruncated=None):
         self.count = count
@@ -1575,7 +2342,11 @@ class ListWorkflowResponse(BaseModel):
 
 
 class AsyncAPIStartWorkflowResponse(BaseModel):
-    allowedAttr = {'executionUrn': BASESTRING, 'startedAt': BASESTRING, 'executionName': BASESTRING}
+    allowedAttr = {
+        "executionUrn": BASESTRING,
+        "startedAt": BASESTRING,
+        "executionName": BASESTRING,
+    }
 
     def __init__(self, executionUrn=None, startedAt=None, executionName=None):
         self.executionUrn = executionUrn
@@ -1584,7 +2355,12 @@ class AsyncAPIStartWorkflowResponse(BaseModel):
 
 
 class ListWorkflowExecutionResponse(BaseModel):
-    allowedAttr = {'count': int, 'nextMarker': BASESTRING, 'isTruncated': bool, 'executions': list}
+    allowedAttr = {
+        "count": int,
+        "nextMarker": BASESTRING,
+        "isTruncated": bool,
+        "executions": list,
+    }
 
     def __init__(self, count=None, nextMarker=None, isTruncated=None, executions=None):
         self.count = count
@@ -1594,14 +2370,18 @@ class ListWorkflowExecutionResponse(BaseModel):
 
 
 class GetWorkflowExecutionResponse(BaseModel):
-    allowedAttr = {'executionInfo': object}
+    allowedAttr = {"executionInfo": object}
 
     def __init__(self, executionInfo=None):
         self.executionInfo = executionInfo
 
 
 class RestoreFailedWorkflowExecutionResponse(BaseModel):
-    allowedAttr = {'executionUrn': BASESTRING, 'restoredAt': BASESTRING, 'executionName': BASESTRING}
+    allowedAttr = {
+        "executionUrn": BASESTRING,
+        "restoredAt": BASESTRING,
+        "executionName": BASESTRING,
+    }
 
     def __init__(self, executionUrn=None, restoredAt=None, executionName=None):
         self.executionUrn = executionUrn
@@ -1610,7 +2390,7 @@ class RestoreFailedWorkflowExecutionResponse(BaseModel):
 
 
 class GetTriggerPolicyResponse(BaseModel):
-    allowedAttr = {'rules': list}
+    allowedAttr = {"rules": list}
 
     def __init__(self, rules=None):
         self.rules = rules
@@ -1624,8 +2404,14 @@ class GetTriggerPolicyResponse(BaseModel):
 # begin virtual bucket related
 # begin virtual bucket related
 
+
 class BucketAliasModel(BaseModel):
-    allowedAttr = {'alias': BASESTRING, 'bucket1': BASESTRING, 'bucket2': BASESTRING, 'creationDate': BASESTRING}
+    allowedAttr = {
+        "alias": BASESTRING,
+        "bucket1": BASESTRING,
+        "bucket2": BASESTRING,
+        "creationDate": BASESTRING,
+    }
 
     def __init__(self, alias=None, bucket1=None, bucket2=None, creationDate=None):
         self.alias = alias
@@ -1635,11 +2421,12 @@ class BucketAliasModel(BaseModel):
 
 
 class ListBucketAliasModel(BaseModel):
-    allowedAttr = {'owner': BASESTRING, 'bucketAlias': list}
+    allowedAttr = {"owner": BASESTRING, "bucketAlias": list}
 
     def __init__(self, owner=None, bucketAlias=None):
         self.owner = owner
         self.bucketAlias = bucketAlias
+
 
 # end virtual bucket related
 # end virtual bucket related

@@ -24,33 +24,41 @@ class PluginADRBCDProtTransform(PluginADScanBase):
 
         query = "(|(objectclass=computer)(objectclass=user))"
         attributes = [
-            "cn", "msDS-AllowedToActOnBehalfOfOtherIdentity",
-            "distinguishedName"
+            "cn",
+            "msDS-AllowedToActOnBehalfOfOtherIdentity",
+            "distinguishedName",
         ]
 
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                         search_filter=query,
-                                                                         search_scope=SUBTREE,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=self.ldap_cli.domain_dn,
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         try:
             for entry in entry_generator:
                 if entry["type"] != "searchResEntry":
                     continue
-                if len(entry["attributes"]["msDS-AllowedToActOnBehalfOfOtherIdentity"]) > 0:
-                    result['status'] = 1
+                if (
+                    len(entry["attributes"]["msDS-AllowedToActOnBehalfOfOtherIdentity"])
+                    > 0
+                ):
+                    result["status"] = 1
                     instance = {}
                     instance["主机名"] = entry["attributes"]["cn"]
                     instance["DN"] = entry["attributes"]["distinguishedName"]
 
-                    AllowedToActOnBehalfOfOtherIdentity = entry["attributes"]["msDS-AllowedToActOnBehalfOfOtherIdentity"]
+                    AllowedToActOnBehalfOfOtherIdentity = entry["attributes"][
+                        "msDS-AllowedToActOnBehalfOfOtherIdentity"
+                    ]
                     sd = SR_SECURITY_DESCRIPTOR()
                     sd.fromString(AllowedToActOnBehalfOfOtherIdentity)
-                    for ace in sd['Dacl'].aces:
-                        sid = ace['Ace']['Sid'].formatCanonical()
+                    for ace in sd["Dacl"].aces:
+                        sid = ace["Ace"]["Sid"].formatCanonical()
                         instance["配置SID"] = sid
 
                     instance_list.append(instance)
@@ -58,5 +66,5 @@ class PluginADRBCDProtTransform(PluginADScanBase):
             # 域控没有这个属性的时候会在for循环报错
             result["status"] = 0
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

@@ -25,13 +25,15 @@ class PluginADAddDomainWithUnprivilegedUser(PluginADScanBase):
         query = "(objectclass=domain)"
         attributes = ["nTSecurityDescriptor"]
 
-        entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                         search_filter=query,
-                                                                         search_scope=SUBTREE,
-                                                                         get_operational_attributes=True,
-                                                                         attributes=attributes,
-                                                                         paged_size=1000,
-                                                                         generator=True)
+        entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+            search_base=self.ldap_cli.domain_dn,
+            search_filter=query,
+            search_scope=SUBTREE,
+            get_operational_attributes=True,
+            attributes=attributes,
+            paged_size=1000,
+            generator=True,
+        )
 
         impacket.ldap.ldaptypes.RECALC_ACL_SIZE = False
 
@@ -47,38 +49,40 @@ class PluginADAddDomainWithUnprivilegedUser(PluginADScanBase):
 
             sd.fromString(secDescData)
 
-            for ace in sd['Dacl'].aces:
-                if ace['AceType'] != ACCESS_ALLOWED_OBJECT_ACE.ACE_TYPE:
+            for ace in sd["Dacl"].aces:
+                if ace["AceType"] != ACCESS_ALLOWED_OBJECT_ACE.ACE_TYPE:
                     continue
-                if len(ace['Ace']['ObjectType']) == 0:
+                if len(ace["Ace"]["ObjectType"]) == 0:
                     continue
 
-                objectTypeGuid = bin_to_string(ace['Ace']['ObjectType']).lower().strip()
+                objectTypeGuid = bin_to_string(ace["Ace"]["ObjectType"]).lower().strip()
 
-                if objectTypeGuid != guid_1 and ace['Ace']['Mask']['Mask'] != 1:
+                if objectTypeGuid != guid_1 and ace["Ace"]["Mask"]["Mask"] != 1:
                     continue
-                sid = ace['Ace']['Sid'].formatCanonical()
+                sid = ace["Ace"]["Sid"].formatCanonical()
 
                 query = "(objectSid=%s)" % sid
                 attributes = ["cn"]
 
-                entry_generator = self.ldap_cli.con.extend.standard.paged_search(search_base=self.ldap_cli.domain_dn,
-                                                                                 search_filter=query,
-                                                                                 search_scope=SUBTREE,
-                                                                                 get_operational_attributes=True,
-                                                                                 attributes=attributes,
-                                                                                 paged_size=1000,
-                                                                                 generator=True)
+                entry_generator = self.ldap_cli.con.extend.standard.paged_search(
+                    search_base=self.ldap_cli.domain_dn,
+                    search_filter=query,
+                    search_scope=SUBTREE,
+                    get_operational_attributes=True,
+                    attributes=attributes,
+                    paged_size=1000,
+                    generator=True,
+                )
 
                 for entry in entry_generator:
                     if entry["type"] != "searchResEntry":
                         continue
 
-                    result['status'] = 1
+                    result["status"] = 1
                     instance = {}
-                    instance['name'] = entry["attributes"]["cn"]
+                    instance["name"] = entry["attributes"]["cn"]
                     instance["Sid"] = sid
                     instance_list.append(instance)
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

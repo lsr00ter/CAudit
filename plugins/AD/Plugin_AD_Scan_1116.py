@@ -14,7 +14,7 @@ def lookuphostname(hostname, dnsip):
         dnsresolver.nameservers = [dnsip]
     except socket.error:
         pass
-    res = dnsresolver.resolve(hostname, 'A')
+    res = dnsresolver.resolve(hostname, "A")
     return str(res.response.answer[0][0])
 
 
@@ -31,7 +31,11 @@ class PluginADESC8(PluginADScanBase):
     def run_script(self, args) -> dict:
         result = copy(self.result)
         instance_list = []
-        http_list = ["/certsrv/", "/ADPolicyProvider_CEP_Kerberos/service.svc", "/certsrv/mscep/"]
+        http_list = [
+            "/certsrv/",
+            "/ADPolicyProvider_CEP_Kerberos/service.svc",
+            "/certsrv/mscep/",
+        ]
         query = "(objectclass=cRLDistributionPoint)"
         attributes = ["cn", "distinguishedName"]
 
@@ -42,15 +46,18 @@ class PluginADESC8(PluginADScanBase):
             get_operational_attributes=True,
             attributes=attributes,
             paged_size=1000,
-            generator=True)
-        caip = ''
+            generator=True,
+        )
+        caip = ""
 
         for entry in entry_generator:
             if entry["type"] != "searchResEntry":
                 continue
             name = entry["attributes"]["distinguishedName"].split(",")
-            caname, hostname = name[0].strip('CN='), name[1].strip('CN=')
-            caip = lookuphostname(hostname + "." + self.dc_conf["name"], self.ldap_conf["server"])
+            caname, hostname = name[0].strip("CN="), name[1].strip("CN=")
+            caip = lookuphostname(
+                hostname + "." + self.dc_conf["name"], self.ldap_conf["server"]
+            )
             http1 = "/%s_CES_Kerberos/service.svc" % caname
             http2 = "/%s_CES_Kerberos/service.svc/CES" % caname
             http_list.append(http1)
@@ -63,12 +70,12 @@ class PluginADESC8(PluginADScanBase):
             if req.status_code != 401:
                 continue
             if "NTLM" in str(req.headers):
-                result['status'] = 1
+                result["status"] = 1
                 instance = {}
                 instance["证书服务器"] = hostname
                 instance["证书CA"] = caname
                 instance["URL"] = url
                 instance_list.append(instance)
 
-        result['data'] = {"instance_list": instance_list}
+        result["data"] = {"instance_list": instance_list}
         return result

@@ -1,4 +1,3 @@
-
 KNOWN_SIDS = {
     "S-1-0": "Null Authority",
     "S-1-0-0": "Nobody",
@@ -63,11 +62,13 @@ KNOWN_RIDS = {
     "553": "RAS and IAS Servers",
 }
 
+
 def get_name_from_sid(sid, default):
     try:
         return name_from_sid(sid)
     except KeyError:
         return default
+
 
 def name_from_sid(sid):
     if type(sid) is not str:

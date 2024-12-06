@@ -4,6 +4,7 @@ import json
 import os
 import traceback
 from modules.adi_lib.common.util import lazy_property
+
 # from modules.adi_lib.database.mongo_cli import Collection
 # from modules.adi_lib.database.redis_cli import RedisClient
 from modules.adi_lib.ldap.search import LDAPSearch
@@ -68,14 +69,17 @@ class Base(object):
                 # print(cls.__module__)
                 if ".main" in cls.__module__:
                     current_dir = os.path.dirname(os.path.abspath([cls.__module__][0]))
-                    pack_path = os.path.join(current_dir, "plugins",
-                                             cls.__module__.replace("main", "").replace(".", "/"),
-                                             "package.json")
+                    pack_path = os.path.join(
+                        current_dir,
+                        "plugins",
+                        cls.__module__.replace("main", "").replace(".", "/"),
+                        "package.json",
+                    )
                 else:
                     current_dir = os.path.dirname(os.path.abspath([cls.__module__][0]))
                     pack_path = os.path.join(current_dir, "package.json")
 
-            with open(pack_path, 'r') as f:
+            with open(pack_path, "r") as f:
                 ret = json.load(f)
         except Exception as e:
             output.error(str(e))
@@ -117,13 +121,16 @@ class BaseSearch(Base):
             if not pack_path:
                 if ".main" in cls.__module__:
                     current_dir = os.path.dirname(os.path.abspath([cls.__module__][0]))
-                    pack_path = os.path.join(current_dir, "plugins",
-                                             cls.__module__.replace("main", "").replace(".", "/"),
-                                             "package.json")
+                    pack_path = os.path.join(
+                        current_dir,
+                        "plugins",
+                        cls.__module__.replace("main", "").replace(".", "/"),
+                        "package.json",
+                    )
                 else:
                     current_dir = os.path.dirname(os.path.abspath([cls.__module__][0]))
                     pack_path = os.path.join(current_dir, "package.json")
-            with open(pack_path, 'r') as f:
+            with open(pack_path, "r") as f:
                 ret = json.load(f)
         except Exception as e:
             output.error(str(e))

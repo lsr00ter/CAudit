@@ -10,15 +10,15 @@ class SecBaseException(Exception):
 
 
 class LDAPSearchFailException(SecBaseException):
-    def __init__(self, msg=u"LDAP search fail"):
+    def __init__(self, msg="LDAP search fail"):
         super().__init__(self, msg)
 
 
 class MsearchException(SecBaseException):
-    def __init__(self, msg=u"es msearch error"):
+    def __init__(self, msg="es msearch error"):
         super().__init__(self, msg)
 
 
 class NoSuchEntryType(SecBaseException):
-    def __init__(self, msg=u"no such entry type"):
+    def __init__(self, msg="no such entry type"):
         super().__init__(self, msg)
