@@ -71,12 +71,15 @@ class PluginADScanBase(PluginBase, BaseSearch):
         #_base_dn = f"dc={_fqdn[-2]},dc={_fqdn[-1]}"
         _base_dn = ",dc=".join(_fqdn)
         _base_dn = "dc=" + _base_dn
-
+        if "\\" in uarg.username:
+            domain_user = uarg.username
+        else:
+            domain_user = f"{uarg.username}@{'.'.join(_fqdn[-2:])}"
         dc_conf = {
             "ldap_conf": {
                 "dn": _base_dn,
                 "password": uarg.password,
-                "user": f"{uarg.username}@{'.'.join(_fqdn[-2:])}",
+                "user": domain_user,
                 "DNS": "",
                 "server": f"ldap://{'.'.join(args[0].domain_fqdn.split('.'))}"
             },
